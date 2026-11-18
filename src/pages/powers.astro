@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import PowerBrowser from '../components/PowerBrowser';
+import { DEMONIC_POWER_CAPS } from '../data/league';
+---
+
+<Base title="Demonic Powers" description="All Demonic Powers with their ranges, slots, styles, and sources.">
+  <div class="page-intro">
+    <h1>Demonic Powers</h1>
+    <p>
+      Every Legendary item carries one power. Extract a power to bank it in the Codex (this destroys the item), then stamp it onto
+      another Legendary or soul-brand it. If you wear two copies of a power, only the stronger one counts.
+    </p>
+    <p>
+      Item level limits how strong a power can roll:
+      {DEMONIC_POWER_CAPS.map((c, i) => (
+        <>
+          {i > 0 && (i === DEMONIC_POWER_CAPS.length - 1 ? ', and ' : ', ')}
+          {c.item} (ilvl {c.ilvl}) {c.cap.toLowerCase()}
+        </>
+      ))}. Powers from echo tokens and item level 0 items roll the full range.
+    </p>
+  </div>
+  <PowerBrowser client:load />
+</Base>

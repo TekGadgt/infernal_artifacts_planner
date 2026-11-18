@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import PlanBar from '../components/PlanBar';
+import RelicPlanner from '../components/RelicPlanner';
+---
+
+<Base title="Relics" description="Pick one relic per tier and see what your path unlocks.">
+  <div class="page-intro">
+    <h1>Relic path</h1>
+    <p>Pick one relic per tier. Choose again to clear it. Tiers 5 to 7 are known only from the systems they open.</p>
+  </div>
+  <PlanBar client:only="react" />
+  <RelicPlanner client:only="react">
+    <p slot="fallback" class="muted">Loading your relic path…</p>
+  </RelicPlanner>
+</Base>

@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import PlanBar from '../components/PlanBar';
+import ForgeCalculator from '../components/ForgeCalculator';
+---
+
+<Base title="Forge costs" description="Add up gems, Forge Cores, and embers for transplants, awakenings, and outfit upgrades.">
+  <div class="page-intro">
+    <h1>Forge costs</h1>
+    <p>List the Forge, Codex, and Outfitter's Bench work you plan to do, and see how many gems and cores to save up.</p>
+  </div>
+  <PlanBar client:only="react" />
+  <ForgeCalculator client:only="react">
+    <p slot="fallback" class="muted">Loading the Forge…</p>
+  </ForgeCalculator>
+</Base>

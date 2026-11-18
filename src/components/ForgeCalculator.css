@@ -1,0 +1,138 @@
+.forge {
+  display: grid;
+  gap: 2rem;
+}
+.forge__add {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.forge__empty {
+  margin: 1.5rem 0;
+}
+
+.ops {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.op {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr) auto auto;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  padding: 0.6rem 0.75rem;
+  background: var(--iron);
+  border: 1px solid var(--iron-raised);
+  border-radius: var(--radius-sm);
+}
+.op__name {
+  font-weight: 700;
+}
+.op__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+}
+.op__controls .select {
+  width: auto;
+}
+.op__check {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--t-sm);
+  color: var(--cinder);
+}
+.op__check input {
+  accent-color: var(--molten);
+}
+.op__count {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.op__count .input {
+  width: 4.5rem;
+}
+.op__cost {
+  color: var(--brimstone);
+  font-size: var(--t-sm);
+  text-align: right;
+}
+
+/* The total sits in a crucible: the one hot surface on the page. */
+.crucible {
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--ember);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(90% 120% at 50% 130%, rgba(255, 122, 26, 0.35), transparent 70%),
+    color-mix(in oklab, var(--iron) 80%, var(--ember));
+}
+.crucible h2 {
+  margin-bottom: 0.75rem;
+}
+.crucible__totals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.5rem;
+  margin: 0;
+}
+.crucible__totals dt {
+  font-size: var(--t-sm);
+  color: var(--cinder);
+}
+.crucible__totals dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--t-xl);
+  line-height: 1.1;
+  color: var(--molten-hot);
+}
+.crucible__note {
+  margin: 0.75rem 0 0;
+  font-size: var(--t-sm);
+}
+
+.forge__refs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  gap: 1.25rem;
+  align-items: start;
+}
+.forge__ref {
+  display: grid;
+  gap: 0.75rem;
+}
+.forge__ref h2,
+.forge__ref p {
+  margin: 0;
+}
+.forge__ref > p {
+  font-size: var(--t-sm);
+}
+.forge__fine {
+  font-size: var(--t-sm);
+}
+.forge__step {
+  max-width: 14rem;
+}
+
+@media (max-width: 760px) {
+  .op {
+    grid-template-columns: 1fr auto;
+  }
+  .op__controls {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .op__cost {
+    grid-column: 1;
+    text-align: left;
+  }
+}

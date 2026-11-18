@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import AffixBrowser from '../components/AffixBrowser';
+---
+
+<Base title="Affixes" description="Every affix with its tiers, item levels, slots, and caps.">
+  <div class="page-intro">
+    <h1>Affixes</h1>
+    <p>
+      Values are for Normal items. Ancient items get +20%, and Primal items get +50% with every affix at its maximum. Stat affixes on
+      two-handed weapons are 1.75 times stronger.
+    </p>
+  </div>
+  <AffixBrowser client:load />
+</Base>

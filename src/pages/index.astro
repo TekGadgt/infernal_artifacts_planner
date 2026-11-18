@@ -1,0 +1,206 @@
+---
+import Base from '../layouts/Base.astro';
+import { LEAGUE_START, RARITIES, affixes, powers } from '../data/league';
+import { RELIC_TIERS } from '../data/relics';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const revealedTiers = RELIC_TIERS.filter((t) => t.relics.length).length;
+const relicCount = RELIC_TIERS.flatMap((t) => t.relics).length;
+
+const planners = [
+  { href: '/relics/', title: 'Relic path', body: `Choose a relic for each of the ${revealedTiers} revealed tiers and see what opens along the way.` },
+  { href: '/gear/', title: 'Gear planner', body: 'Plan affixes and Demonic Powers slot by slot, with caps checked across your loadout.' },
+  { href: '/forge/', title: 'Forge costs', body: 'Add up the gems, cores, and embers for transplants, awakenings, and outfit upgrades.' },
+];
+const lookups = [
+  { href: '/affixes/', title: 'Affixes', body: `${affixes.length} affixes with tiers, item levels, slots, and caps.` },
+  { href: '/powers/', title: 'Demonic Powers', body: `${powers.length} powers with ranges, slots, styles, and other sources.` },
+];
+
+const hidden = [
+  'Points needed for Tier 3 and Tier 4',
+  'Pyrrhic Reaver, and the relics for Tier 5 and beyond',
+  'Which tier Fortune belongs to',
+  'How Masterwork works',
+  'Improve costs beyond one example step',
+  'Stitch costs at the Outfitter’s Bench',
+  'Which powers each soul-brand slot accepts, and the stamping rules',
+  'How a power’s strength percentage maps to its effect',
+];
+---
+
+<Base>
+  <section class="hero">
+    <h1 class="hero__title">Infernal Artifacts</h1>
+    <p class="hero__lede">
+      {`A planner for August's league of loot, affixes, and demonic powers. ${relicCount} relics, ${affixes.length} affixes, and ${powers.length} powers so far, with more tiers still to come.`}
+    </p>
+    <p class="hero__start" data-start={LEAGUE_START}>
+      The league opens <time datetime={LEAGUE_START}>November 19 at 18:00 UTC</time><span class="hero__countdown"></span>.
+    </p>
+  </section>
+
+  <div class="home-grid">
+    <section>
+      <h2>Plan</h2>
+      <ul class="entry-list">
+        {planners.map((p) => (
+          <li>
+            <a href={base + p.href}>{p.title}</a>
+            <p>{p.body}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section>
+      <h2>Look up</h2>
+      <ul class="entry-list">
+        {lookups.map((p) => (
+          <li>
+            <a href={base + p.href}>{p.title}</a>
+            <p>{p.body}</p>
+          </li>
+        ))}
+      </ul>
+
+      <h2 class="home-grid__rarity-head">Rarity</h2>
+      <ul class="rarity-scale">
+        {RARITIES.map((r) => (
+          <li style={`--rarity:${r.color}`}>
+            <span>{r.label}</span>
+            <span class="muted num">{r.affixes[0] === r.affixes[1] ? r.affixes[0] : `${r.affixes[0]}–${r.affixes[1]}`}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="muted rarity-note">Affixes per item. Legendary items also carry a Demonic Power.</p>
+    </section>
+
+    <section class="hidden-list">
+      <h2>Not revealed yet</h2>
+      <p class="muted">The planner flags these as unknown and fills them in as the wiki updates.</p>
+      <ul>
+        {hidden.map((h) => <li>{h}</li>)}
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<script>
+  const el = document.querySelector<HTMLElement>('.hero__start');
+  const out = el?.querySelector('.hero__countdown');
+  if (el && out) {
+    const start = Date.parse(el.dataset.start!);
+    const update = () => {
+      const ms = start - Date.now();
+      if (ms <= 0) {
+        el.textContent = 'The league is live.';
+        return;
+      }
+      const d = Math.floor(ms / 86_400_000);
+      const h = Math.floor((ms % 86_400_000) / 3_600_000);
+      const m = Math.floor((ms % 3_600_000) / 60_000);
+      const parts = [d && `${d} day${d === 1 ? '' : 's'}`, h && `${h} hour${h === 1 ? '' : 's'}`, `${m} minute${m === 1 ? '' : 's'}`].filter(Boolean);
+      out.textContent = `, in ${parts.join(', ')}`;
+    };
+    update();
+    setInterval(update, 30_000);
+  }
+</script>
+
+<style>
+  .hero {
+    padding: clamp(2rem, 7vw, 5rem) 0 clamp(2rem, 5vw, 3.5rem);
+    border-bottom: 1px solid var(--iron-raised);
+    margin-bottom: 2.5rem;
+  }
+
+  /* The title is the one hot thing on the page: it cools from white heat to molten once on load. */
+  .hero__title {
+    font-size: var(--t-xxl);
+    font-weight: 700;
+    line-height: 0.95;
+    margin: 0 0 1.25rem;
+    background: linear-gradient(180deg, #fff1d6 0%, var(--molten-hot) 38%, var(--molten) 62%, var(--ember) 100%);
+    background-size: 100% 220%;
+    background-position: 0 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 18px rgba(255, 122, 26, 0.35));
+    animation: cool 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  @keyframes cool {
+    from {
+      background-position: 0 0;
+      filter: drop-shadow(0 0 40px rgba(255, 220, 160, 0.8));
+    }
+  }
+
+  .hero__lede {
+    font-size: var(--t-md);
+    max-width: 46ch;
+  }
+  .hero__start {
+    color: var(--cinder);
+    margin: 0;
+  }
+  .hero__start time {
+    color: var(--brimstone);
+  }
+
+  .home-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: 2.5rem;
+  }
+  .entry-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+  }
+  .entry-list a {
+    font-family: var(--font-display);
+    font-size: var(--t-lg);
+    text-decoration: none;
+  }
+  .entry-list a:hover {
+    text-decoration: underline;
+  }
+  .entry-list p {
+    margin: 0.15rem 0 0;
+    color: var(--cinder);
+  }
+
+  .home-grid__rarity-head {
+    margin-top: 2rem;
+  }
+  .rarity-scale {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.2rem;
+  }
+  .rarity-scale li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0.6rem;
+    border-left: 3px solid var(--rarity);
+    background: linear-gradient(90deg, color-mix(in oklab, var(--rarity) 12%, transparent), transparent);
+    color: var(--rarity);
+  }
+  .rarity-note {
+    font-size: var(--t-sm);
+    margin-top: 0.5rem;
+  }
+
+  .hidden-list ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.35rem;
+  }
+</style>

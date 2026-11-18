@@ -1,0 +1,58 @@
+---
+import '../styles/global.css';
+import { WIKI, syncedAt } from '../data/league';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = "Plan relics, gear, and Forge costs for August's Infernal Artifacts League." } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const nav = [
+  { href: `${base}/relics/`, label: 'Relics' },
+  { href: `${base}/gear/`, label: 'Gear' },
+  { href: `${base}/forge/`, label: 'Forge costs' },
+  { href: `${base}/affixes/`, label: 'Affixes' },
+  { href: `${base}/powers/`, label: 'Demonic Powers' },
+];
+const path = Astro.url.pathname.replace(/\/?$/, '/');
+const synced = new Date(syncedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1c1411" />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <title>{title ? `${title} · Infernal Artifacts Planner` : 'Infernal Artifacts Planner'}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href={`${base}/`}>Infernal Artifacts</a>
+        <nav class="site-nav" aria-label="Main">
+          {nav.map((item) => (
+            <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p>A fan-made planner. Not affiliated with August.</p>
+        <p>
+          League data from the <a href={WIKI}>August wiki</a>, synced {synced}.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+.plan-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 1.75rem;
+  background: var(--iron);
+  border: 1px solid var(--iron-raised);
+  border-radius: var(--radius);
+}
+.plan-bar__name {
+  flex: 1 1 14rem;
+  max-width: 22rem;
+}
+.plan-bar__name .input {
+  font-family: var(--font-display);
+  font-size: var(--t-md);
+  background: transparent;
+  border-color: transparent;
+  padding-left: 0.25rem;
+}
+.plan-bar__name .input:hover,
+.plan-bar__name .input:focus {
+  border-color: var(--iron-edge);
+  background: var(--soot-deep);
+}
+.plan-bar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.plan-bar__status {
+  margin: 0 0 0 auto;
+  font-size: var(--t-sm);
+  color: var(--brimstone);
+  min-height: 1.3em;
+}

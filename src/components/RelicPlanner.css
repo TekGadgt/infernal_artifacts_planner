@@ -1,0 +1,270 @@
+.relic-planner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 19rem;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Each tier sits deeper, and hotter, than the last. */
+.descent {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.tier {
+  --heat: color-mix(in oklab, var(--soot) calc(100% - var(--depth) * 55%), #6b1a08);
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.5rem 1.25rem 1.75rem 0.75rem;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--heat) 70%, var(--soot)), var(--heat));
+  border-inline: 1px solid color-mix(in oklab, var(--iron-raised), var(--ember) calc(var(--depth) * 60%));
+}
+.tier:first-child {
+  border-top: 1px solid var(--iron-raised);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.tier:last-child {
+  border-bottom: 1px solid var(--ember);
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+/* The depth rail: a chain of markers running down the left edge. */
+.tier__marker {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 2px solid color-mix(in oklab, var(--iron-edge), var(--molten) calc(var(--depth) * 100%));
+  background: var(--soot-deep);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: color-mix(in oklab, var(--cinder), var(--molten-hot) calc(var(--depth) * 100%));
+}
+.tier__rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+.tier__rail::after {
+  content: '';
+  flex: 1;
+  width: 2px;
+  background: linear-gradient(color-mix(in oklab, var(--iron-edge), var(--molten) calc(var(--depth) * 100%)), transparent);
+}
+
+.tier__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+  margin-bottom: 1rem;
+}
+.tier__head h2 {
+  margin: 0;
+  font-size: var(--t-xl);
+}
+.tier__points {
+  color: var(--brimstone);
+}
+
+.tier__relics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.75rem;
+}
+
+/* ---------- relic card: cold iron until chosen, then molten ---------- */
+
+.relic {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: left;
+  padding: 1rem;
+  background: color-mix(in oklab, var(--iron) 92%, transparent);
+  border: 1px solid var(--iron-edge);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition:
+    border-color 180ms ease,
+    box-shadow 240ms ease,
+    background 240ms ease,
+    opacity 180ms ease,
+    filter 180ms ease;
+}
+.relic:hover {
+  border-color: var(--cinder);
+}
+.relic__head {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+.relic__icon {
+  flex: none;
+  border-radius: var(--radius-sm);
+  background: var(--soot-deep);
+  transition: filter 240ms ease;
+}
+.relic__name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--t-lg);
+  line-height: 1;
+  color: var(--ash);
+}
+.relic__summary {
+  display: block;
+  font-size: var(--t-sm);
+  color: var(--cinder);
+  margin-top: 0.25rem;
+}
+.relic__effects {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: var(--t-sm);
+  display: grid;
+  gap: 0.3rem;
+  color: color-mix(in oklab, var(--ash) 88%, var(--cinder));
+}
+.relic__scaling {
+  color: var(--brimstone);
+}
+.relic .unrevealed {
+  margin: 0;
+  font-size: var(--t-sm);
+}
+
+.relic--chosen {
+  border-color: var(--molten);
+  background:
+    radial-gradient(120% 70% at 50% 115%, rgba(255, 122, 26, 0.32), transparent 70%),
+    color-mix(in oklab, var(--iron) 85%, var(--ember));
+  box-shadow:
+    0 0 0 1px var(--molten),
+    0 0 28px -4px rgba(255, 122, 26, 0.55),
+    inset 0 1px 0 rgba(255, 179, 71, 0.35);
+}
+.relic--chosen:hover {
+  border-color: var(--molten-hot);
+}
+.relic--chosen .relic__name {
+  color: var(--molten-hot);
+}
+.relic--chosen .relic__icon {
+  filter: drop-shadow(0 0 6px rgba(255, 122, 26, 0.7));
+}
+.relic--dimmed {
+  opacity: 0.62;
+}
+.relic--dimmed .relic__icon {
+  filter: grayscale(0.8) brightness(0.8);
+}
+.relic--dimmed:hover {
+  opacity: 0.9;
+}
+
+.tier__extras {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.5rem;
+  font-size: var(--t-sm);
+}
+.tier__unlocks {
+  margin: 0;
+}
+.tier__passives summary {
+  cursor: pointer;
+  color: var(--cinder);
+  width: fit-content;
+}
+.tier__passives summary:hover {
+  color: var(--ash);
+}
+.tier__passives ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  columns: 2 16rem;
+  column-gap: 2rem;
+}
+.tier__passives li {
+  break-inside: avoid;
+  margin-bottom: 0.25rem;
+}
+
+/* ---------- summary ---------- */
+
+.path-summary {
+  position: sticky;
+  top: 1rem;
+  background: var(--iron);
+  border: 1px solid var(--iron-raised);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+.path-summary h3 {
+  margin-top: 1.5rem;
+  font-size: var(--t-md);
+}
+.path-summary__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+.path-summary__list li {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: 0.5rem;
+}
+.path-summary__list strong {
+  color: var(--molten-hot);
+  font-weight: 500;
+}
+.path-summary__notes {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: var(--t-sm);
+  display: grid;
+  gap: 0.3rem;
+}
+.unplaced {
+  display: flex;
+  gap: 0.75rem;
+  font-size: var(--t-sm);
+}
+.unplaced img {
+  flex: none;
+  border-radius: var(--radius-sm);
+}
+.unplaced ul {
+  margin: 0.25rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--cinder);
+}
+
+@media (max-width: 960px) {
+  .relic-planner {
+    grid-template-columns: 1fr;
+  }
+  .path-summary {
+    position: static;
+    order: -1;
+  }
+}
+@media (max-width: 560px) {
+  .tier {
+    grid-template-columns: 1fr;
+    padding-inline: 1rem;
+  }
+  .tier__rail {
+    display: none;
+  }
+}

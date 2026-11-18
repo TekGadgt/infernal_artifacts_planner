@@ -1,0 +1,1999 @@
+{
+  "syncedAt": "2026-11-18T04:13:59.026Z",
+  "powers": [
+    {
+      "id": "adrenaline",
+      "name": "Adrenaline",
+      "effect": "Your weapon special auto-fires after hits at no energy cost (4 to 20% base chance, manual specs disabled).",
+      "min": 4,
+      "max": 20,
+      "unit": "%",
+      "template": "Your weapon special auto-fires after hits at no energy cost ({v}% base chance, manual specs disabled).",
+      "ancientMax": 24,
+      "primalMax": 30,
+      "limits": null,
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "aftershock",
+      "name": "Aftershock",
+      "effect": "Your melee strikes hit 50 to 200% extra times: each full 100% is a guaranteed extra hit and the rest is the chance of one more (up to 2). Every hit after the first sheds half that much of its damage reduction. Drops only on hammers, and on a hammer it also adds 10% damage.",
+      "min": 50,
+      "max": 200,
+      "unit": "%",
+      "template": "Your melee strikes hit {v}% extra times: each full 100% is a guaranteed extra hit and the rest is the chance of one more (up to 2). Every hit after the first sheds half that much of its damage reduction. Drops only on hammers, and on a hammer it also adds 10% damage.",
+      "ancientMax": 240,
+      "primalMax": 300,
+      "limits": "Capped at 200%: at most 2 extra hits. Ancient and Primal rolls above 200% add nothing. Hammers, dual hammers, mauls, bludgeons, and extending chainmaces only. Never rolls below Legendary.",
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "melee"
+      ],
+      "cooldown": null,
+      "sources": "Power sigil from the store (50% strength)"
+    },
+    {
+      "id": "alchemists-echo",
+      "name": "Alchemist's Echo",
+      "effect": "Manual alchemy repeats 1 to 3 extra times.",
+      "min": 1,
+      "max": 3,
+      "unit": "",
+      "template": "Manual alchemy repeats {v} extra times.",
+      "ancientMax": 3,
+      "primalMax": 4,
+      "limits": null,
+      "slots": [
+        "cape"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "alchemists-grace",
+      "name": "Alchemist's Grace",
+      "effect": "10 to 25% chance alchemy costs no runes.",
+      "min": 10,
+      "max": 25,
+      "unit": "%",
+      "template": "{v}% chance alchemy costs no runes.",
+      "ancientMax": 30,
+      "primalMax": 37,
+      "limits": null,
+      "slots": [
+        "cape"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": "60s",
+      "sources": null
+    },
+    {
+      "id": "arcane-echo",
+      "name": "Arcane Echo",
+      "effect": "Spellbook casts from your staff launch 50 to 200% extra projectiles, each on its own path: each full 100% is a guaranteed extra projectile and the rest is the chance of one more (up to 2). Extra projectiles shed half that much of their damage reduction.",
+      "min": 50,
+      "max": 200,
+      "unit": "%",
+      "template": "Spellbook casts from your staff launch {v}% extra projectiles, each on its own path: each full 100% is a guaranteed extra projectile and the rest is the chance of one more (up to 2). Extra projectiles shed half that much of their damage reduction.",
+      "ancientMax": 240,
+      "primalMax": 300,
+      "limits": "Capped at 200%: at most 2 extra projectiles. Ancient and Primal rolls above 200% add nothing. Staves and staff halberds only. Never rolls below Legendary.",
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "magic"
+      ],
+      "cooldown": null,
+      "sources": "Power sigil from the store (50% strength)"
+    },
+    {
+      "id": "arsonists-trail",
+      "name": "Arsonist's Trail",
+      "effect": "Steps taken in combat ignite the tile left behind; enemies on fire take 3 to 40 damage per tick.",
+      "min": 3,
+      "max": 40,
+      "unit": "",
+      "template": "Steps taken in combat ignite the tile left behind; enemies on fire take {v} damage per tick.",
+      "ancientMax": 48,
+      "primalMax": 60,
+      "limits": null,
+      "slots": [
+        "legs",
+        "feet"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Power sigil from the store (50% strength)"
+    },
+    {
+      "id": "bark-skin",
+      "name": "Bark Skin",
+      "effect": "Hardens skin like bark to absorb 3 to 15% of incoming blows.",
+      "min": 3,
+      "max": 15,
+      "unit": "%",
+      "template": "Hardens skin like bark to absorb {v}% of incoming blows.",
+      "ancientMax": 18,
+      "primalMax": 22.5,
+      "limits": null,
+      "slots": [
+        "body",
+        "shield",
+        "legs"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Codex Archive (50,000 coins, lowest roll)"
+    },
+    {
+      "id": "berserker",
+      "name": "Berserker",
+      "effect": "+1 to 5% damage per 10% HP missing.",
+      "min": 1,
+      "max": 5,
+      "unit": "%",
+      "template": "+{v}% damage per 10% HP missing.",
+      "ancientMax": 6,
+      "primalMax": 7,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "body",
+        "legs"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "big-bad-bolts",
+      "name": "Big Bad Bolts",
+      "effect": "5 to 15% chance a landed crossbow hit rolls its max hit.",
+      "min": 5,
+      "max": 15,
+      "unit": "%",
+      "template": "{v}% chance a landed crossbow hit rolls its max hit.",
+      "ancientMax": 18,
+      "primalMax": 22.5,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "hands"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "blitz",
+      "name": "Blitz",
+      "effect": "Your thrown weapons and blowpipes attack every tick, up to tier 1 to 100. Untiered thrown weapons are 1t regardless of affix %.",
+      "min": 1,
+      "max": 100,
+      "unit": "",
+      "template": "Your thrown weapons and blowpipes attack every tick, up to tier {v}. Untiered thrown weapons are 1t regardless of affix %.",
+      "ancientMax": 100,
+      "primalMax": 100,
+      "limits": "Capped at tier 100 on every variant. The rolled tier cannot exceed the item level plus 10. Thrown weapons, blowpipes, and bows only.",
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "bolt-storm",
+      "name": "Bolt Storm",
+      "effect": "+10 to 30% enchanted-bolt special proc chance.",
+      "min": 10,
+      "max": 30,
+      "unit": "%",
+      "template": "+{v}% enchanted-bolt special proc chance.",
+      "ancientMax": 36,
+      "primalMax": 45,
+      "limits": "Added to the bolt's base proc chance. The total cannot exceed 100%.",
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "bottomless-pantry",
+      "name": "Bottomless Pantry",
+      "effect": "33 to 100% chance eating food does not consume it.",
+      "min": 33,
+      "max": 100,
+      "unit": "%",
+      "template": "{v}% chance eating food does not consume it.",
+      "ancientMax": 120,
+      "primalMax": 150,
+      "limits": "The chance cannot exceed 100%. A Primal roll above 100% adds nothing.",
+      "slots": [
+        "cape",
+        "neck",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "cerberuss-maw",
+      "name": "Cerberus's Maw",
+      "effect": "Hits have a 8 to 20% chance to strike with all three combat styles at once.",
+      "min": 8,
+      "max": 20,
+      "unit": "%",
+      "template": "Hits have a {v}% chance to strike with all three combat styles at once.",
+      "ancientMax": 24,
+      "primalMax": 30,
+      "limits": null,
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Echo token from Cerberus"
+    },
+    {
+      "id": "cheat-death",
+      "name": "Cheat Death",
+      "effect": "10 to 30% chance to negate a hit that would kill you.",
+      "min": 10,
+      "max": 30,
+      "unit": "%",
+      "template": "{v}% chance to negate a hit that would kill you.",
+      "ancientMax": 36,
+      "primalMax": 45,
+      "limits": "Adds to the Undying affix and other lethal-save sources. The combined chance cannot exceed 100%.",
+      "slots": [
+        "neck",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": "300s",
+      "sources": null
+    },
+    {
+      "id": "chinchompa-bloom",
+      "name": "Chinchompa Bloom",
+      "effect": "Ranged hits burst around the target, striking nearby enemies for 30 to 60% damage.",
+      "min": 30,
+      "max": 60,
+      "unit": "%",
+      "template": "Ranged hits burst around the target, striking nearby enemies for {v}% damage.",
+      "ancientMax": 72,
+      "primalMax": 90,
+      "limits": null,
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": "1.2s",
+      "sources": null
+    },
+    {
+      "id": "clue-intuition",
+      "name": "Clue Intuition",
+      "effect": "10 to 25% chance a clue casket holds an extra roll.",
+      "min": 10,
+      "max": 25,
+      "unit": "%",
+      "template": "{v}% chance a clue casket holds an extra roll.",
+      "ancientMax": 30,
+      "primalMax": 37,
+      "limits": null,
+      "slots": [
+        "cape"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": "60s",
+      "sources": null
+    },
+    {
+      "id": "clue-resurgence",
+      "name": "Clue Resurgence",
+      "effect": "20 to 100% chance a completed clue restarts automatically.",
+      "min": 20,
+      "max": 100,
+      "unit": "%",
+      "template": "{v}% chance a completed clue restarts automatically.",
+      "ancientMax": 120,
+      "primalMax": 150,
+      "limits": "The chance cannot exceed 100%. A Primal roll above 100% adds nothing.",
+      "slots": [
+        "cape"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "colossus-stride",
+      "name": "Colossus Stride",
+      "effect": "Melee attack range +1 to 2 tiles.",
+      "min": 1,
+      "max": 2,
+      "unit": "",
+      "template": "Melee attack range +{v} tiles.",
+      "ancientMax": 2,
+      "primalMax": 3,
+      "limits": null,
+      "slots": [
+        "legs",
+        "feet"
+      ],
+      "styles": [
+        "melee"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "convention-of-the-elements",
+      "name": "Convention of the Elements",
+      "effect": "Elements rotate Air-Water-Earth-Fire; spells of the current element deal +50 to 100% damage.",
+      "min": 50,
+      "max": 100,
+      "unit": "%",
+      "template": "Elements rotate Air-Water-Earth-Fire; spells of the current element deal +{v}% damage.",
+      "ancientMax": 120,
+      "primalMax": 150,
+      "limits": null,
+      "slots": [
+        "neck",
+        "ring"
+      ],
+      "styles": [
+        "magic"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "corps-hunger",
+      "name": "Corp's Hunger",
+      "effect": "When an enemy dies, a Hungering Core leaps to a nearby enemy and detonates for 30 to 65% of the killed enemy's max HP.",
+      "min": 30,
+      "max": 65,
+      "unit": "%",
+      "template": "When an enemy dies, a Hungering Core leaps to a nearby enemy and detonates for {v}% of the killed enemy's max HP.",
+      "ancientMax": 78,
+      "primalMax": 97,
+      "limits": "Deals at most 100 damage to bosses.",
+      "slots": [
+        "neck",
+        "body"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Echo token from Corporeal Beast"
+    },
+    {
+      "id": "cutting-edge",
+      "name": "Cutting Edge",
+      "effect": "10 to 30% chance on melee hit to apply a 3-tick bleed.",
+      "min": 10,
+      "max": 30,
+      "unit": "%",
+      "template": "{v}% chance on melee hit to apply a 3-tick bleed.",
+      "ancientMax": 36,
+      "primalMax": 45,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "hands"
+      ],
+      "styles": [
+        "melee"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "decapitate",
+      "name": "Decapitate",
+      "effect": "Every 4th consecutive hit on the same target auto-lands as a crit for 170 to 200% of max hit.",
+      "min": 170,
+      "max": 200,
+      "unit": "%",
+      "template": "Every 4th consecutive hit on the same target auto-lands as a crit for {v}% of max hit.",
+      "ancientMax": 240,
+      "primalMax": 300,
+      "limits": null,
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "melee"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "divine-aegis",
+      "name": "Divine Aegis",
+      "effect": "20 to 35% of damage taken drains prayer instead of HP.",
+      "min": 20,
+      "max": 35,
+      "unit": "%",
+      "template": "{v}% of damage taken drains prayer instead of HP.",
+      "ancientMax": 42,
+      "primalMax": 52.5,
+      "limits": null,
+      "slots": [
+        "shield"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "echoing-strikes",
+      "name": "Echoing Strikes",
+      "effect": "+5 to 20% chance your hit fires a style echo that repeats it.",
+      "min": 5,
+      "max": 20,
+      "unit": "%",
+      "template": "+{v}% chance your hit fires a style echo that repeats it.",
+      "ancientMax": 24,
+      "primalMax": 30,
+      "limits": "Adds to every other echo source. The combined echo chance cannot exceed 100%.",
+      "slots": [
+        "weapon",
+        "body"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "edgemasters-adrenaline",
+      "name": "Edgemaster's Adrenaline",
+      "effect": "Attacks deal up to +15 to 40% damage, scaling with current special energy.",
+      "min": 15,
+      "max": 40,
+      "unit": "%",
+      "template": "Attacks deal up to +{v}% damage, scaling with current special energy.",
+      "ancientMax": 48,
+      "primalMax": 60,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "endless-carnage",
+      "name": "Endless Carnage",
+      "effect": "Killing an enemy restores 15 to 35 special energy; kills with a special refund its full cost.",
+      "min": 15,
+      "max": 35,
+      "unit": "",
+      "template": "Killing an enemy restores {v} special energy; kills with a special refund its full cost.",
+      "ancientMax": 42,
+      "primalMax": 52,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "energy-efficiency",
+      "name": "Energy Efficiency",
+      "effect": "5 to 35% chance your special attack costs half energy, otherwise -10%.",
+      "min": 5,
+      "max": 35,
+      "unit": "%",
+      "template": "{v}% chance your special attack costs half energy, otherwise -10%.",
+      "ancientMax": 42,
+      "primalMax": 52.5,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "executioners-mark",
+      "name": "Executioner's Mark",
+      "effect": "Hits against targets below 15 to 40% health deal increased damage.",
+      "min": 15,
+      "max": 40,
+      "unit": "%",
+      "template": "Hits against targets below {v}% health deal increased damage.",
+      "ancientMax": 48,
+      "primalMax": 60,
+      "limits": null,
+      "slots": [
+        "body",
+        "legs"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Codex Archive (50,000 coins, lowest roll)"
+    },
+    {
+      "id": "exploding-attacks",
+      "name": "Exploding Attacks",
+      "effect": "Your hits have a 10 to 50% chance to splash 50% damage to up to 9 nearby NPCs.",
+      "min": 10,
+      "max": 50,
+      "unit": "%",
+      "template": "Your hits have a {v}% chance to splash 50% damage to up to 9 nearby NPCs.",
+      "ancientMax": 60,
+      "primalMax": 75,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "body",
+        "legs"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": "2.4s",
+      "sources": null
+    },
+    {
+      "id": "eye-of-armadyl",
+      "name": "Eye of Armadyl",
+      "effect": "Ranged hits halve target mitigation and deal +2 to 4% damage per tile of distance, capped at 8 tiles.",
+      "min": 2,
+      "max": 4,
+      "unit": "%",
+      "template": "Ranged hits halve target mitigation and deal +{v}% damage per tile of distance, capped at 8 tiles.",
+      "ancientMax": 4,
+      "primalMax": 6,
+      "limits": "Per tile of distance. Counts at most 8 tiles.",
+      "slots": [
+        "weapon",
+        "body"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "fervour-bomb",
+      "name": "Fervour Bomb",
+      "effect": "Dealing damage charges a holy meter (30 to 100 charge per tick); when full it erupts in prayer-scaling waves.",
+      "min": 30,
+      "max": 100,
+      "unit": "",
+      "template": "Dealing damage charges a holy meter ({v} charge per tick); when full it erupts in prayer-scaling waves.",
+      "ancientMax": 120,
+      "primalMax": 150,
+      "limits": "Charge per tick. The meter erupts at 1000.",
+      "slots": [
+        "neck",
+        "body"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": "6s",
+      "sources": null
+    },
+    {
+      "id": "finisher",
+      "name": "Finisher",
+      "effect": "Deal +10 to 25% damage to targets under 40% HP, any style.",
+      "min": 10,
+      "max": 25,
+      "unit": "%",
+      "template": "Deal +{v}% damage to targets under 40% HP, any style.",
+      "ancientMax": 30,
+      "primalMax": 37.5,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "body",
+        "legs"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "flurry",
+      "name": "Flurry",
+      "effect": "5 to 20% chance on hit: your next 2 attacks have a 2-tick attack delay.",
+      "min": 5,
+      "max": 20,
+      "unit": "%",
+      "template": "{v}% chance on hit: your next 2 attacks have a 2-tick attack delay.",
+      "ancientMax": 24,
+      "primalMax": 30,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "hands",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "greater-burn",
+      "name": "Greater Burn",
+      "effect": "Burns you apply deal +10 to 50% damage.",
+      "min": 10,
+      "max": 50,
+      "unit": "%",
+      "template": "Burns you apply deal +{v}% damage.",
+      "ancientMax": 60,
+      "primalMax": 75,
+      "limits": null,
+      "slots": [
+        "neck",
+        "body",
+        "legs"
+      ],
+      "styles": [
+        "magic"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "greater-imp-ascension",
+      "name": "Greater Imp Ascension",
+      "effect": "Commands at least one Imp Minion, and your Imp Minions become Greater Imps dealing 20 to 60% more damage.",
+      "min": 20,
+      "max": 60,
+      "unit": "%",
+      "template": "Commands at least one Imp Minion, and your Imp Minions become Greater Imps dealing {v}% more damage.",
+      "ancientMax": 72,
+      "primalMax": 90,
+      "limits": null,
+      "slots": [
+        "head",
+        "weapon"
+      ],
+      "styles": [
+        "magic"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "guardian",
+      "name": "Guardian",
+      "effect": "Summon a style-switching Guardian fighter dealing 50 to 100% damage.",
+      "min": 50,
+      "max": 100,
+      "unit": "%",
+      "template": "Summon a style-switching Guardian fighter dealing {v}% damage.",
+      "ancientMax": 120,
+      "primalMax": 150,
+      "limits": null,
+      "slots": [
+        "neck",
+        "body"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Power sigil from the store (50% strength)"
+    },
+    {
+      "id": "hammerdin",
+      "name": "Hammerdin",
+      "effect": "Orbiting holy hammers damage nearby enemies scaling with 50 to 150% of prayer bonus.",
+      "min": 50,
+      "max": 150,
+      "unit": "%",
+      "template": "Orbiting holy hammers damage nearby enemies scaling with {v}% of prayer bonus.",
+      "ancientMax": 180,
+      "primalMax": 225,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "body",
+        "shield",
+        "legs"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "headhunter",
+      "name": "Headhunter",
+      "effect": "Every 5th consecutive hit on the same target deals +25 to 75% headshot damage.",
+      "min": 25,
+      "max": 75,
+      "unit": "%",
+      "template": "Every 5th consecutive hit on the same target deals +{v}% headshot damage.",
+      "ancientMax": 90,
+      "primalMax": 112.5,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "body"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "healing-aura",
+      "name": "Healing Aura",
+      "effect": "Every tick, heal yourself and adjacent allies for 1 to 5% max HP.",
+      "min": 1,
+      "max": 5,
+      "unit": "%",
+      "template": "Every tick, heal yourself and adjacent allies for {v}% max HP.",
+      "ancientMax": 6,
+      "primalMax": 7,
+      "limits": null,
+      "slots": [
+        "neck",
+        "body"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "healing-steps",
+      "name": "Healing Steps",
+      "effect": "Each step taken in combat restores 5 to 10% of max HP.",
+      "min": 5,
+      "max": 10,
+      "unit": "%",
+      "template": "Each step taken in combat restores {v}% of max HP.",
+      "ancientMax": 12,
+      "primalMax": 15,
+      "limits": null,
+      "slots": [
+        "feet"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Power sigil from the store (50% strength)"
+    },
+    {
+      "id": "heretic-meteor",
+      "name": "Heretic Meteor",
+      "effect": "Your hits periodically call a meteor blast for 75 to 150% of max hit, plus burn.",
+      "min": 75,
+      "max": 150,
+      "unit": "%",
+      "template": "Your hits periodically call a meteor blast for {v}% of max hit, plus burn.",
+      "ancientMax": 180,
+      "primalMax": 225,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "body"
+      ],
+      "styles": [
+        "magic"
+      ],
+      "cooldown": "30s",
+      "sources": null
+    },
+    {
+      "id": "imp-familiar",
+      "name": "Imp Familiar",
+      "effect": "While worn, 1 to 2 Imp Minion(s) fight for you, picking the target's weakest style.",
+      "min": 1,
+      "max": 2,
+      "unit": "",
+      "template": "While worn, {v} Imp Minion(s) fight for you, picking the target's weakest style.",
+      "ancientMax": 2,
+      "primalMax": 3,
+      "limits": null,
+      "slots": [
+        "neck",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Power sigil from the store (50% strength)"
+    },
+    {
+      "id": "infernus",
+      "name": "Infernus",
+      "effect": "Unlock a spellbook nuke: hurl a flaming rock for x1 to 2.5 magic damage plus burn.",
+      "min": 1,
+      "max": 2.5,
+      "unit": "",
+      "template": "Unlock a spellbook nuke: hurl a flaming rock for x{v} magic damage plus burn.",
+      "ancientMax": 3,
+      "primalMax": 3.75,
+      "limits": null,
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "magic"
+      ],
+      "cooldown": "30s",
+      "sources": null
+    },
+    {
+      "id": "jads-reflection",
+      "name": "Jad's Reflection",
+      "effect": "Hits fully blocked by an overhead prayer reflect 50 to 100% of max hit to the attacker.",
+      "min": 50,
+      "max": 100,
+      "unit": "%",
+      "template": "Hits fully blocked by an overhead prayer reflect {v}% of max hit to the attacker.",
+      "ancientMax": 120,
+      "primalMax": 150,
+      "limits": null,
+      "slots": [
+        "body",
+        "shield"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Echo token from TzTok-Jad"
+    },
+    {
+      "id": "kbds-breath",
+      "name": "KBD's Breath",
+      "effect": "Every third hit breathes rotating fire, venom or shock for 50 to 100% max hit plus burn, poison or defence drain.",
+      "min": 50,
+      "max": 100,
+      "unit": "%",
+      "template": "Every third hit breathes rotating fire, venom or shock for {v}% max hit plus burn, poison or defence drain.",
+      "ancientMax": 120,
+      "primalMax": 150,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "shield"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Echo token from King Black Dragon"
+    },
+    {
+      "id": "krakens-grasp",
+      "name": "Kraken's Grasp",
+      "effect": "Every 5th consecutive hit calls a tentacle slam for 60 to 120% max hit, ignoring protection prayers.",
+      "min": 60,
+      "max": 120,
+      "unit": "%",
+      "template": "Every 5th consecutive hit calls a tentacle slam for {v}% max hit, ignoring protection prayers.",
+      "ancientMax": 144,
+      "primalMax": 180,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Echo token from Kraken"
+    },
+    {
+      "id": "lodestone",
+      "name": "Lodestone",
+      "effect": "Your own drops within 2 to 5 tiles land at your feet.",
+      "min": 2,
+      "max": 5,
+      "unit": "",
+      "template": "Your own drops within {v} tiles land at your feet.",
+      "ancientMax": 6,
+      "primalMax": 7,
+      "limits": null,
+      "slots": [
+        "cape"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "loot-vacuum",
+      "name": "Loot Vacuum",
+      "effect": "25 to 100% chance loot auto-banks on drop.",
+      "min": 25,
+      "max": 100,
+      "unit": "%",
+      "template": "{v}% chance loot auto-banks on drop.",
+      "ancientMax": 120,
+      "primalMax": 150,
+      "limits": "The chance cannot exceed 100%. A Primal roll above 100% adds nothing.",
+      "slots": [
+        "neck",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Power sigil from the store (50% strength)"
+    },
+    {
+      "id": "mark-of-the-predator",
+      "name": "Mark of the Predator",
+      "effect": "Consecutive hits on the same target build Mark stacks (max 10 to 25); each stack grants +1% crit chance vs that target. Resets on switch.",
+      "min": 10,
+      "max": 25,
+      "unit": "",
+      "template": "Consecutive hits on the same target build Mark stacks (max {v}); each stack grants +1% crit chance vs that target. Resets on switch.",
+      "ancientMax": 30,
+      "primalMax": 37,
+      "limits": null,
+      "slots": [
+        "head",
+        "neck"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "midas-touch",
+      "name": "Midas Touch",
+      "effect": "Coin drops are worth 5 to 15% more.",
+      "min": 5,
+      "max": 15,
+      "unit": "%",
+      "template": "Coin drops are worth {v}% more.",
+      "ancientMax": 18,
+      "primalMax": 22,
+      "limits": null,
+      "slots": [
+        "cape"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "momentum",
+      "name": "Momentum",
+      "effect": "Consecutive hits build up to 5 to 25 momentum charges.",
+      "min": 5,
+      "max": 25,
+      "unit": "",
+      "template": "Consecutive hits build up to {v} momentum charges.",
+      "ancientMax": 30,
+      "primalMax": 37,
+      "limits": "The value is the maximum stack count. Stacks never exceed it.",
+      "slots": [
+        "weapon",
+        "body",
+        "legs",
+        "hands",
+        "feet"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": "Codex Archive (50,000 coins, lowest roll)"
+    },
+    {
+      "id": "nexs-siphon",
+      "name": "Nex's Siphon",
+      "effect": "Nearby enemy deaths siphon 5 to 15% of max HP as healing.",
+      "min": 5,
+      "max": 15,
+      "unit": "%",
+      "template": "Nearby enemy deaths siphon {v}% of max HP as healing.",
+      "ancientMax": 18,
+      "primalMax": 22,
+      "limits": null,
+      "slots": [
+        "neck",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Echo token from Nex"
+    },
+    {
+      "id": "notary",
+      "name": "Notary",
+      "effect": "10 to 30% chance a monster drop arrives noted.",
+      "min": 10,
+      "max": 30,
+      "unit": "%",
+      "template": "{v}% chance a monster drop arrives noted.",
+      "ancientMax": 36,
+      "primalMax": 45,
+      "limits": null,
+      "slots": [
+        "cape"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": "60s",
+      "sources": null
+    },
+    {
+      "id": "overdraw-ballista",
+      "name": "Overdraw Ballista",
+      "effect": "Attack delay +1 tick, but +50 to 85% max hit and damage rolls twice, keeping the higher.",
+      "min": 50,
+      "max": 85,
+      "unit": "%",
+      "template": "Attack delay +1 tick, but +{v}% max hit and damage rolls twice, keeping the higher.",
+      "ancientMax": 102,
+      "primalMax": 127,
+      "limits": null,
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "pack-leader",
+      "name": "Pack Leader",
+      "effect": "Each active summon grants you +3 to 8% damage, up to 4 summons.",
+      "min": 3,
+      "max": 8,
+      "unit": "%",
+      "template": "Each active summon grants you +{v}% damage, up to 4 summons.",
+      "ancientMax": 9.6,
+      "primalMax": 12,
+      "limits": "Per active summon. At most 4 summons count.",
+      "slots": [
+        "legs",
+        "hands"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "pathfinders-pace",
+      "name": "Pathfinder's Pace",
+      "effect": "Clue scrolls complete 10 to 30% faster.",
+      "min": 10,
+      "max": 30,
+      "unit": "%",
+      "template": "Clue scrolls complete {v}% faster.",
+      "ancientMax": 36,
+      "primalMax": 45,
+      "limits": null,
+      "slots": [
+        "cape"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "phoenix-vigor",
+      "name": "Phoenix Vigor",
+      "effect": "Heal 10 to 30% of the burn damage you deal.",
+      "min": 10,
+      "max": 30,
+      "unit": "%",
+      "template": "Heal {v}% of the burn damage you deal.",
+      "ancientMax": 36,
+      "primalMax": 45,
+      "limits": null,
+      "slots": [
+        "neck",
+        "ring"
+      ],
+      "styles": [
+        "magic"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "pious-fury",
+      "name": "Pious Fury",
+      "effect": "+1 to 5% damage per active prayer. Total bonus caps at 50%.",
+      "min": 1,
+      "max": 5,
+      "unit": "%",
+      "template": "+{v}% damage per active prayer. Total bonus caps at 50%.",
+      "ancientMax": 6,
+      "primalMax": 7,
+      "limits": "Per active prayer. The total damage bonus cannot exceed 50%.",
+      "slots": [
+        "neck",
+        "body"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "point-blank",
+      "name": "Point Blank",
+      "effect": "Ranged attacks deal +20 to 45% damage at minimum range, fading to no bonus at max range.",
+      "min": 20,
+      "max": 45,
+      "unit": "%",
+      "template": "Ranged attacks deal +{v}% damage at minimum range, fading to no bonus at max range.",
+      "ancientMax": 54,
+      "primalMax": 67,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "hands"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "porcupine",
+      "name": "Porcupine",
+      "effect": "Reflect 20 to 50% of damage taken back to the attacker.",
+      "min": 20,
+      "max": 50,
+      "unit": "%",
+      "template": "Reflect {v}% of damage taken back to the attacker.",
+      "ancientMax": 60,
+      "primalMax": 75,
+      "limits": null,
+      "slots": [
+        "body",
+        "shield"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Power sigil from the store (50% strength)"
+    },
+    {
+      "id": "precision",
+      "name": "Precision",
+      "effect": "After 5 consecutive weakness-exploiting hits, your next hit max-hits for +10 to 50% damage.",
+      "min": 10,
+      "max": 50,
+      "unit": "%",
+      "template": "After 5 consecutive weakness-exploiting hits, your next hit max-hits for +{v}% damage.",
+      "ancientMax": 60,
+      "primalMax": 75,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "body",
+        "legs"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "quickened",
+      "name": "Quickened",
+      "effect": "Attack delay reduced by one tick when equipped or Soul-branded (never below 2).",
+      "min": null,
+      "max": null,
+      "unit": "",
+      "template": "Attack delay reduced by one tick when equipped or Soul-branded (never below 2).",
+      "ancientMax": null,
+      "primalMax": null,
+      "limits": "Always cuts attack delay by one tick, never below 2. The rolled value has no effect.",
+      "slots": [
+        "weapon",
+        "hands",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Codex Archive (50,000 coins, lowest roll)"
+    },
+    {
+      "id": "quickened-edge",
+      "name": "Quickened Edge",
+      "effect": "1 to 100% chance on hit: your next attack is 1 tick faster (never below 2).",
+      "min": 1,
+      "max": 100,
+      "unit": "%",
+      "template": "{v}% chance on hit: your next attack is 1 tick faster (never below 2).",
+      "ancientMax": 120,
+      "primalMax": 150,
+      "limits": "The chance cannot exceed 100%. A Primal roll above 100% adds nothing.",
+      "slots": [
+        "weapon",
+        "hands",
+        "ring"
+      ],
+      "styles": [
+        "melee"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "quickened-mind",
+      "name": "Quickened Mind",
+      "effect": "1 to 100% chance on hit: your next attack is 1 tick faster (never below 2).",
+      "min": 1,
+      "max": 100,
+      "unit": "%",
+      "template": "{v}% chance on hit: your next attack is 1 tick faster (never below 2).",
+      "ancientMax": 120,
+      "primalMax": 150,
+      "limits": "The chance cannot exceed 100%. A Primal roll above 100% adds nothing.",
+      "slots": [
+        "weapon",
+        "hands",
+        "ring"
+      ],
+      "styles": [
+        "magic"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "quickened-string",
+      "name": "Quickened String",
+      "effect": "1 to 100% chance on hit: your next attack is 1 tick faster (never below 2).",
+      "min": 1,
+      "max": 100,
+      "unit": "%",
+      "template": "{v}% chance on hit: your next attack is 1 tick faster (never below 2).",
+      "ancientMax": 120,
+      "primalMax": 150,
+      "limits": "The chance cannot exceed 100%. A Primal roll above 100% adds nothing.",
+      "slots": [
+        "weapon",
+        "hands",
+        "ring"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "renewal",
+      "name": "Renewal",
+      "effect": "Periodically restores 10 to 60% hitpoints, and prayer out of combat or after 50 ticks (30s) with no prayers active.",
+      "min": 10,
+      "max": 60,
+      "unit": "%",
+      "template": "Periodically restores {v}% hitpoints, and prayer out of combat or after 50 ticks (30s) with no prayers active.",
+      "ancientMax": 72,
+      "primalMax": 90,
+      "limits": null,
+      "slots": [
+        "head",
+        "neck",
+        "body",
+        "legs",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": "30s",
+      "sources": "Codex Archive (50,000 coins, lowest roll)"
+    },
+    {
+      "id": "resourcefulness",
+      "name": "Resourcefulness",
+      "effect": "Regenerates 50 to 150% of spent ammo, runes or charges on use.",
+      "min": 50,
+      "max": 150,
+      "unit": "%",
+      "template": "Regenerates {v}% of spent ammo, runes or charges on use.",
+      "ancientMax": 180,
+      "primalMax": 225,
+      "limits": null,
+      "slots": [
+        "neck",
+        "hands"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "ricochet",
+      "name": "Ricochet",
+      "effect": "Ranged attacks bounce to nearby enemies dealing 40 to 70% damage.",
+      "min": 40,
+      "max": 70,
+      "unit": "%",
+      "template": "Ranged attacks bounce to nearby enemies dealing {v}% damage.",
+      "ancientMax": 84,
+      "primalMax": 105,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "body",
+        "legs"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": "Codex Archive (50,000 coins, lowest roll)"
+    },
+    {
+      "id": "sanctified-strikes",
+      "name": "Sanctified Strikes",
+      "effect": "Melee hits restore 1 to 4 prayer.",
+      "min": 1,
+      "max": 4,
+      "unit": "",
+      "template": "Melee hits restore {v} prayer.",
+      "ancientMax": 4,
+      "primalMax": 6,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "hands"
+      ],
+      "styles": [
+        "melee"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "sanguine-tithe",
+      "name": "Sanguine Tithe",
+      "effect": "Spells consume 10% current HP but gain +20 to 45% damage and cannot splash.",
+      "min": 20,
+      "max": 45,
+      "unit": "%",
+      "template": "Spells consume 10% current HP but gain +{v}% damage and cannot splash.",
+      "ancientMax": 54,
+      "primalMax": 67,
+      "limits": null,
+      "slots": [
+        "neck",
+        "weapon"
+      ],
+      "styles": [
+        "magic"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "scythe-arc",
+      "name": "Scythe Arc",
+      "effect": "Melee hits also strike adjacent NPCs for 25 to 60% damage.",
+      "min": 25,
+      "max": 60,
+      "unit": "%",
+      "template": "Melee hits also strike adjacent NPCs for {v}% damage.",
+      "ancientMax": 72,
+      "primalMax": 90,
+      "limits": null,
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "melee"
+      ],
+      "cooldown": "1.2s",
+      "sources": null
+    },
+    {
+      "id": "searing-cast",
+      "name": "Searing Cast",
+      "effect": "Fire spells have a 10 to 30% chance to burn for 35% of damage dealt.",
+      "min": 10,
+      "max": 30,
+      "unit": "%",
+      "template": "Fire spells have a {v}% chance to burn for 35% of damage dealt.",
+      "ancientMax": 36,
+      "primalMax": 45,
+      "limits": null,
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "magic"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "shielded-faith",
+      "name": "Shielded Faith",
+      "effect": "While wielding a shield, take 5 to 20% less damage.",
+      "min": 5,
+      "max": 20,
+      "unit": "%",
+      "template": "While wielding a shield, take {v}% less damage.",
+      "ancientMax": 24,
+      "primalMax": 30,
+      "limits": null,
+      "slots": [
+        "shield"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Power sigil from the store (50% strength)"
+    },
+    {
+      "id": "sigil-of-finality",
+      "name": "Sigil of Finality",
+      "effect": "Charges itself while you fight; when charged, your next special attack max-hits for x2 to 3.5 damage.",
+      "min": 2,
+      "max": 3.5,
+      "unit": "",
+      "template": "Charges itself while you fight; when charged, your next special attack max-hits for x{v} damage.",
+      "ancientMax": 4.2,
+      "primalMax": 5.25,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "siphon-arrow",
+      "name": "Siphon Arrow",
+      "effect": "Ranged attacks convert 8 to 18% of damage dealt into prayer.",
+      "min": 8,
+      "max": 18,
+      "unit": "%",
+      "template": "Ranged attacks convert {v}% of damage dealt into prayer.",
+      "ancientMax": 21,
+      "primalMax": 27,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "ring"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "slayers-mark",
+      "name": "Slayer's Mark",
+      "effect": "You count as on-task everywhere; slayer-helm buffs apply at +10 to 25%.",
+      "min": 10,
+      "max": 25,
+      "unit": "%",
+      "template": "You count as on-task everywhere; slayer-helm buffs apply at +{v}%.",
+      "ancientMax": 30,
+      "primalMax": 37,
+      "limits": null,
+      "slots": [
+        "head",
+        "neck"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Power sigil from the store (50% strength)"
+    },
+    {
+      "id": "slayers-tithe",
+      "name": "Slayer's Tithe",
+      "effect": "Each completed slayer task awards +1 to 3 extra slayer points.",
+      "min": 1,
+      "max": 3,
+      "unit": "",
+      "template": "Each completed slayer task awards +{v} extra slayer points.",
+      "ancientMax": 3,
+      "primalMax": 4,
+      "limits": null,
+      "slots": [
+        "cape"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "snipers-perch",
+      "name": "Sniper's Perch",
+      "effect": "Up to +30 to 50% ranged damage at 10 tiles, fading the closer you stand.",
+      "min": 30,
+      "max": 50,
+      "unit": "%",
+      "template": "Up to +{v}% ranged damage at 10 tiles, fading the closer you stand.",
+      "ancientMax": 60,
+      "primalMax": 75,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "body"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "spear-of-light",
+      "name": "Spear of Light",
+      "effect": "Every 5th melee attack fires a holy hit for 50 to 100% of your prayer bonus.",
+      "min": 50,
+      "max": 100,
+      "unit": "%",
+      "template": "Every 5th melee attack fires a holy hit for {v}% of your prayer bonus.",
+      "ancientMax": 120,
+      "primalMax": 150,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "body"
+      ],
+      "styles": [
+        "melee"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "spell-ricochet",
+      "name": "Spell Ricochet",
+      "effect": "Magic hits bounce to nearby enemies dealing 40 to 70% of the hit's damage.",
+      "min": 40,
+      "max": 70,
+      "unit": "%",
+      "template": "Magic hits bounce to nearby enemies dealing {v}% of the hit's damage.",
+      "ancientMax": 84,
+      "primalMax": 105,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "body",
+        "legs"
+      ],
+      "styles": [
+        "magic"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "stock-shot",
+      "name": "Stock Shot",
+      "effect": "Your first crossbow hit on each target deals +50 to 100% damage.",
+      "min": 50,
+      "max": 100,
+      "unit": "%",
+      "template": "Your first crossbow hit on each target deals +{v}% damage.",
+      "ancientMax": 120,
+      "primalMax": 150,
+      "limits": null,
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "storm-touched",
+      "name": "Storm-Touched",
+      "effect": "Melee and magic attacks unleash chain lightning on nearby enemies for 30 to 70% of max hit.",
+      "min": 30,
+      "max": 70,
+      "unit": "%",
+      "template": "Melee and magic attacks unleash chain lightning on nearby enemies for {v}% of max hit.",
+      "ancientMax": 84,
+      "primalMax": 105,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "body",
+        "legs"
+      ],
+      "styles": [
+        "melee",
+        "magic"
+      ],
+      "cooldown": null,
+      "sources": "Codex Archive (50,000 coins, lowest roll)"
+    },
+    {
+      "id": "sundering-strikes",
+      "name": "Sundering Strikes",
+      "effect": "Hits have a 10 to 30% chance to shred 3% target defence, stacking to 30%.",
+      "min": 10,
+      "max": 30,
+      "unit": "%",
+      "template": "Hits have a {v}% chance to shred 3% target defence, stacking to 30%.",
+      "ancientMax": 36,
+      "primalMax": 45,
+      "limits": null,
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "survival-of-the-fittest",
+      "name": "Survival of the Fittest",
+      "effect": "Heal 5 to 20% of your pets' and summons' damage dealt.",
+      "min": 5,
+      "max": 20,
+      "unit": "%",
+      "template": "Heal {v}% of your pets' and summons' damage dealt.",
+      "ancientMax": 24,
+      "primalMax": 30,
+      "limits": null,
+      "slots": [
+        "neck",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "thrall-pact",
+      "name": "Thrall Pact",
+      "effect": "A Greater Thrall matching your attack style is always raised while you fight; thralls deal 0 to 40% more damage.",
+      "min": 0,
+      "max": 40,
+      "unit": "%",
+      "template": "A Greater Thrall matching your attack style is always raised while you fight; thralls deal {v}% more damage.",
+      "ancientMax": 48,
+      "primalMax": 60,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "body"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Power sigil from the store (50% strength)"
+    },
+    {
+      "id": "treasure-sense",
+      "name": "Treasure Sense",
+      "effect": "Defeating enemies has a 0.5 to 2.5% chance to attract a Treasure Goblin.",
+      "min": 0.5,
+      "max": 2.5,
+      "unit": "%",
+      "template": "Defeating enemies has a {v}% chance to attract a Treasure Goblin.",
+      "ancientMax": 3,
+      "primalMax": 3.75,
+      "limits": null,
+      "slots": [
+        "head",
+        "neck",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": "180s",
+      "sources": null
+    },
+    {
+      "id": "trickshot-evasion",
+      "name": "Trickshot Evasion",
+      "effect": "While moving, gain +15 to 30% dodge chance; dodging empowers your next ranged attack by 25%.",
+      "min": 15,
+      "max": 30,
+      "unit": "%",
+      "template": "While moving, gain +{v}% dodge chance; dodging empowers your next ranged attack by 25%.",
+      "ancientMax": 36,
+      "primalMax": 45,
+      "limits": null,
+      "slots": [
+        "legs",
+        "feet"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "twisted-hunger",
+      "name": "Twisted Hunger",
+      "effect": "Ranged max hit scales with the target's magic level, up to +25 to 50%.",
+      "min": 25,
+      "max": 50,
+      "unit": "%",
+      "template": "Ranged max hit scales with the target's magic level, up to +{v}%.",
+      "ancientMax": 60,
+      "primalMax": 75,
+      "limits": "The bonus cannot exceed the power value.",
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "ranged"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "veracs-truth",
+      "name": "Verac's Truth",
+      "effect": "10 to 25% chance to bypass target defence and mitigation entirely.",
+      "min": 10,
+      "max": 25,
+      "unit": "%",
+      "template": "{v}% chance to bypass target defence and mitigation entirely.",
+      "ancientMax": 30,
+      "primalMax": 37,
+      "limits": null,
+      "slots": [
+        "weapon"
+      ],
+      "styles": [
+        "melee"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "victory-rush",
+      "name": "Victory Rush",
+      "effect": "Defeating enemies has a 10 to 60% chance to heal 10% of damage dealt.",
+      "min": 10,
+      "max": 60,
+      "unit": "%",
+      "template": "Defeating enemies has a {v}% chance to heal 10% of damage dealt.",
+      "ancientMax": 72,
+      "primalMax": 90,
+      "limits": null,
+      "slots": [
+        "neck",
+        "body",
+        "ring"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "vorkaths-bomb",
+      "name": "Vorkath's Bomb",
+      "effect": "Hits have a 10 to 25% chance to hurl a dragonfire bomb that erupts for 50% max hit plus burn.",
+      "min": 10,
+      "max": 25,
+      "unit": "%",
+      "template": "Hits have a {v}% chance to hurl a dragonfire bomb that erupts for 50% max hit plus burn.",
+      "ancientMax": 30,
+      "primalMax": 37,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "body"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Echo token from Vorkath"
+    },
+    {
+      "id": "wrath",
+      "name": "Wrath",
+      "effect": "Damage taken releases explosive wrath dealing 5 to 25 damage.",
+      "min": 5,
+      "max": 25,
+      "unit": "",
+      "template": "Damage taken releases explosive wrath dealing {v} damage.",
+      "ancientMax": 30,
+      "primalMax": 37.5,
+      "limits": "Damage per release. Wrath stores at most 5 charges.",
+      "slots": [
+        "weapon",
+        "body",
+        "legs"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": "18s",
+      "sources": "Codex Archive (50,000 coins, lowest roll)"
+    },
+    {
+      "id": "zeus-wrath",
+      "name": "Zeus' Wrath",
+      "effect": "Your hits smite enemies around the target for 50 to 100% of max hit.",
+      "min": 50,
+      "max": 100,
+      "unit": "%",
+      "template": "Your hits smite enemies around the target for {v}% of max hit.",
+      "ancientMax": 120,
+      "primalMax": 150,
+      "limits": "Hits at most 5 enemies around the target.",
+      "slots": [
+        "body",
+        "legs"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": "4.8s",
+      "sources": null
+    },
+    {
+      "id": "zilyanas-tempo",
+      "name": "Zilyana's Tempo",
+      "effect": "After each kill, your next attack within 10s swings 1 tick faster and deals +15 to 40% damage.",
+      "min": 15,
+      "max": 40,
+      "unit": "%",
+      "template": "After each kill, your next attack within 10s swings 1 tick faster and deals +{v}% damage.",
+      "ancientMax": 48,
+      "primalMax": 60,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "feet"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": null
+    },
+    {
+      "id": "zulrahs-coils",
+      "name": "Zulrah's Coils",
+      "effect": "Hits have a 10 to 25% chance to spawn a venom cloud that envenoms enemies.",
+      "min": 10,
+      "max": 25,
+      "unit": "%",
+      "template": "Hits have a {v}% chance to spawn a venom cloud that envenoms enemies.",
+      "ancientMax": 30,
+      "primalMax": 37,
+      "limits": null,
+      "slots": [
+        "weapon",
+        "body"
+      ],
+      "styles": [
+        "any"
+      ],
+      "cooldown": null,
+      "sources": "Echo token from Zulrah"
+    }
+  ]
+}

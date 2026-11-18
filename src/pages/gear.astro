@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import PlanBar from '../components/PlanBar';
+import GearPlanner from '../components/GearPlanner';
+---
+
+<Base title="Gear" description="Plan affixes and Demonic Powers for every equipment slot and check them against caps.">
+  <div class="page-intro">
+    <h1>Gear planner</h1>
+    <p>
+      Pick a slot, set the rarity and item level, then add the affixes you're aiming for. The planner checks affix counts, tier
+      ceilings, and caps across your whole loadout.
+    </p>
+  </div>
+  <PlanBar client:only="react" />
+  <GearPlanner client:only="react">
+    <p slot="fallback" class="muted">Loading your gear…</p>
+  </GearPlanner>
+</Base>
