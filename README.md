@@ -22,6 +22,15 @@ Built with Astro and React islands. Plans save to localStorage and can be shared
   Add new tiers and relics here; `npm run sync` then downloads any new icons to `public/icons/`.
 - `src/data/league.ts`: rarity rules, variants, Forge/Codex/Outfitter costs, and the assumptions listed below.
 
+## Share links
+
+"Copy share link" packs the whole plan into the URL (`#p=…`) using the compact binary format in
+`src/lib/share-codec.ts`. Links refer to affixes, powers, and relics by position in
+`src/data/share-ids.json`. That list is **append-only**: `npm run sync` adds new ids to the end and never
+removes or reorders entries, so old links keep pointing at the right things. Don't edit it by hand. The
+small lists at the top of `share-codec.ts` (slots, rarities, and so on) follow the same rule. Older
+`#plan=…` links (deflated JSON) still load.
+
 ## Assumptions to revisit as more is revealed
 
 - **Tier ceilings.** The affix list gives roll thresholds per affix (mostly 0/60/90/105/115). The Forge's Improve

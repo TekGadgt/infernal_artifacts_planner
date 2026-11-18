@@ -234,9 +234,35 @@ const affixes = buildAffixes(affixText);
 const powers = buildPowers(powerText);
 
 await mkdir(OUT, { recursive: true });
-const stamp = new Date().toISOString();
+// An offline re-parse hasn't fetched anything new, so it keeps the last sync date.
+const stamp = offline
+  ? await readFile(join(OUT, 'affixes.json'), 'utf8').then((t) => JSON.parse(t).syncedAt, () => new Date().toISOString())
+  : new Date().toISOString();
 await writeFile(join(OUT, 'affixes.json'), JSON.stringify({ syncedAt: stamp, affixes }, null, 2) + '\n');
 await writeFile(join(OUT, 'powers.json'), JSON.stringify({ syncedAt: stamp, powers }, null, 2) + '\n');
+
+// Share links refer to affixes, powers, and relics by their position in this
+// list, so it is append-only: new ids go on the end and nothing is ever
+// removed or reordered, or old links would point at the wrong thing.
+const relicSourceForIds = await readFile(join(ROOT, 'src/data/relics.ts'), 'utf8');
+const idsFile = join(ROOT, 'src/data/share-ids.json');
+const ids = await readFile(idsFile, 'utf8').then(JSON.parse, () => ({ affixes: [], powers: [], relics: [] }));
+const current = {
+  affixes: affixes.map((a) => a.id),
+  powers: powers.map((p) => p.id),
+  relics: [...relicSourceForIds.matchAll(/^\s+id: '([a-z0-9-]+)'/gm)].map((m) => m[1]),
+};
+const added = [];
+for (const key of ['affixes', 'powers', 'relics']) {
+  for (const id of current[key]) {
+    if (!ids[key].includes(id)) {
+      ids[key].push(id);
+      added.push(id);
+    }
+  }
+}
+await writeFile(idsFile, JSON.stringify(ids, null, 2) + '\n');
+console.log(`share ids: ${added.length ? `added ${added.length}` : 'no new ids'}`);
 
 // Relic icons named in src/data/relics.ts. Already-downloaded icons are kept.
 if (!offline) {
