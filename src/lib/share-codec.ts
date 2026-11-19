@@ -8,7 +8,8 @@
 import shareIds from '../data/share-ids.json';
 import type { ForgeOp, LoadoutKind, Plan, PlannedItem, Rarity, Slot, SoulBrandSlot, Style, Variant } from './types';
 
-const FORMAT = 1;
+// Format 1 held one set of relic picks. Format 2 holds every playthrough.
+const FORMAT = 2;
 
 const SLOTS: Slot[] = ['head', 'cape', 'neck', 'weapon', 'body', 'shield', 'legs', 'hands', 'feet', 'ring'];
 const RARITIES: Rarity[] = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
@@ -117,11 +118,16 @@ export function encodePlan(plan: Plan, maxValue: (affixId: string, tier: number)
   w.uint(FORMAT);
   w.str(plan.name);
 
-  const relics = Object.entries(plan.relics);
-  w.uint(relics.length);
-  for (const [tier, id] of relics) {
-    w.uint(Number(tier));
-    w.ref('relics', id);
+  w.uint(plan.playthroughs.length);
+  w.uint(plan.activePlaythrough);
+  for (const run of plan.playthroughs) {
+    const relics = Object.entries(run.relics);
+    w.uint(relics.length);
+    for (const [tier, id] of relics) {
+      w.uint(Number(tier));
+      w.ref('relics', id);
+    }
+    w.ref('relics', run.reloaded);
   }
 
   w.uint(plan.loadouts.length);
@@ -157,25 +163,44 @@ export function encodePlan(plan: Plan, maxValue: (affixId: string, tier: number)
   for (const op of plan.forge) {
     w.uint(FORGE_KINDS.indexOf(op.kind));
     w.uint(op.tier ?? 0);
-    // onto Legendary, keep affixes, has a step, step is Gild
-    w.uint((op.ontoLegendary ? 1 : 0) | (op.keep ? 2 : 0) | (op.step ? 4 : 0) | (op.step === 'gild' ? 8 : 0));
+    // onto Legendary, keep affixes, has a step, step is Gild, step is Stitch
+    w.uint(
+      (op.ontoLegendary ? 1 : 0) |
+        (op.keep ? 2 : 0) |
+        (op.step ? 4 : 0) |
+        (op.step === 'gild' ? 8 : 0) |
+        (op.step === 'stitch' ? 16 : 0),
+    );
     w.uint(op.count);
   }
   return w.done();
 }
 
-/** Returns a version 2 plan shape for normalizing; ids are regenerated. */
-export function decodePlan(bytes: Uint8Array, maxValue: (affixId: string, tier: number) => number | null): Plan {
-  const r = new Reader(bytes);
-  const format = r.uint();
-  if (format !== FORMAT) throw new Error(`Unsupported share link format ${format}`);
-  const name = r.str();
-
+function readRelics(r: Reader): Record<string, string> {
   const relics: Record<string, string> = {};
   for (let n = r.uint(); n > 0; n--) {
     const tier = r.uint();
     const id = r.ref('relics');
     if (id) relics[tier] = id;
+  }
+  return relics;
+}
+
+/** Returns a version 3 plan shape for normalizing; ids are regenerated. */
+export function decodePlan(bytes: Uint8Array, maxValue: (affixId: string, tier: number) => number | null): Plan {
+  const r = new Reader(bytes);
+  const format = r.uint();
+  if (format !== 1 && format !== FORMAT) throw new Error(`Unsupported share link format ${format}`);
+  const name = r.str();
+
+  const playthroughs: Plan['playthroughs'] = [];
+  let activePlaythrough = 0;
+  if (format === 1) {
+    playthroughs.push({ relics: readRelics(r), reloaded: null });
+  } else {
+    const count = r.uint();
+    activePlaythrough = r.uint();
+    for (let n = count; n > 0; n--) playthroughs.push({ relics: readRelics(r), reloaded: r.ref('relics') });
   }
 
   const loadoutCount = r.uint();
@@ -226,14 +251,15 @@ export function decodePlan(bytes: Uint8Array, maxValue: (affixId: string, tier: 
       ...(tier ? { tier } : {}),
       ...(flags & 1 ? { ontoLegendary: true } : {}),
       ...(flags & 2 ? { keep: true } : {}),
-      ...(flags & 4 ? { step: flags & 8 ? ('gild' as const) : ('trim' as const) } : {}),
+      ...(flags & 4 ? { step: flags & 16 ? ('stitch' as const) : flags & 8 ? ('gild' as const) : ('trim' as const) } : {}),
     });
   }
 
   return {
-    version: 2,
+    version: 3,
     name,
-    relics,
+    playthroughs,
+    activePlaythrough,
     loadouts,
     activeLoadout: loadouts[activeIndex]?.id ?? loadouts[0]?.id ?? '',
     forge,

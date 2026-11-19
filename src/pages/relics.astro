@@ -4,10 +4,10 @@ import PlanBar from '../components/PlanBar';
 import RelicPlanner from '../components/RelicPlanner';
 ---
 
-<Base title="Relics" description="Pick one relic per tier and see what your path unlocks.">
+<Base title="Relics" description="Pick one relic per tier, across up to three playthroughs.">
   <div class="page-intro">
     <h1>Relic path</h1>
-    <p>Pick one relic per tier. Choose again to clear it. Tiers 5 to 7 are known only from the systems they open.</p>
+    <p>Pick one relic per tier. Choose again to clear it. Plan a prestige to start another playthrough: relics picked in earlier runs are locked.</p>
   </div>
   <PlanBar client:only="react" />
   <RelicPlanner client:only="react">

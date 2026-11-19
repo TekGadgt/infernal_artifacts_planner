@@ -4,7 +4,9 @@ import {
   IMPROVE_TIER_ILVL,
   LEGENDARY_TRANSPLANT_MULTIPLIER,
   OUTFITTER_STEPS,
-  OUTFIT_RESOURCE_POINTS,
+  OUTFIT_PIECE_TOKENS,
+  OUTFIT_RESOURCES,
+  outfitPoints,
   STAMP_EXAMPLE_GEMS,
   TRANSPLANT_COST,
 } from '../data/league';
@@ -48,8 +50,9 @@ function opCost(op: ForgeOp): Cost {
       break;
     case 'outfit': {
       const s = OUTFITTER_STEPS.find((x) => x.id === op.step) ?? OUTFITTER_STEPS[0];
-      c.gems = s.gems + (op.keep ? s.keepGems : 0);
-      c.cores = op.keep ? s.keepCores : 0;
+      // The Stitch Keep cost isn't public, so it adds nothing yet.
+      c.gems = s.gems + (op.keep ? (s.keepGems ?? 0) : 0);
+      c.cores = op.keep ? (s.keepCores ?? 0) : 0;
       c.thread = s.thread;
       c.bars[s.bars.replace(/^\d+\s+/, '')] = Number(s.bars.match(/^\d+/)?.[0] ?? 0);
       c.estimated = true;
@@ -132,6 +135,7 @@ function OpRow({ op, onChange, onRemove }: { op: ForgeOp; onChange: (o: ForgeOp)
             <label className="op__check">
               <input type="checkbox" checked={!!op.keep} onChange={(e) => onChange({ ...op, keep: e.target.checked })} />
               Keep affixes
+              {op.keep && op.step === 'stitch' && <span className="muted"> (Keep cost not revealed)</span>}
             </label>
           </>
         )}
@@ -161,43 +165,64 @@ function OpRow({ op, onChange, onRemove }: { op: ForgeOp; onChange: (o: ForgeOp)
   );
 }
 
+type Step = (typeof OUTFITTER_STEPS)[number]['id'];
+
 function OutfitPoints() {
-  const [step, setStep] = useState<'trim' | 'gild'>('trim');
-  const points = OUTFITTER_STEPS.find((s) => s.id === step)!.points;
+  const [step, setStep] = useState<Step>('trim');
+  const [outfit, setOutfit] = useState(OUTFIT_RESOURCES[0].outfit);
+  const s = OUTFITTER_STEPS.find((x) => x.id === step)!;
+  const [lo, hi] = s.levels;
+  const resources = OUTFIT_RESOURCES.find((o) => o.outfit === outfit)!.resources.filter(([, level]) => level >= lo && level <= hi);
   return (
     <section className="panel forge__ref">
       <h2>Outfit progress bar</h2>
-      <p className="muted">How much of each resource fills the bar for a Smiths tunic. Other outfits may use other resources.</p>
-      <label className="field forge__step">
-        Step
-        <select className="select" value={step} onChange={(e) => setStep(e.target.value as 'trim' | 'gild')}>
-          {OUTFITTER_STEPS.map((s) => (
-            <option key={s.id} value={s.id}>
-              {s.label} ({n(s.points)} points)
-            </option>
-          ))}
-        </select>
-      </label>
+      <p className="muted">
+        Each resource adds its level plus 10 points. {s.label} takes resources of level {lo}
+        {hi === Infinity ? ' and above' : `–${hi}`}. Pieces cost {n(OUTFIT_PIECE_TOKENS)} skilling tokens each.
+      </p>
+      <div className="forge__step">
+        <label className="field">
+          Outfit
+          <select className="select" value={outfit} onChange={(e) => setOutfit(e.target.value)}>
+            {OUTFIT_RESOURCES.map((o) => (
+              <option key={o.outfit}>{o.outfit}</option>
+            ))}
+          </select>
+        </label>
+        <label className="field">
+          Step
+          <select className="select" value={step} onChange={(e) => setStep(e.target.value as Step)}>
+            {OUTFITTER_STEPS.map((x) => (
+              <option key={x.id} value={x.id}>
+                {x.label} ({n(x.points)} points)
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
       <div className="table-wrap">
         <table className="table">
           <thead>
             <tr>
               <th>Resource</th>
+              <th className="num">Level</th>
               <th className="num">Points each</th>
               <th className="num">Needed alone</th>
             </tr>
           </thead>
           <tbody>
-            {OUTFIT_RESOURCE_POINTS.map(([name, each]) => (
+            {resources.map(([name, level]) => (
               <tr key={name}>
                 <td>{name}</td>
-                <td className="num">{each}</td>
-                <td className="num">{n(Math.ceil(points / each))}</td>
+                <td className="num">{level}</td>
+                <td className="num">{outfitPoints(level)}</td>
+                <td className="num">{n(Math.ceil(s.points / outfitPoints(level)))}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      <p className="muted forge__fine">The wiki lists resources for the Smiths, Prospector, and Lumberjack outfits so far.</p>
     </section>
   );
 }
@@ -274,7 +299,7 @@ export default function ForgeCalculator() {
           </dl>
           {total.estimated && (
             <p className="muted crucible__note">
-              Stamp and outfit costs come from one example each (a whip stamp and a Smiths tunic). Real costs may differ.
+              Stamp and outfit costs come from one example each (a whip stamp and a Smiths tunic). Real costs may differ, and the Stitch Keep cost isn't public yet.
             </p>
           )}
         </div>

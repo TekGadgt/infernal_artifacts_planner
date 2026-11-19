@@ -383,6 +383,9 @@
 .summary__over-label {
   color: #ff9b8a;
 }
+.summary__converts {
+  color: var(--brimstone);
+}
 .cat-dot {
   display: inline-block;
   width: 0.5rem;

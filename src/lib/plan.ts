@@ -2,8 +2,9 @@
 
 import { useSyncExternalStore } from 'react';
 import { affixById } from '../data/league';
+import { MAX_PLAYTHROUGHS } from '../data/relics';
 import { decodePlan, encodePlan } from './share-codec';
-import type { LoadoutKind, NamedLoadout, Plan, PlanV1, SoulBrandSlot } from './types';
+import type { LoadoutKind, NamedLoadout, Plan, PlanV1, PlanV2, Playthrough, SoulBrandSlot } from './types';
 
 // The key keeps its v1 name so plans saved before multiple loadouts still load.
 const KEY = 'iapl.plan.v1';
@@ -16,22 +17,25 @@ export function newLoadout(kind: LoadoutKind, name: string, id: string = crypto.
   return { id, name, kind, items: {}, soulBrands: noBrands() };
 }
 
+export const newPlaythrough = (): Playthrough => ({ relics: {}, reloaded: null });
+
 export function emptyPlan(): Plan {
   return {
-    version: 2,
+    version: 3,
     name: 'My league plan',
-    relics: {},
+    playthroughs: [newPlaythrough()],
+    activePlaythrough: 0,
     loadouts: [newLoadout('combat', 'Combat', 'combat'), newLoadout('skilling', 'Skilling', 'skilling')],
     activeLoadout: 'combat',
     forge: [],
   };
 }
 
-function fromV1(p: Partial<PlanV1>): Plan {
+function fromV1(p: Partial<PlanV1>): Partial<PlanV2> {
   const base = emptyPlan();
   const [combat, skilling] = base.loadouts;
   return {
-    ...base,
+    version: 2,
     name: p.name ?? base.name,
     relics: p.relics ?? {},
     loadouts: [
@@ -42,22 +46,36 @@ function fromV1(p: Partial<PlanV1>): Plan {
   };
 }
 
+function fromV2({ relics, ...p }: Partial<PlanV2>): Partial<Plan> {
+  return { ...p, version: 3, playthroughs: [{ relics: relics ?? {}, reloaded: null }], activePlaythrough: 0 };
+}
+
+const isRecord = (v: unknown): v is Record<string, string> => !!v && typeof v === 'object' && !Array.isArray(v);
+
 function normalize(raw: unknown): Plan {
   if (!raw || typeof raw !== 'object') return emptyPlan();
   const version = (raw as { version?: number }).version;
-  if (version === 1) return fromV1(raw as Partial<PlanV1>);
-  if (version !== 2) return emptyPlan();
+  let p = raw as Partial<Plan>;
+  if (version === 1) p = fromV2(fromV1(raw as Partial<PlanV1>));
+  else if (version === 2) p = fromV2(raw as Partial<PlanV2>);
+  else if (version !== 3) return emptyPlan();
 
   const base = emptyPlan();
-  const p = raw as Partial<Plan>;
   const loadouts = (Array.isArray(p.loadouts) ? p.loadouts : [])
     .filter((l) => l && typeof l.id === 'string' && (l.kind === 'combat' || l.kind === 'skilling'))
     .map((l) => ({ ...l, items: l.items ?? {}, soulBrands: { ...noBrands(), ...l.soulBrands } }));
   if (!loadouts.length) loadouts.push(...base.loadouts);
+  const playthroughs = (Array.isArray(p.playthroughs) ? p.playthroughs : [])
+    .slice(0, MAX_PLAYTHROUGHS)
+    .map((t) => ({ relics: isRecord(t?.relics) ? t.relics : {}, reloaded: typeof t?.reloaded === 'string' ? t.reloaded : null }));
+  if (!playthroughs.length) playthroughs.push(newPlaythrough());
+  const active = Number(p.activePlaythrough);
   return {
     ...base,
     ...p,
-    version: 2,
+    version: 3,
+    playthroughs,
+    activePlaythrough: Number.isInteger(active) && active >= 0 && active < playthroughs.length ? active : 0,
     loadouts,
     activeLoadout: loadouts.some((l) => l.id === p.activeLoadout) ? p.activeLoadout! : loadouts[0].id,
     forge: Array.isArray(p.forge) ? p.forge : [],
@@ -168,7 +186,7 @@ export async function importFromHash(): Promise<Plan | null> {
 export function parsePlanFile(text: string): Plan | null {
   try {
     const parsed = JSON.parse(text);
-    return parsed?.version === 1 || parsed?.version === 2 ? normalize(parsed) : null;
+    return [1, 2, 3].includes(parsed?.version) ? normalize(parsed) : null;
   } catch {
     return null;
   }

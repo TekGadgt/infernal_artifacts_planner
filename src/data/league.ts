@@ -90,16 +90,47 @@ export const AWAKENING_COST = {
 // Only one stamp cost is public: Storm-Touched over Hammerdin on an Abyssal whip.
 export const STAMP_EXAMPLE_GEMS = 1100;
 
-// Values shown for a Smiths tunic. Stitch costs are not public yet.
+// Trim and Gild values are shown for a Smiths tunic. The Stitch Keep cost is not public yet.
 export const OUTFITTER_STEPS = [
-  { id: 'trim', label: 'Trim', grade: 'Trimmed (t)', ilvl: 40, points: 2500, bars: '20 Silver bars', thread: 10, gems: 350, keepGems: 1500, keepCores: 60, quality: 40 },
-  { id: 'gild', label: 'Gild', grade: 'Gilded (g)', ilvl: 70, points: 8000, bars: '20 Gold bars', thread: 25, gems: 1000, keepGems: 4500, keepCores: 120, quality: 60 },
+  { id: 'trim', label: 'Trim', grade: 'Trimmed (t)', ilvl: 40, points: 2500, bars: '20 Silver bars', thread: 10, gems: 350, keepGems: 1500, keepCores: 60, quality: 40, levels: [1, 49] },
+  { id: 'gild', label: 'Gild', grade: 'Gilded (g)', ilvl: 70, points: 8000, bars: '20 Gold bars', thread: 25, gems: 1000, keepGems: 4500, keepCores: 120, quality: 60, levels: [40, 79] },
+  { id: 'stitch', label: 'Stitch', grade: 'Demonic stitched (d)', ilvl: 100, points: 20000, bars: '5 Ember silk', thread: 50, gems: 2500, keepGems: null, keepCores: null, quality: 80, levels: [70, Infinity] },
 ] as const;
 
-export const OUTFIT_RESOURCE_POINTS = [
-  ['Copper ore', 11], ['Tin ore', 11], ['Iron ore', 20], ['Silver ore', 20], ['Coal', 30], ['Coal dust', 30],
-  ['Adamantite ore', 40], ['Runite ore', 50], ['Granite dust', 60], ['Luminite flux', 70], ['Luminite ore', 70],
-] as const;
+/** Each resource adds its level plus 10 points to the outfit progress bar. */
+export const outfitPoints = (level: number) => level + 10;
+
+// Resource levels for the outfits the wiki lists so far.
+export const OUTFIT_RESOURCES: { outfit: string; resources: [name: string, level: number][] }[] = [
+  {
+    outfit: 'Smiths',
+    resources: [
+      ['Copper ore', 1], ['Tin ore', 1], ['Iron ore', 10], ['Silver ore', 10], ['Coal', 20], ['Coal dust', 20],
+      ['Gold ore', 20], ['Mithril ore', 20], ['Adamantite ore', 30], ['Runite ore', 40], ['Granite dust', 50],
+      ['Dragon ore', 60], ['Luminite flux', 60], ['Luminite ore', 60], ['Oxi ore', 70], ['Demonite ore', 80],
+      ['Dragonite ore', 80], ['Olympian ore', 80], ['Refined olympian ore', 100], ['Zaryte ore (prestige rank 3)', 105],
+    ],
+  },
+  {
+    outfit: 'Prospector',
+    resources: [
+      ['Copper ore', 1], ['Tin ore', 1], ['Iron ore', 10], ['Silver ore', 10], ['Coal', 20], ['Gold ore', 20],
+      ['Mithril ore', 20], ['Adamantite ore', 30], ['Runite ore', 40], ['Dragon ore', 60], ['Luminite ore', 60],
+      ['Oxi ore', 70], ['Demonite ore', 80], ['Dragonite ore', 80], ['Olympian ore', 80], ['Refined olympian ore', 100],
+      ['Zaryte ore (prestige rank 3)', 105],
+    ],
+  },
+  {
+    outfit: 'Lumberjack',
+    resources: [
+      ['Logs', 1], ['Oak logs', 15], ['Willow logs', 30], ['Teak logs', 35], ['Maple logs', 45], ['Mahogany logs', 50],
+      ['Yew logs', 60], ['Magic logs', 70], ['Olympian logs', 80], ['Redwood logs', 80],
+    ],
+  },
+];
+
+/** Each outfit piece costs this many skilling tokens from the Skilling Token Store. */
+export const OUTFIT_PIECE_TOKENS = 5000;
 
 export const DEMONIC_POWER_CAPS = [
   { item: 'Adamant platebody', ilvl: 35, cap: 'Up to 21% of full strength' },

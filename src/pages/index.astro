@@ -4,11 +4,10 @@ import { LEAGUE_START, RARITIES, affixes, powers } from '../data/league';
 import { RELIC_TIERS } from '../data/relics';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const revealedTiers = RELIC_TIERS.filter((t) => t.relics.length).length;
 const relicCount = RELIC_TIERS.flatMap((t) => t.relics).length;
 
 const planners = [
-  { href: '/relics/', title: 'Relic path', body: `Choose a relic for each of the ${revealedTiers} revealed tiers and see what opens along the way.` },
+  { href: '/relics/', title: 'Relic path', body: `Choose a relic for each of the ${RELIC_TIERS.length} tiers, and plan up to two League Prestiges with the relics each one locks.` },
   { href: '/gear/', title: 'Gear planner', body: 'Plan affixes and Demonic Powers slot by slot, with caps checked across your loadout.' },
   { href: '/forge/', title: 'Forge costs', body: 'Add up the gems, cores, and embers for transplants, awakenings, and outfit upgrades.' },
 ];
@@ -18,12 +17,11 @@ const lookups = [
 ];
 
 const hidden = [
-  'Points needed for Tier 3 and Tier 4',
-  'Pyrrhic Reaver, and the relics for Tier 5 and beyond',
-  'Which tier Fortune belongs to',
   'How Masterwork works',
   'Improve costs beyond one example step',
-  'Stitch costs at the Outfitter’s Bench',
+  'The Keep cost for a Stitch at the Outfitter’s Bench, and resources for most outfits',
+  'Which achievements complete on their own after a League Prestige',
+  'Whether Reloaded can grant a relic that an earlier prestige locked',
   'Which powers each soul-brand slot accepts, and the stamping rules',
   'How a power’s strength percentage maps to its effect',
 ];
@@ -33,7 +31,7 @@ const hidden = [
   <section class="hero">
     <h1 class="hero__title">Infernal Artifacts</h1>
     <p class="hero__lede">
-      {`A planner for August's league of loot, affixes, and demonic powers. ${relicCount} relics, ${affixes.length} affixes, and ${powers.length} powers so far, with more tiers still to come.`}
+      {`A planner for August's league of loot, affixes, and demonic powers. ${relicCount} relics across ${RELIC_TIERS.length} tiers, ${affixes.length} affixes, and ${powers.length} powers.`}
     </p>
     <p class="hero__start" data-start={LEAGUE_START}>
       The league opens <time datetime={LEAGUE_START}>November 19 at 18:00 UTC</time><span class="hero__countdown"></span>.

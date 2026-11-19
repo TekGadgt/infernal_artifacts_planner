@@ -199,7 +199,25 @@ function buildAffixes(text) {
       });
     }
   }
+  for (const affix of affixes) fixedValues(affix.tiers);
   return affixes;
+}
+
+/**
+ * Some middle tiers name one value ("chop 3 extra logs") instead of a range.
+ * Read it through a sibling tier's template so it gets the same {v} slot.
+ */
+function fixedValues(tiers) {
+  const templates = tiers.filter((t) => t.min !== null).map((t) => t.template);
+  for (const t of tiers.filter((t) => t.min === null)) {
+    for (const template of templates) {
+      const pattern = template.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace('\\{v\\}', '(\\d+(?:\\.\\d+)?)');
+      const m = t.text.match(new RegExp(`^${pattern}$`));
+      if (!m) continue;
+      Object.assign(t, { min: Number(m[1]), max: Number(m[1]), template });
+      break;
+    }
+  }
 }
 
 // ---------- powers ----------

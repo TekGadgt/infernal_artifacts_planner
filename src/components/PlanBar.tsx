@@ -5,7 +5,7 @@ import './PlanBar.css';
 
 function hasContent(p: Plan) {
   return (
-    Object.keys(p.relics).length > 0 ||
+    p.playthroughs.some((t) => Object.keys(t.relics).length > 0 || t.reloaded) ||
     p.loadouts.some((l) => Object.keys(l.items).length > 0 || Object.values(l.soulBrands).some(Boolean)) ||
     p.forge.length > 0
   );
@@ -69,7 +69,7 @@ export default function PlanBar() {
   }
 
   function reset() {
-    if (window.confirm('Clear relics, every loadout, and Forge costs from this plan?')) {
+    if (window.confirm('Clear every relic pick, every loadout, and Forge costs from this plan?')) {
       setPlan(emptyPlan());
       setStatus('Plan cleared');
     }

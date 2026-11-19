@@ -12,6 +12,7 @@ import {
   variantById,
 } from '../data/league';
 import { newLoadout, usePlan } from '../lib/plan';
+import { activeRelics } from '../lib/playthroughs';
 import {
   ROMAN,
   TIER_STATUS_TEXT,
@@ -487,9 +488,9 @@ function SoulBrands({
 
 // ---------- summary ----------
 
-function LoadoutSummary({ loadout: named }: { loadout: NamedLoadout }) {
+function LoadoutSummary({ loadout: named, relics }: { loadout: NamedLoadout; relics: ReadonlySet<string> }) {
   const { kind, items: loadout } = named;
-  const totals = loadoutTotals(loadout);
+  const totals = loadoutTotals(loadout, relics);
   const powers = kind === 'combat' ? activePowers(named) : [];
   const issues = loadoutIssues(loadout);
 
@@ -521,9 +522,10 @@ function LoadoutSummary({ loadout: named }: { loadout: NamedLoadout }) {
                     <td className="num">
                       {t.total === null ? describe(t.affix.tiers.at(-1)!, null) : `${fmt(t.total)}${t.unit}`}
                     </td>
-                    <td className="num" title={t.affix.cap.note ?? undefined}>
-                      {t.affix.cap.value === null ? <span className="muted">None</span> : t.affix.cap.text}
+                    <td className="num" title={t.cap.note ?? undefined}>
+                      {t.cap.value === null ? <span className="muted">None</span> : t.cap.text}
                       {t.over && <span className="summary__over-label"> over cap</span>}
+                      {t.converts && <span className="summary__converts"> excess becomes crit damage</span>}
                     </td>
                   </tr>
                 ))}
@@ -550,6 +552,9 @@ function LoadoutSummary({ loadout: named }: { loadout: NamedLoadout }) {
             </ul>
           ) : (
             <p className="muted">Give a Legendary item a power, or pick a soul-brand.</p>
+          )}
+          {relics.has('fiery-fashion') && (
+            <p className="muted">Fiery Fashion: powers on your transmog items also apply. They aren't counted here.</p>
           )}
         </div>
       )}
@@ -744,7 +749,7 @@ export default function GearPlanner() {
         </div>
       </div>
 
-      <LoadoutSummary loadout={active} />
+      <LoadoutSummary loadout={active} relics={activeRelics(plan)} />
     </div>
   );
 }

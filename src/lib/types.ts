@@ -72,7 +72,7 @@ export interface ForgeOp {
   kind: 'transplant' | 'awaken-legendary' | 'awaken-ancient' | 'stamp' | 'outfit';
   tier?: number;
   ontoLegendary?: boolean;
-  step?: 'trim' | 'gild';
+  step?: 'trim' | 'gild' | 'stitch';
   keep?: boolean;
   count: number;
 }
@@ -86,13 +86,28 @@ export interface NamedLoadout {
   soulBrands: Record<SoulBrandSlot, string | null>;
 }
 
-export interface Plan {
-  version: 2;
-  name: string;
+/** One run through the League. League Prestiging allows up to three. */
+export interface Playthrough {
+  /** Relic id per tier. */
   relics: Record<string, string>;
+  /** The extra Tier 1–3 relic that Reloaded grants. */
+  reloaded: string | null;
+}
+
+export interface Plan {
+  version: 3;
+  name: string;
+  playthroughs: Playthrough[];
+  activePlaythrough: number;
   loadouts: NamedLoadout[];
   activeLoadout: string;
   forge: ForgeOp[];
+}
+
+/** The shape saved before League Prestiging. */
+export interface PlanV2 extends Omit<Plan, 'version' | 'playthroughs' | 'activePlaythrough'> {
+  version: 2;
+  relics: Record<string, string>;
 }
 
 /** The shape saved before plans could hold several loadouts. */

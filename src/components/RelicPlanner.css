@@ -5,6 +5,61 @@
   align-items: start;
 }
 
+/* ---------- playthrough tabs ---------- */
+
+.runs {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  border-bottom: 1px solid var(--iron-raised);
+  margin-bottom: -0.5rem;
+}
+.runs__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+.runs__tab {
+  display: grid;
+  justify-items: start;
+  padding: 0.45rem 0.9rem 0.5rem;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  text-align: left;
+  color: var(--cinder);
+  cursor: pointer;
+}
+.runs__tab:hover {
+  color: var(--ash);
+}
+.runs__tab[aria-selected='true'] {
+  color: var(--ash);
+  border-bottom-color: var(--molten);
+}
+.runs__tab-name {
+  font-family: var(--font-display);
+  font-size: var(--t-md);
+  line-height: 1.15;
+}
+.runs__tab-meta {
+  font-size: 0.75rem;
+  color: var(--cinder);
+}
+.runs__tab-warn {
+  color: var(--codex-text);
+}
+.runs__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding-bottom: 0.35rem;
+}
+
 /* Each tier sits deeper, and hotter, than the last. */
 .descent {
   list-style: none;
@@ -71,6 +126,13 @@
 }
 .tier__points {
   color: var(--brimstone);
+}
+.tier__tag {
+  font-size: var(--t-sm);
+  color: var(--cinder);
+}
+.tier__body > .issues {
+  margin: -0.5rem 0 0.75rem;
 }
 
 .tier__relics {
@@ -170,6 +232,86 @@
   opacity: 0.9;
 }
 
+.relic__badge {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--iron-edge);
+  color: var(--cinder);
+}
+.relic--extra {
+  border-style: dashed;
+}
+.relic--extra .relic__badge {
+  border-color: var(--brimstone);
+  color: var(--brimstone);
+}
+.relic--conflict {
+  border-color: var(--codex-text);
+  box-shadow: 0 0 0 1px var(--codex-text);
+}
+.relic--conflict .relic__badge {
+  border-color: var(--codex-text);
+  color: var(--codex-text);
+}
+.relic--locked {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+.relic--locked:hover {
+  border-color: var(--iron-edge);
+}
+.relic--locked .relic__icon {
+  filter: grayscale(1) brightness(0.7);
+}
+
+/* ---------- Reloaded's extra relic ---------- */
+
+.reloaded {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px dashed var(--brimstone);
+  border-radius: var(--radius);
+  background: color-mix(in oklab, var(--soot-deep) 70%, transparent);
+}
+.reloaded__title {
+  margin: 0 0 0.5rem;
+}
+.reloaded__choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.reloaded__note {
+  margin: 0.5rem 0 0;
+  font-size: var(--t-sm);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem 0.25rem 0.35rem;
+  font: inherit;
+  font-size: var(--t-sm);
+  color: var(--ash);
+  background: var(--iron);
+  border: 1px solid var(--iron-edge);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.chip img {
+  border-radius: 50%;
+}
+.chip:hover {
+  border-color: var(--cinder);
+}
+.chip[aria-checked='true'] {
+  border-color: var(--molten);
+  background: color-mix(in oklab, var(--iron) 80%, var(--ember));
+  color: var(--molten-hot);
+}
+
 .tier__extras {
   margin-top: 1rem;
   display: grid;
@@ -235,24 +377,19 @@
   display: grid;
   gap: 0.3rem;
 }
-.unplaced {
-  display: flex;
-  gap: 0.75rem;
-  font-size: var(--t-sm);
+.path-summary__conflict strong {
+  color: var(--codex-text);
 }
-.unplaced img {
-  flex: none;
-  border-radius: var(--radius-sm);
-}
-.unplaced ul {
-  margin: 0.25rem 0 0;
-  padding-left: 1.1rem;
-  color: var(--cinder);
+.path-summary .issues {
+  margin-top: 0.75rem;
 }
 
 @media (max-width: 960px) {
   .relic-planner {
     grid-template-columns: 1fr;
+  }
+  .runs {
+    order: -2;
   }
   .path-summary {
     position: static;
@@ -267,4 +404,9 @@
   .tier__rail {
     display: none;
   }
+}
+
+p.path-summary__notes {
+  display: block;
+  padding-left: 0;
 }

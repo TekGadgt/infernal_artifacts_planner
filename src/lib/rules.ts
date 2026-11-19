@@ -185,8 +185,15 @@ const NON_TOTAL_CAPS = new Set(['juggernaut', 'bulwark']);
 // Caps that include a base chance from the item itself.
 const CAP_BASE: Record<string, number> = { 'expeditious-chance': 25, 'slaughter-chance': 25 };
 
+// Critty City (Tier 7) lowers the crit chance cap and turns the excess into crit damage.
+const CRITTY_CITY_CAP = { value: 50, text: '50% (Critty City)', note: 'Each 1% above 50% becomes +1% critical damage, up to +150%.' };
+
 export interface AffixTotal {
   affix: Affix;
+  /** The cap after relics, which can differ from the affix list. */
+  cap: Affix['cap'];
+  /** Over the cap, but a relic turns the excess into something else. */
+  converts: boolean;
   total: number | null;
   rolls: number;
   /** Rolls per slot, in equipment order of first appearance. */
@@ -195,14 +202,16 @@ export interface AffixTotal {
   unit: string;
 }
 
-export function loadoutTotals(loadout: Loadout): AffixTotal[] {
+export function loadoutTotals(loadout: Loadout, relics: ReadonlySet<string> = new Set()): AffixTotal[] {
   const map = new Map<string, AffixTotal>();
   for (const [slot, item] of Object.entries(loadout) as [Slot, PlannedItem][]) {
     if (loadout.weapon?.twoHanded && slot === 'shield') continue;
     for (const p of item.affixes) {
       const affix = affixById.get(p.affixId);
       if (!affix) continue;
-      const entry = map.get(affix.id) ?? { affix, total: 0, rolls: 0, slots: [], over: false, unit: affix.tiers[0].unit };
+      const entry =
+        map.get(affix.id) ??
+        ({ affix, cap: affix.cap, converts: false, total: 0, rolls: 0, slots: [], over: false, unit: affix.tiers[0].unit } as AffixTotal);
       const v = effectiveValue(p, affix, item, slot);
       entry.total = v === null || entry.total === null ? null : entry.total + v;
       entry.rolls++;
@@ -213,8 +222,13 @@ export function loadoutTotals(loadout: Loadout): AffixTotal[] {
     }
   }
   for (const e of map.values()) {
-    const cap = e.affix.cap.value;
+    if (e.affix.id === 'precise' && relics.has('critty-city')) e.cap = CRITTY_CITY_CAP;
+    const cap = e.cap.value;
     e.over = cap !== null && e.total !== null && !NON_TOTAL_CAPS.has(e.affix.id) && e.total + (CAP_BASE[e.affix.id] ?? 0) > cap;
+    if (e.over && e.cap === CRITTY_CITY_CAP) {
+      e.over = false;
+      e.converts = true;
+    }
   }
   const order: Category[] = ['offence', 'defence', 'utility', 'skilling'];
   return [...map.values()].sort(

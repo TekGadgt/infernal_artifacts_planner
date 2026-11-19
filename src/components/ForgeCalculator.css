@@ -120,6 +120,12 @@
   font-size: var(--t-sm);
 }
 .forge__step {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+}
+.forge__step .field {
+  flex: 1 1 9rem;
   max-width: 14rem;
 }
 

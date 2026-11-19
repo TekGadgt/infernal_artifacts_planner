@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-11-18T04:13:59.026Z",
+  "syncedAt": "2026-11-19T03:36:10.271Z",
   "affixes": [
     {
       "id": "arcane",
@@ -677,7 +677,7 @@
       "cap": {
         "value": null,
         "text": "None",
-        "note": null
+        "note": "With the [[Infernal Artifacts League/Tier 7 Relics#Critty City|Critty City]] relic, critical chance above 50% becomes extra critical damage, up to +150%."
       },
       "tiers": [
         {
@@ -842,7 +842,7 @@
       "cap": {
         "value": 100,
         "text": "100% combined critical chance",
-        "note": "Includes critical chance from every source."
+        "note": "Includes critical chance from every source. With the [[Infernal Artifacts League/Tier 7 Relics#Critty City|Critty City]] relic, the cap is 50%, and each 1% above it becomes +1% critical damage, up to +150%."
       },
       "tiers": [
         {
@@ -3261,8 +3261,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+10.01 to 25% of Runecrafting experience gained as coins",
+          "text": "+10.01 to 17.5% of Runecrafting experience gained as coins",
           "min": 10.01,
+          "max": 17.5,
+          "unit": "%",
+          "template": "+{v}% of Runecrafting experience gained as coins",
+          "ancientMax": 21,
+          "primalMax": 26.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+17.51 to 25% of Runecrafting experience gained as coins",
+          "min": 17.51,
           "max": 25,
           "unit": "%",
           "template": "+{v}% of Runecrafting experience gained as coins",
@@ -3271,8 +3283,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+25.01 to 50% of Runecrafting experience gained as coins",
           "min": 25.01,
           "max": 50,
@@ -3322,8 +3334,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+16.01 to 30% Runecrafting experience at altars",
+          "text": "+16.01 to 23% Runecrafting experience at altars",
           "min": 16.01,
+          "max": 23,
+          "unit": "%",
+          "template": "+{v}% Runecrafting experience at altars",
+          "ancientMax": 27.6,
+          "primalMax": 34.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+23.01 to 30% Runecrafting experience at altars",
+          "min": 23.01,
           "max": 30,
           "unit": "%",
           "template": "+{v}% Runecrafting experience at altars",
@@ -3332,8 +3356,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+30.01 to 50% Runecrafting experience at altars",
           "min": 30.01,
           "max": 50,
@@ -3383,8 +3407,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+18.01 to 36% experience from offering bones at altars",
+          "text": "+18.01 to 27% experience from offering bones at altars",
           "min": 18.01,
+          "max": 27,
+          "unit": "%",
+          "template": "+{v}% experience from offering bones at altars",
+          "ancientMax": 32.4,
+          "primalMax": 40.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+27.01 to 36% experience from offering bones at altars",
+          "min": 27.01,
           "max": 36,
           "unit": "%",
           "template": "+{v}% experience from offering bones at altars",
@@ -3393,8 +3429,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+36.01 to 60% experience from offering bones at altars",
           "min": 36.01,
           "max": 60,
@@ -3444,8 +3480,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+20.01 to 40% chance a multi-bar item uses one bar fewer",
+          "text": "+20.01 to 30% chance a multi-bar item uses one bar fewer",
           "min": 20.01,
+          "max": 30,
+          "unit": "%",
+          "template": "+{v}% chance a multi-bar item uses one bar fewer",
+          "ancientMax": 36,
+          "primalMax": 45,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+30.01 to 40% chance a multi-bar item uses one bar fewer",
+          "min": 30.01,
           "max": 40,
           "unit": "%",
           "template": "+{v}% chance a multi-bar item uses one bar fewer",
@@ -3454,8 +3502,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+40.01 to 60% chance a multi-bar item uses one bar fewer",
           "min": 40.01,
           "max": 60,
@@ -3505,8 +3553,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+5.01 to 10% production experience",
+          "text": "+5.01 to 7.5% production experience",
           "min": 5.01,
+          "max": 7.5,
+          "unit": "%",
+          "template": "+{v}% production experience",
+          "ancientMax": 9,
+          "primalMax": 11.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+7.51 to 10% production experience",
+          "min": 7.51,
           "max": 10,
           "unit": "%",
           "template": "+{v}% production experience",
@@ -3515,8 +3575,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+10.01 to 20% production experience",
           "min": 10.01,
           "max": 20,
@@ -3566,8 +3626,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+16.01 to 30% chance to bank ashes while firemaking",
+          "text": "+16.01 to 23% chance to bank ashes while firemaking",
           "min": 16.01,
+          "max": 23,
+          "unit": "%",
+          "template": "+{v}% chance to bank ashes while firemaking",
+          "ancientMax": 27.6,
+          "primalMax": 34.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+23.01 to 30% chance to bank ashes while firemaking",
+          "min": 23.01,
           "max": 30,
           "unit": "%",
           "template": "+{v}% chance to bank ashes while firemaking",
@@ -3576,8 +3648,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+30.01 to 50% chance to bank ashes while firemaking",
           "min": 30.01,
           "max": 50,
@@ -3627,8 +3699,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+50.01 to 100% experience from scattering ashes",
+          "text": "+50.01 to 75% experience from scattering ashes",
           "min": 50.01,
+          "max": 75,
+          "unit": "%",
+          "template": "+{v}% experience from scattering ashes",
+          "ancientMax": 90,
+          "primalMax": 112.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+75.01 to 100% experience from scattering ashes",
+          "min": 75.01,
           "max": 100,
           "unit": "%",
           "template": "+{v}% experience from scattering ashes",
@@ -3637,8 +3721,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+100.01 to 175% experience from scattering ashes",
           "min": 100.01,
           "max": 175,
@@ -3688,8 +3772,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+3.01 to 6% chance for seeds to grow instantly",
+          "text": "+3.01 to 4.5% chance for seeds to grow instantly",
           "min": 3.01,
+          "max": 4.5,
+          "unit": "%",
+          "template": "+{v}% chance for seeds to grow instantly",
+          "ancientMax": 5.4,
+          "primalMax": 6.75,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+4.51 to 6% chance for seeds to grow instantly",
+          "min": 4.51,
           "max": 6,
           "unit": "%",
           "template": "+{v}% chance for seeds to grow instantly",
@@ -3698,8 +3794,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+6.01 to 10% chance for seeds to grow instantly",
           "min": 6.01,
           "max": 10,
@@ -3749,8 +3845,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+5.01 to 10% chance to save bones at altars",
+          "text": "+5.01 to 7.5% chance to save bones at altars",
           "min": 5.01,
+          "max": 7.5,
+          "unit": "%",
+          "template": "+{v}% chance to save bones at altars",
+          "ancientMax": 9,
+          "primalMax": 11.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+7.51 to 10% chance to save bones at altars",
+          "min": 7.51,
           "max": 10,
           "unit": "%",
           "template": "+{v}% chance to save bones at altars",
@@ -3759,8 +3867,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+10.01 to 15% chance to save bones at altars",
           "min": 10.01,
           "max": 15,
@@ -3810,8 +3918,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+3.01 to 6% chance to bank a Herblore secondary",
+          "text": "+3.01 to 4.5% chance to bank a Herblore secondary",
           "min": 3.01,
+          "max": 4.5,
+          "unit": "%",
+          "template": "+{v}% chance to bank a Herblore secondary",
+          "ancientMax": 5.4,
+          "primalMax": 6.75,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+4.51 to 6% chance to bank a Herblore secondary",
+          "min": 4.51,
           "max": 6,
           "unit": "%",
           "template": "+{v}% chance to bank a Herblore secondary",
@@ -3820,8 +3940,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+6.01 to 10% chance to bank a Herblore secondary",
           "min": 6.01,
           "max": 10,
@@ -3871,8 +3991,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+16.01 to 30% chance to double gathered resources",
+          "text": "+16.01 to 23% chance to double gathered resources",
           "min": 16.01,
+          "max": 23,
+          "unit": "%",
+          "template": "+{v}% chance to double gathered resources",
+          "ancientMax": 27.6,
+          "primalMax": 34.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+23.01 to 30% chance to double gathered resources",
+          "min": 23.01,
           "max": 30,
           "unit": "%",
           "template": "+{v}% chance to double gathered resources",
@@ -3881,8 +4013,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+30.01 to 50% chance to double gathered resources",
           "min": 30.01,
           "max": 50,
@@ -3932,8 +4064,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+2.01 to 4% Imcando geode chance while thieving",
+          "text": "+2.01 to 3% Imcando geode chance while thieving",
           "min": 2.01,
+          "max": 3,
+          "unit": "%",
+          "template": "+{v}% Imcando geode chance while thieving",
+          "ancientMax": 3.6,
+          "primalMax": 4.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+3.01 to 4% Imcando geode chance while thieving",
+          "min": 3.01,
           "max": 4,
           "unit": "%",
           "template": "+{v}% Imcando geode chance while thieving",
@@ -3942,8 +4086,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+4.01 to 6% Imcando geode chance while thieving",
           "min": 4.01,
           "max": 6,
@@ -3993,8 +4137,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+8.01 to 15% chance for an extra tree health check",
+          "text": "+8.01 to 11.5% chance for an extra tree health check",
           "min": 8.01,
+          "max": 11.5,
+          "unit": "%",
+          "template": "+{v}% chance for an extra tree health check",
+          "ancientMax": 13.8,
+          "primalMax": 17.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+11.51 to 15% chance for an extra tree health check",
+          "min": 11.51,
           "max": 15,
           "unit": "%",
           "template": "+{v}% chance for an extra tree health check",
@@ -4003,8 +4159,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+15.01 to 25% chance for an extra tree health check",
           "min": 15.01,
           "max": 25,
@@ -4054,8 +4210,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+3.01 to 6% chance to clean herbs into potions",
+          "text": "+3.01 to 4.5% chance to clean herbs into potions",
           "min": 3.01,
+          "max": 4.5,
+          "unit": "%",
+          "template": "+{v}% chance to clean herbs into potions",
+          "ancientMax": 5.4,
+          "primalMax": 6.75,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+4.51 to 6% chance to clean herbs into potions",
+          "min": 4.51,
           "max": 6,
           "unit": "%",
           "template": "+{v}% chance to clean herbs into potions",
@@ -4064,8 +4232,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+6.01 to 10% chance to clean herbs into potions",
           "min": 6.01,
           "max": 10,
@@ -4115,8 +4283,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "10% chance to mine 3 to 4 extra ores",
+          "text": "10% chance to mine 3 extra ores",
           "min": 3,
+          "max": 3,
+          "unit": "",
+          "template": "10% chance to mine {v} extra ores",
+          "ancientMax": 4,
+          "primalMax": 5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "10% chance to mine 4 extra ores",
+          "min": 4,
           "max": 4,
           "unit": "",
           "template": "10% chance to mine {v} extra ores",
@@ -4125,8 +4305,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "10% chance to mine 5 to 6 extra ores",
           "min": 5,
           "max": 6,
@@ -4176,8 +4356,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+8.01 to 15% chance to process gathered items",
+          "text": "+8.01 to 11.5% chance to process gathered items",
           "min": 8.01,
+          "max": 11.5,
+          "unit": "%",
+          "template": "+{v}% chance to process gathered items",
+          "ancientMax": 13.8,
+          "primalMax": 17.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+11.51 to 15% chance to process gathered items",
+          "min": 11.51,
           "max": 15,
           "unit": "%",
           "template": "+{v}% chance to process gathered items",
@@ -4186,8 +4378,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+15.01 to 25% chance to process gathered items",
           "min": 15.01,
           "max": 25,
@@ -4237,8 +4429,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+25.01 to 50% chance the bonecrusher keeps its charge",
+          "text": "+25.01 to 37.5% chance the bonecrusher keeps its charge",
           "min": 25.01,
+          "max": 37.5,
+          "unit": "%",
+          "template": "+{v}% chance the bonecrusher keeps its charge",
+          "ancientMax": 45,
+          "primalMax": 56.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+37.51 to 50% chance the bonecrusher keeps its charge",
+          "min": 37.51,
           "max": 50,
           "unit": "%",
           "template": "+{v}% chance the bonecrusher keeps its charge",
@@ -4247,8 +4451,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+50.01 to 100% chance the bonecrusher keeps its charge",
           "min": 50.01,
           "max": 100,
@@ -4298,8 +4502,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+12.01 to 24% chance to craft a tick sooner",
+          "text": "+12.01 to 18% chance to craft a tick sooner",
           "min": 12.01,
+          "max": 18,
+          "unit": "%",
+          "template": "+{v}% chance to craft a tick sooner",
+          "ancientMax": 21.6,
+          "primalMax": 27,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+18.01 to 24% chance to craft a tick sooner",
+          "min": 18.01,
           "max": 24,
           "unit": "%",
           "template": "+{v}% chance to craft a tick sooner",
@@ -4308,8 +4524,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+24.01 to 36% chance to craft a tick sooner",
           "min": 24.01,
           "max": 36,
@@ -4359,8 +4575,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+50.01 to 100% experience from burying bones",
+          "text": "+50.01 to 75% experience from burying bones",
           "min": 50.01,
+          "max": 75,
+          "unit": "%",
+          "template": "+{v}% experience from burying bones",
+          "ancientMax": 90,
+          "primalMax": 112.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+75.01 to 100% experience from burying bones",
+          "min": 75.01,
           "max": 100,
           "unit": "%",
           "template": "+{v}% experience from burying bones",
@@ -4369,8 +4597,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+100.01 to 175% experience from burying bones",
           "min": 100.01,
           "max": 175,
@@ -4420,8 +4648,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "10% chance to catch 3 to 4 extra fish",
+          "text": "10% chance to catch 3 extra fish",
           "min": 3,
+          "max": 3,
+          "unit": "",
+          "template": "10% chance to catch {v} extra fish",
+          "ancientMax": 4,
+          "primalMax": 5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "10% chance to catch 4 extra fish",
+          "min": 4,
           "max": 4,
           "unit": "",
           "template": "10% chance to catch {v} extra fish",
@@ -4430,8 +4670,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "10% chance to catch 5 to 6 extra fish",
           "min": 5,
           "max": 6,
@@ -4481,8 +4721,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+15.01 to 30% rune yield",
+          "text": "+15.01 to 22.5% rune yield",
           "min": 15.01,
+          "max": 22.5,
+          "unit": "%",
+          "template": "+{v}% rune yield",
+          "ancientMax": 27,
+          "primalMax": 33.75,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+22.51 to 30% rune yield",
+          "min": 22.51,
           "max": 30,
           "unit": "%",
           "template": "+{v}% rune yield",
@@ -4491,8 +4743,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+30.01 to 60% rune yield",
           "min": 30.01,
           "max": 60,
@@ -4542,8 +4794,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+6.01 to 12% chance an essence is not consumed",
+          "text": "+6.01 to 9% chance an essence is not consumed",
           "min": 6.01,
+          "max": 9,
+          "unit": "%",
+          "template": "+{v}% chance an essence is not consumed",
+          "ancientMax": 10.8,
+          "primalMax": 13.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+9.01 to 12% chance an essence is not consumed",
+          "min": 9.01,
           "max": 12,
           "unit": "%",
           "template": "+{v}% chance an essence is not consumed",
@@ -4552,8 +4816,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+12.01 to 20% chance an essence is not consumed",
           "min": 12.01,
           "max": 20,
@@ -4603,8 +4867,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+6.01 to 12% chance a log is not consumed",
+          "text": "+6.01 to 9% chance a log is not consumed",
           "min": 6.01,
+          "max": 9,
+          "unit": "%",
+          "template": "+{v}% chance a log is not consumed",
+          "ancientMax": 10.8,
+          "primalMax": 13.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+9.01 to 12% chance a log is not consumed",
+          "min": 9.01,
           "max": 12,
           "unit": "%",
           "template": "+{v}% chance a log is not consumed",
@@ -4613,8 +4889,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+12.01 to 20% chance a log is not consumed",
           "min": 12.01,
           "max": 20,
@@ -4664,8 +4940,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+5.01 to 10% chance to also get forge dust",
+          "text": "+5.01 to 7.5% chance to also get forge dust",
           "min": 5.01,
+          "max": 7.5,
+          "unit": "%",
+          "template": "+{v}% chance to also get forge dust",
+          "ancientMax": 9,
+          "primalMax": 11.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+7.51 to 10% chance to also get forge dust",
+          "min": 7.51,
           "max": 10,
           "unit": "%",
           "template": "+{v}% chance to also get forge dust",
@@ -4674,8 +4962,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+10.01 to 15% chance to also get forge dust",
           "min": 10.01,
           "max": 15,
@@ -4725,8 +5013,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+10.01 to 20% chance a potion comes out four-dose",
+          "text": "+10.01 to 15% chance a potion comes out four-dose",
           "min": 10.01,
+          "max": 15,
+          "unit": "%",
+          "template": "+{v}% chance a potion comes out four-dose",
+          "ancientMax": 18,
+          "primalMax": 22.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+15.01 to 20% chance a potion comes out four-dose",
+          "min": 15.01,
           "max": 20,
           "unit": "%",
           "template": "+{v}% chance a potion comes out four-dose",
@@ -4735,8 +5035,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+20.01 to 30% chance a potion comes out four-dose",
           "min": 20.01,
           "max": 30,
@@ -4786,8 +5086,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+20.01 to 35% chance not to use ammo tips",
+          "text": "+20.01 to 27.5% chance not to use ammo tips",
           "min": 20.01,
+          "max": 27.5,
+          "unit": "%",
+          "template": "+{v}% chance not to use ammo tips",
+          "ancientMax": 33,
+          "primalMax": 41.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+27.51 to 35% chance not to use ammo tips",
+          "min": 27.51,
           "max": 35,
           "unit": "%",
           "template": "+{v}% chance not to use ammo tips",
@@ -4796,8 +5108,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+35.01 to 50% chance not to use ammo tips",
           "min": 35.01,
           "max": 50,
@@ -4847,8 +5159,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+5.01 to 10% more coins from thieving",
+          "text": "+5.01 to 7.5% more coins from thieving",
           "min": 5.01,
+          "max": 7.5,
+          "unit": "%",
+          "template": "+{v}% more coins from thieving",
+          "ancientMax": 9,
+          "primalMax": 11.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+7.51 to 10% more coins from thieving",
+          "min": 7.51,
           "max": 10,
           "unit": "%",
           "template": "+{v}% more coins from thieving",
@@ -4857,8 +5181,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+10.01 to 15% more coins from thieving",
           "min": 10.01,
           "max": 15,
@@ -4908,8 +5232,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+3.01 to 6% chance to finish potions instantly",
+          "text": "+3.01 to 4.5% chance to finish potions instantly",
           "min": 3.01,
+          "max": 4.5,
+          "unit": "%",
+          "template": "+{v}% chance to finish potions instantly",
+          "ancientMax": 5.4,
+          "primalMax": 6.75,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+4.51 to 6% chance to finish potions instantly",
+          "min": 4.51,
           "max": 6,
           "unit": "%",
           "template": "+{v}% chance to finish potions instantly",
@@ -4918,8 +5254,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+6.01 to 10% chance to finish potions instantly",
           "min": 6.01,
           "max": 10,
@@ -4969,8 +5305,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+25.01 to 50% more logs burnt at once",
+          "text": "+25.01 to 37.5% more logs burnt at once",
           "min": 25.01,
+          "max": 37.5,
+          "unit": "%",
+          "template": "+{v}% more logs burnt at once",
+          "ancientMax": 45,
+          "primalMax": 56.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+37.51 to 50% more logs burnt at once",
+          "min": 37.51,
           "max": 50,
           "unit": "%",
           "template": "+{v}% more logs burnt at once",
@@ -4979,8 +5327,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+50.01 to 100% more logs burnt at once",
           "min": 50.01,
           "max": 100,
@@ -5067,8 +5415,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+5.01 to 10% chance to also get melt materials from fletched items",
+          "text": "+5.01 to 7.5% chance to also get melt materials from fletched items",
           "min": 5.01,
+          "max": 7.5,
+          "unit": "%",
+          "template": "+{v}% chance to also get melt materials from fletched items",
+          "ancientMax": 9,
+          "primalMax": 11.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+7.51 to 10% chance to also get melt materials from fletched items",
+          "min": 7.51,
           "max": 10,
           "unit": "%",
           "template": "+{v}% chance to also get melt materials from fletched items",
@@ -5077,8 +5437,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+10.01 to 15% chance to also get melt materials from fletched items",
           "min": 10.01,
           "max": 15,
@@ -5128,8 +5488,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+5.01 to 10% chance to also get a made item's forge materials",
+          "text": "+5.01 to 7.5% chance to also get a made item's forge materials",
           "min": 5.01,
+          "max": 7.5,
+          "unit": "%",
+          "template": "+{v}% chance to also get a made item's forge materials",
+          "ancientMax": 9,
+          "primalMax": 11.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+7.51 to 10% chance to also get a made item's forge materials",
+          "min": 7.51,
           "max": 10,
           "unit": "%",
           "template": "+{v}% chance to also get a made item's forge materials",
@@ -5138,8 +5510,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+10.01 to 15% chance to also get a made item's forge materials",
           "min": 10.01,
           "max": 15,
@@ -5189,8 +5561,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+1.61 to 3% chance to save production materials",
+          "text": "+1.61 to 2.3% chance to save production materials",
           "min": 1.61,
+          "max": 2.3,
+          "unit": "%",
+          "template": "+{v}% chance to save production materials",
+          "ancientMax": 2.76,
+          "primalMax": 3.45,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+2.31 to 3% chance to save production materials",
+          "min": 2.31,
           "max": 3,
           "unit": "%",
           "template": "+{v}% chance to save production materials",
@@ -5199,8 +5583,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+3.01 to 5% chance to save production materials",
           "min": 3.01,
           "max": 5,
@@ -5250,8 +5634,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+5.01 to 10% more upgrade gems from thieving",
+          "text": "+5.01 to 7.5% more upgrade gems from thieving",
           "min": 5.01,
+          "max": 7.5,
+          "unit": "%",
+          "template": "+{v}% more upgrade gems from thieving",
+          "ancientMax": 9,
+          "primalMax": 11.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+7.51 to 10% more upgrade gems from thieving",
+          "min": 7.51,
           "max": 10,
           "unit": "%",
           "template": "+{v}% more upgrade gems from thieving",
@@ -5260,8 +5656,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+10.01 to 15% more upgrade gems from thieving",
           "min": 10.01,
           "max": 15,
@@ -5311,8 +5707,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+8.01 to 15% chance to bank an uncut gem while mining",
+          "text": "+8.01 to 11.5% chance to bank an uncut gem while mining",
           "min": 8.01,
+          "max": 11.5,
+          "unit": "%",
+          "template": "+{v}% chance to bank an uncut gem while mining",
+          "ancientMax": 13.8,
+          "primalMax": 17.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+11.51 to 15% chance to bank an uncut gem while mining",
+          "min": 11.51,
           "max": 15,
           "unit": "%",
           "template": "+{v}% chance to bank an uncut gem while mining",
@@ -5321,8 +5729,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+15.01 to 25% chance to bank an uncut gem while mining",
           "min": 15.01,
           "max": 25,
@@ -5372,8 +5780,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+125.01 to 250% experience from smelting gold",
+          "text": "+125.01 to 187.5% experience from smelting gold",
           "min": 125.01,
+          "max": 187.5,
+          "unit": "%",
+          "template": "+{v}% experience from smelting gold",
+          "ancientMax": 225,
+          "primalMax": 281.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+187.51 to 250% experience from smelting gold",
+          "min": 187.51,
           "max": 250,
           "unit": "%",
           "template": "+{v}% experience from smelting gold",
@@ -5382,8 +5802,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+250.01 to 500% experience from smelting gold",
           "min": 250.01,
           "max": 500,
@@ -5433,8 +5853,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+20.01 to 40% chance to keep the seed when planting",
+          "text": "+20.01 to 30% chance to keep the seed when planting",
           "min": 20.01,
+          "max": 30,
+          "unit": "%",
+          "template": "+{v}% chance to keep the seed when planting",
+          "ancientMax": 36,
+          "primalMax": 45,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+30.01 to 40% chance to keep the seed when planting",
+          "min": 30.01,
           "max": 40,
           "unit": "%",
           "template": "+{v}% chance to keep the seed when planting",
@@ -5443,8 +5875,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+40.01 to 60% chance to keep the seed when planting",
           "min": 40.01,
           "max": 60,
@@ -5494,8 +5926,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "Clean 3 to 4 extra herbs at once",
+          "text": "Clean 3 extra herbs at once",
           "min": 3,
+          "max": 3,
+          "unit": "",
+          "template": "Clean {v} extra herbs at once",
+          "ancientMax": 4,
+          "primalMax": 5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "Clean 4 extra herbs at once",
+          "min": 4,
           "max": 4,
           "unit": "",
           "template": "Clean {v} extra herbs at once",
@@ -5504,8 +5948,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "Clean 5 to 6 extra herbs at once",
           "min": 5,
           "max": 6,
@@ -5555,8 +5999,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+0.26 to 0.5% chance to find a crystal key",
+          "text": "+0.26 to 0.38% chance to find a crystal key",
           "min": 0.26,
+          "max": 0.38,
+          "unit": "%",
+          "template": "+{v}% chance to find a crystal key",
+          "ancientMax": 0.45,
+          "primalMax": 0.57,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+0.39 to 0.5% chance to find a crystal key",
+          "min": 0.39,
           "max": 0.5,
           "unit": "%",
           "template": "+{v}% chance to find a crystal key",
@@ -5565,8 +6021,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+0.51 to 1% chance to find a crystal key",
           "min": 0.51,
           "max": 1,
@@ -5616,8 +6072,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+5.01 to 10% chance chopped logs burn at once for Firemaking experience",
+          "text": "+5.01 to 7.5% chance chopped logs burn at once for Firemaking experience",
           "min": 5.01,
+          "max": 7.5,
+          "unit": "%",
+          "template": "+{v}% chance chopped logs burn at once for Firemaking experience",
+          "ancientMax": 9,
+          "primalMax": 11.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+7.51 to 10% chance chopped logs burn at once for Firemaking experience",
+          "min": 7.51,
           "max": 10,
           "unit": "%",
           "template": "+{v}% chance chopped logs burn at once for Firemaking experience",
@@ -5626,8 +6094,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+10.01 to 15% chance chopped logs burn at once for Firemaking experience",
           "min": 10.01,
           "max": 15,
@@ -5677,8 +6145,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+10.01 to 20% chance to save the coal dust and luminite flux in a recipe",
+          "text": "+10.01 to 15% chance to save the coal dust and luminite flux in a recipe",
           "min": 10.01,
+          "max": 15,
+          "unit": "%",
+          "template": "+{v}% chance to save the coal dust and luminite flux in a recipe",
+          "ancientMax": 18,
+          "primalMax": 22.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+15.01 to 20% chance to save the coal dust and luminite flux in a recipe",
+          "min": 15.01,
           "max": 20,
           "unit": "%",
           "template": "+{v}% chance to save the coal dust and luminite flux in a recipe",
@@ -5687,8 +6167,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+20.01 to 35% chance to save the coal dust and luminite flux in a recipe",
           "min": 20.01,
           "max": 35,
@@ -5738,8 +6218,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+20.01 to 35% chance to shrug off a failed pickpocket's stun",
+          "text": "+20.01 to 27.5% chance to shrug off a failed pickpocket's stun",
           "min": 20.01,
+          "max": 27.5,
+          "unit": "%",
+          "template": "+{v}% chance to shrug off a failed pickpocket's stun",
+          "ancientMax": 33,
+          "primalMax": 41.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+27.51 to 35% chance to shrug off a failed pickpocket's stun",
+          "min": 27.51,
           "max": 35,
           "unit": "%",
           "template": "+{v}% chance to shrug off a failed pickpocket's stun",
@@ -5748,8 +6240,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+35.01 to 50% chance to shrug off a failed pickpocket's stun",
           "min": 35.01,
           "max": 50,
@@ -5799,8 +6291,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+0.13 to 0.25% chance to fish up a clue casket",
+          "text": "+0.13 to 0.19% chance to fish up a clue casket",
           "min": 0.13,
+          "max": 0.19,
+          "unit": "%",
+          "template": "+{v}% chance to fish up a clue casket",
+          "ancientMax": 0.22,
+          "primalMax": 0.28,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+0.2 to 0.25% chance to fish up a clue casket",
+          "min": 0.2,
           "max": 0.25,
           "unit": "%",
           "template": "+{v}% chance to fish up a clue casket",
@@ -5809,8 +6313,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+0.26 to 0.5% chance to fish up a clue casket",
           "min": 0.26,
           "max": 0.5,
@@ -5860,8 +6364,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+12.51 to 25% clue nest chance",
+          "text": "+12.51 to 18.75% clue nest chance",
           "min": 12.51,
+          "max": 18.75,
+          "unit": "%",
+          "template": "+{v}% clue nest chance",
+          "ancientMax": 22.5,
+          "primalMax": 28.12,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+18.76 to 25% clue nest chance",
+          "min": 18.76,
           "max": 25,
           "unit": "%",
           "template": "+{v}% clue nest chance",
@@ -5870,8 +6386,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+25.01 to 50% clue nest chance",
           "min": 25.01,
           "max": 50,
@@ -5921,8 +6437,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+8.01 to 15% chance to bank gems while chopping",
+          "text": "+8.01 to 11.5% chance to bank gems while chopping",
           "min": 8.01,
+          "max": 11.5,
+          "unit": "%",
+          "template": "+{v}% chance to bank gems while chopping",
+          "ancientMax": 13.8,
+          "primalMax": 17.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+11.51 to 15% chance to bank gems while chopping",
+          "min": 11.51,
           "max": 15,
           "unit": "%",
           "template": "+{v}% chance to bank gems while chopping",
@@ -5931,8 +6459,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+15.01 to 25% chance to bank gems while chopping",
           "min": 15.01,
           "max": 25,
@@ -6019,8 +6547,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+4.01 to 7.5% chance to double production output",
+          "text": "+4.01 to 5.75% chance to double production output",
           "min": 4.01,
+          "max": 5.75,
+          "unit": "%",
+          "template": "+{v}% chance to double production output",
+          "ancientMax": 6.9,
+          "primalMax": 8.62,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+5.76 to 7.5% chance to double production output",
+          "min": 5.76,
           "max": 7.5,
           "unit": "%",
           "template": "+{v}% chance to double production output",
@@ -6029,8 +6569,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+7.51 to 12.5% chance to double production output",
           "min": 7.51,
           "max": 12.5,
@@ -6080,8 +6620,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+12.51 to 25% clue bottle chance",
+          "text": "+12.51 to 18.75% clue bottle chance",
           "min": 12.51,
+          "max": 18.75,
+          "unit": "%",
+          "template": "+{v}% clue bottle chance",
+          "ancientMax": 22.5,
+          "primalMax": 28.12,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+18.76 to 25% clue bottle chance",
+          "min": 18.76,
           "max": 25,
           "unit": "%",
           "template": "+{v}% clue bottle chance",
@@ -6090,8 +6642,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+25.01 to 50% clue bottle chance",
           "min": 25.01,
           "max": 50,
@@ -6178,8 +6730,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+5.01 to 10% chance to skip the Hespori fight",
+          "text": "+5.01 to 7.5% chance to skip the Hespori fight",
           "min": 5.01,
+          "max": 7.5,
+          "unit": "%",
+          "template": "+{v}% chance to skip the Hespori fight",
+          "ancientMax": 9,
+          "primalMax": 11.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+7.51 to 10% chance to skip the Hespori fight",
+          "min": 7.51,
           "max": 10,
           "unit": "%",
           "template": "+{v}% chance to skip the Hespori fight",
@@ -6188,8 +6752,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+10.01 to 17.5% chance to skip the Hespori fight",
           "min": 10.01,
           "max": 17.5,
@@ -6239,8 +6803,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+1.51 to 3% chance for a 50-bar bonus while smithing",
+          "text": "+1.51 to 2.25% chance for a 50-bar bonus while smithing",
           "min": 1.51,
+          "max": 2.25,
+          "unit": "%",
+          "template": "+{v}% chance for a 50-bar bonus while smithing",
+          "ancientMax": 2.7,
+          "primalMax": 3.37,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+2.26 to 3% chance for a 50-bar bonus while smithing",
+          "min": 2.26,
           "max": 3,
           "unit": "%",
           "template": "+{v}% chance for a 50-bar bonus while smithing",
@@ -6249,8 +6825,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+3.01 to 4.5% chance for a 50-bar bonus while smithing",
           "min": 3.01,
           "max": 4.5,
@@ -6300,8 +6876,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+20.01 to 40% harvest yield",
+          "text": "+20.01 to 30% harvest yield",
           "min": 20.01,
+          "max": 30,
+          "unit": "%",
+          "template": "+{v}% harvest yield",
+          "ancientMax": 36,
+          "primalMax": 45,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+30.01 to 40% harvest yield",
+          "min": 30.01,
           "max": 40,
           "unit": "%",
           "template": "+{v}% harvest yield",
@@ -6310,8 +6898,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+40.01 to 60% harvest yield",
           "min": 40.01,
           "max": 60,
@@ -6361,8 +6949,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+1.01 to 2% Imcando geode chance while fletching",
+          "text": "+1.01 to 1.5% Imcando geode chance while fletching",
           "min": 1.01,
+          "max": 1.5,
+          "unit": "%",
+          "template": "+{v}% Imcando geode chance while fletching",
+          "ancientMax": 1.8,
+          "primalMax": 2.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+1.51 to 2% Imcando geode chance while fletching",
+          "min": 1.51,
           "max": 2,
           "unit": "%",
           "template": "+{v}% Imcando geode chance while fletching",
@@ -6371,8 +6971,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+2.01 to 3% Imcando geode chance while fletching",
           "min": 2.01,
           "max": 3,
@@ -6422,8 +7022,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+1.01 to 2% Imcando geode chance while smithing",
+          "text": "+1.01 to 1.5% Imcando geode chance while smithing",
           "min": 1.01,
+          "max": 1.5,
+          "unit": "%",
+          "template": "+{v}% Imcando geode chance while smithing",
+          "ancientMax": 1.8,
+          "primalMax": 2.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+1.51 to 2% Imcando geode chance while smithing",
+          "min": 1.51,
           "max": 2,
           "unit": "%",
           "template": "+{v}% Imcando geode chance while smithing",
@@ -6432,8 +7044,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+2.01 to 3% Imcando geode chance while smithing",
           "min": 2.01,
           "max": 3,
@@ -6483,8 +7095,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "Restore 3 to 4 Prayer per buried bone",
+          "text": "Restore 3 Prayer per buried bone",
           "min": 3,
+          "max": 3,
+          "unit": "",
+          "template": "Restore {v} Prayer per buried bone",
+          "ancientMax": 4,
+          "primalMax": 5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "Restore 4 Prayer per buried bone",
+          "min": 4,
           "max": 4,
           "unit": "",
           "template": "Restore {v} Prayer per buried bone",
@@ -6493,8 +7117,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "Restore 5 to 6 Prayer per buried bone",
           "min": 5,
           "max": 6,
@@ -6544,8 +7168,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+8.01 to 15% Firemaking experience",
+          "text": "+8.01 to 11.5% Firemaking experience",
           "min": 8.01,
+          "max": 11.5,
+          "unit": "%",
+          "template": "+{v}% Firemaking experience",
+          "ancientMax": 13.8,
+          "primalMax": 17.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+11.51 to 15% Firemaking experience",
+          "min": 11.51,
           "max": 15,
           "unit": "%",
           "template": "+{v}% Firemaking experience",
@@ -6554,8 +7190,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+15.01 to 25% Firemaking experience",
           "min": 15.01,
           "max": 25,
@@ -6605,8 +7241,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+20.01 to 40% more ammunition per set, with the experience for the extra",
+          "text": "+20.01 to 30% more ammunition per set, with the experience for the extra",
           "min": 20.01,
+          "max": 30,
+          "unit": "%",
+          "template": "+{v}% more ammunition per set, with the experience for the extra",
+          "ancientMax": 36,
+          "primalMax": 45,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+30.01 to 40% more ammunition per set, with the experience for the extra",
+          "min": 30.01,
           "max": 40,
           "unit": "%",
           "template": "+{v}% more ammunition per set, with the experience for the extra",
@@ -6615,8 +7263,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+40.01 to 60% more ammunition per set, with the experience for the extra",
           "min": 40.01,
           "max": 60,
@@ -6666,8 +7314,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+5.01 to 10% chance to catch the next fish up",
+          "text": "+5.01 to 7.5% chance to catch the next fish up",
           "min": 5.01,
+          "max": 7.5,
+          "unit": "%",
+          "template": "+{v}% chance to catch the next fish up",
+          "ancientMax": 9,
+          "primalMax": 11.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+7.51 to 10% chance to catch the next fish up",
+          "min": 7.51,
           "max": 10,
           "unit": "%",
           "template": "+{v}% chance to catch the next fish up",
@@ -6676,8 +7336,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+10.01 to 15% chance to catch the next fish up",
           "min": 10.01,
           "max": 15,
@@ -6727,8 +7387,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+1.01 to 2% chance for a potion per log burnt",
+          "text": "+1.01 to 1.5% chance for a potion per log burnt",
           "min": 1.01,
+          "max": 1.5,
+          "unit": "%",
+          "template": "+{v}% chance for a potion per log burnt",
+          "ancientMax": 1.8,
+          "primalMax": 2.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+1.51 to 2% chance for a potion per log burnt",
+          "min": 1.51,
           "max": 2,
           "unit": "%",
           "template": "+{v}% chance for a potion per log burnt",
@@ -6737,8 +7409,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+2.01 to 3% chance for a potion per log burnt",
           "min": 2.01,
           "max": 3,
@@ -6825,8 +7497,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+3.01 to 6% chance to get a seed back on harvest",
+          "text": "+3.01 to 4.5% chance to get a seed back on harvest",
           "min": 3.01,
+          "max": 4.5,
+          "unit": "%",
+          "template": "+{v}% chance to get a seed back on harvest",
+          "ancientMax": 5.4,
+          "primalMax": 6.75,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+4.51 to 6% chance to get a seed back on harvest",
+          "min": 4.51,
           "max": 6,
           "unit": "%",
           "template": "+{v}% chance to get a seed back on harvest",
@@ -6835,8 +7519,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+6.01 to 10% chance to get a seed back on harvest",
           "min": 6.01,
           "max": 10,
@@ -6886,8 +7570,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+15.01 to 30% chance a rock does not deplete",
+          "text": "+15.01 to 22.5% chance a rock does not deplete",
           "min": 15.01,
+          "max": 22.5,
+          "unit": "%",
+          "template": "+{v}% chance a rock does not deplete",
+          "ancientMax": 27,
+          "primalMax": 33.75,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+22.51 to 30% chance a rock does not deplete",
+          "min": 22.51,
           "max": 30,
           "unit": "%",
           "template": "+{v}% chance a rock does not deplete",
@@ -6896,8 +7592,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+30.01 to 50% chance a rock does not deplete",
           "min": 30.01,
           "max": 50,
@@ -6947,8 +7643,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+25.01 to 50% more arrow shafts and headless arrows",
+          "text": "+25.01 to 37.5% more arrow shafts and headless arrows",
           "min": 25.01,
+          "max": 37.5,
+          "unit": "%",
+          "template": "+{v}% more arrow shafts and headless arrows",
+          "ancientMax": 45,
+          "primalMax": 56.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+37.51 to 50% more arrow shafts and headless arrows",
+          "min": 37.51,
           "max": 50,
           "unit": "%",
           "template": "+{v}% more arrow shafts and headless arrows",
@@ -6957,8 +7665,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+50.01 to 100% more arrow shafts and headless arrows",
           "min": 50.01,
           "max": 100,
@@ -7008,8 +7716,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+18.01 to 36% thieving success chance",
+          "text": "+18.01 to 27% thieving success chance",
           "min": 18.01,
+          "max": 27,
+          "unit": "%",
+          "template": "+{v}% thieving success chance",
+          "ancientMax": 32.4,
+          "primalMax": 40.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+27.01 to 36% thieving success chance",
+          "min": 27.01,
           "max": 36,
           "unit": "%",
           "template": "+{v}% thieving success chance",
@@ -7018,8 +7738,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+36.01 to 60% thieving success chance",
           "min": 36.01,
           "max": 60,
@@ -7069,8 +7789,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+8.01 to 15% chance to double thieving loot",
+          "text": "+8.01 to 11.5% chance to double thieving loot",
           "min": 8.01,
+          "max": 11.5,
+          "unit": "%",
+          "template": "+{v}% chance to double thieving loot",
+          "ancientMax": 13.8,
+          "primalMax": 17.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+11.51 to 15% chance to double thieving loot",
+          "min": 11.51,
           "max": 15,
           "unit": "%",
           "template": "+{v}% chance to double thieving loot",
@@ -7079,8 +7811,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+15.01 to 25% chance to double thieving loot",
           "min": 15.01,
           "max": 25,
@@ -7130,8 +7862,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+1.01 to 2% chance to bank a tree seed",
+          "text": "+1.01 to 1.5% chance to bank a tree seed",
           "min": 1.01,
+          "max": 1.5,
+          "unit": "%",
+          "template": "+{v}% chance to bank a tree seed",
+          "ancientMax": 1.8,
+          "primalMax": 2.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+1.51 to 2% chance to bank a tree seed",
+          "min": 1.51,
           "max": 2,
           "unit": "%",
           "template": "+{v}% chance to bank a tree seed",
@@ -7140,8 +7884,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+2.01 to 4% chance to bank a tree seed",
           "min": 2.01,
           "max": 4,
@@ -7191,8 +7935,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+5.01 to 10% Warding experience",
+          "text": "+5.01 to 7.5% Warding experience",
           "min": 5.01,
+          "max": 7.5,
+          "unit": "%",
+          "template": "+{v}% Warding experience",
+          "ancientMax": 9,
+          "primalMax": 11.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+7.51 to 10% Warding experience",
+          "min": 7.51,
           "max": 10,
           "unit": "%",
           "template": "+{v}% Warding experience",
@@ -7201,8 +7957,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+10.01 to 20% Warding experience",
           "min": 10.01,
           "max": 20,
@@ -7252,8 +8008,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+10.01 to 20% chance to keep the secondary ingredient",
+          "text": "+10.01 to 15% chance to keep the secondary ingredient",
           "min": 10.01,
+          "max": 15,
+          "unit": "%",
+          "template": "+{v}% chance to keep the secondary ingredient",
+          "ancientMax": 18,
+          "primalMax": 22.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+15.01 to 20% chance to keep the secondary ingredient",
+          "min": 15.01,
           "max": 20,
           "unit": "%",
           "template": "+{v}% chance to keep the secondary ingredient",
@@ -7262,8 +8030,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+20.01 to 30% chance to keep the secondary ingredient",
           "min": 20.01,
           "max": 30,
@@ -7313,8 +8081,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+18.01 to 36% chance for each swing to succeed",
+          "text": "+18.01 to 27% chance for each swing to succeed",
           "min": 18.01,
+          "max": 27,
+          "unit": "%",
+          "template": "+{v}% chance for each swing to succeed",
+          "ancientMax": 32.4,
+          "primalMax": 40.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+27.01 to 36% chance for each swing to succeed",
+          "min": 27.01,
           "max": 36,
           "unit": "%",
           "template": "+{v}% chance for each swing to succeed",
@@ -7323,8 +8103,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+36.01 to 60% chance for each swing to succeed",
           "min": 36.01,
           "max": 60,
@@ -7374,8 +8154,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+100.01 to 200% longer pickpocketing auto-repeat",
+          "text": "+100.01 to 150% longer pickpocketing auto-repeat",
           "min": 100.01,
+          "max": 150,
+          "unit": "%",
+          "template": "+{v}% longer pickpocketing auto-repeat",
+          "ancientMax": 180,
+          "primalMax": 225,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+150.01 to 200% longer pickpocketing auto-repeat",
+          "min": 150.01,
           "max": 200,
           "unit": "%",
           "template": "+{v}% longer pickpocketing auto-repeat",
@@ -7384,8 +8176,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+200.01 to 400% longer pickpocketing auto-repeat",
           "min": 200.01,
           "max": 400,
@@ -7435,8 +8227,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+12.51 to 25% clue geode chance",
+          "text": "+12.51 to 18.75% clue geode chance",
           "min": 12.51,
+          "max": 18.75,
+          "unit": "%",
+          "template": "+{v}% clue geode chance",
+          "ancientMax": 22.5,
+          "primalMax": 28.12,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+18.76 to 25% clue geode chance",
+          "min": 18.76,
           "max": 25,
           "unit": "%",
           "template": "+{v}% clue geode chance",
@@ -7445,8 +8249,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+25.01 to 50% clue geode chance",
           "min": 25.01,
           "max": 50,
@@ -7496,8 +8300,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+25.01 to 50% more bones offered at once",
+          "text": "+25.01 to 37.5% more bones offered at once",
           "min": 25.01,
+          "max": 37.5,
+          "unit": "%",
+          "template": "+{v}% more bones offered at once",
+          "ancientMax": 45,
+          "primalMax": 56.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+37.51 to 50% more bones offered at once",
+          "min": 37.51,
           "max": 50,
           "unit": "%",
           "template": "+{v}% more bones offered at once",
@@ -7506,8 +8322,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+50.01 to 100% more bones offered at once",
           "min": 50.01,
           "max": 100,
@@ -7675,8 +8491,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+20.01 to 40% chance to gather a tick sooner",
+          "text": "+20.01 to 30% chance to gather a tick sooner",
           "min": 20.01,
+          "max": 30,
+          "unit": "%",
+          "template": "+{v}% chance to gather a tick sooner",
+          "ancientMax": 36,
+          "primalMax": 45,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+30.01 to 40% chance to gather a tick sooner",
+          "min": 30.01,
           "max": 40,
           "unit": "%",
           "template": "+{v}% chance to gather a tick sooner",
@@ -7685,8 +8513,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+40.01 to 60% chance to gather a tick sooner",
           "min": 40.01,
           "max": 60,
@@ -7736,8 +8564,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+10.01 to 20% chance to keep the bowstring",
+          "text": "+10.01 to 15% chance to keep the bowstring",
           "min": 10.01,
+          "max": 15,
+          "unit": "%",
+          "template": "+{v}% chance to keep the bowstring",
+          "ancientMax": 18,
+          "primalMax": 22.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+15.01 to 20% chance to keep the bowstring",
+          "min": 15.01,
           "max": 20,
           "unit": "%",
           "template": "+{v}% chance to keep the bowstring",
@@ -7746,8 +8586,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+20.01 to 30% chance to keep the bowstring",
           "min": 20.01,
           "max": 30,
@@ -7797,8 +8637,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+20.01 to 40% chance to bank gathered items",
+          "text": "+20.01 to 30% chance to bank gathered items",
           "min": 20.01,
+          "max": 30,
+          "unit": "%",
+          "template": "+{v}% chance to bank gathered items",
+          "ancientMax": 36,
+          "primalMax": 45,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+30.01 to 40% chance to bank gathered items",
+          "min": 30.01,
           "max": 40,
           "unit": "%",
           "template": "+{v}% chance to bank gathered items",
@@ -7807,8 +8659,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+40.01 to 60% chance to bank gathered items",
           "min": 40.01,
           "max": 60,
@@ -7858,8 +8710,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+10.01 to 20% chance to find gold or silver ore",
+          "text": "+10.01 to 15% chance to find gold or silver ore",
           "min": 10.01,
+          "max": 15,
+          "unit": "%",
+          "template": "+{v}% chance to find gold or silver ore",
+          "ancientMax": 18,
+          "primalMax": 22.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+15.01 to 20% chance to find gold or silver ore",
+          "min": 15.01,
           "max": 20,
           "unit": "%",
           "template": "+{v}% chance to find gold or silver ore",
@@ -7868,8 +8732,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+20.01 to 30% chance to find gold or silver ore",
           "min": 20.01,
           "max": 30,
@@ -7919,8 +8783,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "10% chance to chop 3 to 4 extra logs",
+          "text": "10% chance to chop 3 extra logs",
           "min": 3,
+          "max": 3,
+          "unit": "",
+          "template": "10% chance to chop {v} extra logs",
+          "ancientMax": 4,
+          "primalMax": 5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "10% chance to chop 4 extra logs",
+          "min": 4,
           "max": 4,
           "unit": "",
           "template": "10% chance to chop {v} extra logs",
@@ -7929,8 +8805,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "10% chance to chop 5 to 6 extra logs",
           "min": 5,
           "max": 6,
@@ -7980,8 +8856,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+101 to 250 gathering repetitions",
+          "text": "+101 to 175 gathering repetitions",
           "min": 101,
+          "max": 175,
+          "unit": "",
+          "template": "+{v} gathering repetitions",
+          "ancientMax": 210,
+          "primalMax": 263,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+176 to 250 gathering repetitions",
+          "min": 176,
           "max": 250,
           "unit": "",
           "template": "+{v} gathering repetitions",
@@ -7990,8 +8878,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+251 to 500 gathering repetitions",
           "min": 251,
           "max": 500,
@@ -8041,8 +8929,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+8.01 to 15% chance to keep trees standing",
+          "text": "+8.01 to 11.5% chance to keep trees standing",
           "min": 8.01,
+          "max": 11.5,
+          "unit": "%",
+          "template": "+{v}% chance to keep trees standing",
+          "ancientMax": 13.8,
+          "primalMax": 17.25,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+11.51 to 15% chance to keep trees standing",
+          "min": 11.51,
           "max": 15,
           "unit": "%",
           "template": "+{v}% chance to keep trees standing",
@@ -8051,8 +8951,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+15.01 to 25% chance to keep trees standing",
           "min": 15.01,
           "max": 25,
@@ -8102,8 +9002,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+15.01 to 30% gathering experience",
+          "text": "+15.01 to 22.5% gathering experience",
           "min": 15.01,
+          "max": 22.5,
+          "unit": "%",
+          "template": "+{v}% gathering experience",
+          "ancientMax": 27,
+          "primalMax": 33.75,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+22.51 to 30% gathering experience",
+          "min": 22.51,
           "max": 30,
           "unit": "%",
           "template": "+{v}% gathering experience",
@@ -8112,8 +9024,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+30.01 to 60% gathering experience",
           "min": 30.01,
           "max": 60,
@@ -8163,8 +9075,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+15.01 to 30% skilling pet chance",
+          "text": "+15.01 to 22.5% skilling pet chance",
           "min": 15.01,
+          "max": 22.5,
+          "unit": "%",
+          "template": "+{v}% skilling pet chance",
+          "ancientMax": 27,
+          "primalMax": 33.75,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+22.51 to 30% skilling pet chance",
+          "min": 22.51,
           "max": 30,
           "unit": "%",
           "template": "+{v}% skilling pet chance",
@@ -8173,8 +9097,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+30.01 to 60% skilling pet chance",
           "min": 30.01,
           "max": 60,
@@ -8224,8 +9148,20 @@
         {
           "tier": 2,
           "ilvl": 40,
-          "text": "+18.01 to 36% chop success chance",
+          "text": "+18.01 to 27% chop success chance",
           "min": 18.01,
+          "max": 27,
+          "unit": "%",
+          "template": "+{v}% chop success chance",
+          "ancientMax": 32.4,
+          "primalMax": 40.5,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "+27.01 to 36% chop success chance",
+          "min": 27.01,
           "max": 36,
           "unit": "%",
           "template": "+{v}% chop success chance",
@@ -8234,8 +9170,8 @@
           "requirement": null
         },
         {
-          "tier": 3,
-          "ilvl": 80,
+          "tier": 4,
+          "ilvl": 100,
           "text": "+36.01 to 60% chop success chance",
           "min": 36.01,
           "max": 60,

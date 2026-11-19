@@ -20,6 +20,7 @@ Built with Astro and React islands. Plans save to localStorage and can be shared
   `npm run sync -- --offline` re-parses the cached copy in `wiki-cache/`.
 - `src/data/relics.ts`: relic tiers, passives, and unlocks. Hand-maintained, because the relic pages aren't tabular.
   Add new tiers and relics here; `npm run sync` then downloads any new icons to `public/icons/`.
+- `src/lib/playthroughs.ts`: League Prestiging rules (locked relics, Reloaded's extra relic, the maxed reward).
 - `src/data/league.ts`: rarity rules, variants, Forge/Codex/Outfitter costs, and the assumptions listed below.
 
 ## Share links
@@ -28,8 +29,8 @@ Built with Astro and React islands. Plans save to localStorage and can be shared
 `src/lib/share-codec.ts`. Links refer to affixes, powers, and relics by position in
 `src/data/share-ids.json`. That list is **append-only**: `npm run sync` adds new ids to the end and never
 removes or reorders entries, so old links keep pointing at the right things. Don't edit it by hand. The
-small lists at the top of `share-codec.ts` (slots, rarities, and so on) follow the same rule. Older
-`#plan=…` links (deflated JSON) still load.
+small lists at the top of `share-codec.ts` (slots, rarities, and so on) follow the same rule. Format 2 links
+hold every playthrough; format 1 links (one set of relic picks) and older `#plan=…` links (deflated JSON) still load.
 
 ## Assumptions to revisit as more is revealed
 
@@ -39,4 +40,9 @@ small lists at the top of `share-codec.ts` (slots, rarities, and so on) follow t
 - **Two-handed 1.75x** is applied to flat-stat affixes only (`STAT_AFFIXES` in `league.ts`).
 - **Soul-brand and stamp eligibility** follow the wiki's slot column. The game's own counts differ slightly
   (59 weapon powers in game, 54 on the wiki).
-- **Stamp and outfit costs** come from single examples (a whip stamp, a Smiths tunic).
+- **Stamp and outfit costs** come from single examples (a whip stamp, a Smiths tunic). The Stitch Keep cost isn't public,
+  so it adds nothing to the totals.
+- **Reloaded** may pick any Tier 1–3 relic not already picked in that playthrough, including one an earlier prestige
+  locked. The wiki doesn't say whether that's allowed; the planner flags it.
+- **Critty City** lowers the Precise cap to 50% and shows the excess as crit damage. **Fiery Fashion**'s transmog
+  powers aren't modelled.
