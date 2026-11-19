@@ -18,7 +18,7 @@ const nav = [
 ];
 const path = Astro.url.pathname.replace(/\/?$/, '/');
 // Cloudflare Web Analytics. Only the GitHub Pages build reports, so local and tunnel visits don't count.
-const CF_ANALYTICS_TOKEN = '';
+const CF_ANALYTICS_TOKEN = '3d0880bdfb8b40e09226f698b24eff3e';
 const analytics = CF_ANALYTICS_TOKEN && process.env.GITHUB_ACTIONS === 'true';
 const synced = new Date(syncedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 ---
