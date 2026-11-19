@@ -1,0 +1,159 @@
+{
+  "affixes": [
+    {
+      "id": "energising",
+      "name": "Energising",
+      "category": "utility",
+      "slots": [
+        "weapon",
+        "cape",
+        "ring",
+        "feet"
+      ],
+      "restriction": null,
+      "food": false,
+      "cap": {
+        "value": null,
+        "text": "None",
+        "note": null
+      },
+      "tiers": [
+        {
+          "tier": 1,
+          "ilvl": 0,
+          "text": "Restore 10 to 12% more special attack energy from regeneration and potions",
+          "min": 10,
+          "max": 12,
+          "unit": "%",
+          "template": "Restore {v}% more special attack energy from regeneration and potions",
+          "ancientMax": null,
+          "primalMax": null,
+          "requirement": null
+        },
+        {
+          "tier": 2,
+          "ilvl": 60,
+          "text": "Restore 12.01 to 15% more special attack energy from regeneration and potions",
+          "min": 12.01,
+          "max": 15,
+          "unit": "%",
+          "template": "Restore {v}% more special attack energy from regeneration and potions",
+          "ancientMax": null,
+          "primalMax": null,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 90,
+          "text": "Restore 15.01 to 18% more special attack energy from regeneration and potions",
+          "min": 15.01,
+          "max": 18,
+          "unit": "%",
+          "template": "Restore {v}% more special attack energy from regeneration and potions",
+          "ancientMax": null,
+          "primalMax": null,
+          "requirement": null
+        },
+        {
+          "tier": 4,
+          "ilvl": 105,
+          "text": "Restore 18.01 to 22% more special attack energy from regeneration and potions",
+          "min": 18.01,
+          "max": 22,
+          "unit": "%",
+          "template": "Restore {v}% more special attack energy from regeneration and potions",
+          "ancientMax": null,
+          "primalMax": null,
+          "requirement": null
+        },
+        {
+          "tier": 5,
+          "ilvl": 115,
+          "text": "Restore 22.01 to 25% more special attack energy from regeneration and potions",
+          "min": 22.01,
+          "max": 25,
+          "unit": "%",
+          "template": "Restore {v}% more special attack energy from regeneration and potions",
+          "ancientMax": null,
+          "primalMax": null,
+          "requirement": null
+        }
+      ],
+      "fromGame": true
+    },
+    {
+      "id": "fertile-soil",
+      "name": "Fertile Soil",
+      "category": "skilling",
+      "slots": [
+        "weapon",
+        "head",
+        "body",
+        "legs",
+        "hands",
+        "feet",
+        "cape",
+        "neck",
+        "ring"
+      ],
+      "restriction": null,
+      "food": false,
+      "cap": {
+        "value": null,
+        "text": "None",
+        "note": null
+      },
+      "tiers": [
+        {
+          "tier": 1,
+          "ilvl": 0,
+          "text": "Crops grow 30 to 60% faster",
+          "min": 30,
+          "max": 60,
+          "unit": "%",
+          "template": "Crops grow {v}% faster",
+          "ancientMax": null,
+          "primalMax": null,
+          "requirement": null
+        },
+        {
+          "tier": 2,
+          "ilvl": 40,
+          "text": "Crops grow 60.01 to 90% faster",
+          "min": 60.01,
+          "max": 90,
+          "unit": "%",
+          "template": "Crops grow {v}% faster",
+          "ancientMax": null,
+          "primalMax": null,
+          "requirement": null
+        },
+        {
+          "tier": 3,
+          "ilvl": 70,
+          "text": "Crops grow 90.01 to 120% faster",
+          "min": 90.01,
+          "max": 120,
+          "unit": "%",
+          "template": "Crops grow {v}% faster",
+          "ancientMax": null,
+          "primalMax": null,
+          "requirement": null
+        },
+        {
+          "tier": 4,
+          "ilvl": 100,
+          "text": "Crops grow 120.01 to 200% faster",
+          "min": 120.01,
+          "max": 200,
+          "unit": "%",
+          "template": "Crops grow {v}% faster",
+          "ancientMax": null,
+          "primalMax": null,
+          "requirement": null
+        }
+      ],
+      "fromGame": true
+    }
+  ]
+}

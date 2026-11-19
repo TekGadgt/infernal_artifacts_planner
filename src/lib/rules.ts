@@ -3,6 +3,7 @@ import {
   SOUL_BRAND_SLOTS,
   STAT_AFFIXES,
   TWO_HANDED_MULTIPLIER,
+  affixLimits,
   affixById,
   powerById,
   rarityById,
@@ -111,15 +112,20 @@ export function itemIssues(slot: Slot, item: PlannedItem): Issue[] {
   if (item.variant === 'primal' && item.rarity !== 'legendary')
     issues.push({ level: 'error', text: 'Primal only rolls on Legendary items.' });
 
-  if (rarity.limits) {
+  const { limits } = affixLimits(item.rarity, slot);
+  if (limits) {
     const byCategory: Partial<Record<Category, number>> = {};
     for (const p of item.affixes) {
       const a = affixById.get(p.affixId);
       if (a) byCategory[a.category] = (byCategory[a.category] ?? 0) + 1;
     }
-    for (const [cat, limit] of Object.entries(rarity.limits)) {
+    for (const [cat, limit] of Object.entries(limits)) {
       const n = byCategory[cat as Category] ?? 0;
-      if (n > limit) issues.push({ level: 'error', text: `${rarity.label} items have at most ${limit} ${cat} affixes (this has ${n}).` });
+      if (n > limit)
+        issues.push({
+          level: 'error',
+          text: limit === 0 ? `${rarity.label} ${slot} items roll no ${cat} affixes.` : `${rarity.label} ${slot} items have at most ${limit} ${cat} affixes (this has ${n}).`,
+        });
     }
   }
 

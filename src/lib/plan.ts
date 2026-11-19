@@ -3,6 +3,7 @@
 import { useSyncExternalStore } from 'react';
 import { affixById } from '../data/league';
 import { MAX_PLAYTHROUGHS } from '../data/relics';
+import { hashUrl, pack, takeHash, unpack, unpackJson } from './link';
 import { decodePlan, encodePlan } from './share-codec';
 import type { LoadoutKind, NamedLoadout, Plan, PlanV1, PlanV2, Playthrough, SoulBrandSlot } from './types';
 
@@ -129,57 +130,22 @@ export function usePlan(): [Plan, typeof setPlan] {
 
 // ---------- sharing ----------
 
-async function pipe(bytes: Uint8Array, stream: CompressionStream | DecompressionStream) {
-  const body = new Blob([bytes as BlobPart]).stream().pipeThrough(stream);
-  return new Uint8Array(await new Response(body).arrayBuffer());
-}
-
-const toBase64Url = (bytes: Uint8Array) =>
-  btoa(String.fromCharCode(...bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-const fromBase64Url = (s: string) =>
-  Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/')), (c) => c.charCodeAt(0));
-
 const tierMax = (affixId: string, tier: number) =>
   affixById.get(affixId)?.tiers.find((t) => t.tier === tier)?.max ?? null;
 
-// The first byte of a compact link says whether the rest is deflated.
-const RAW = 0;
-const DEFLATED = 1;
-
 export async function shareUrl(plan: Plan): Promise<string> {
-  const raw = encodePlan(plan, tierMax);
-  const deflated = await pipe(raw, new CompressionStream('deflate-raw'));
-  const [flag, body] = deflated.length < raw.length ? [DEFLATED, deflated] : [RAW, raw];
-  const url = new URL(window.location.href);
-  url.hash = `${HASH_KEY}=${toBase64Url(Uint8Array.of(flag, ...body))}`;
-  return url.toString();
-}
-
-async function decodeCompact(encoded: string): Promise<Plan> {
-  const bytes = fromBase64Url(encoded);
-  const body = bytes.subarray(1);
-  const raw = bytes[0] === DEFLATED ? await pipe(body, new DecompressionStream('deflate-raw')) : body;
-  return normalize(decodePlan(raw, tierMax));
-}
-
-/** Links made before the compact format: deflated JSON under `#plan=`. */
-async function decodeLegacy(encoded: string): Promise<Plan> {
-  const bytes = await pipe(fromBase64Url(encoded), new DecompressionStream('deflate-raw'));
-  return normalize(JSON.parse(new TextDecoder().decode(bytes)));
+  return hashUrl(HASH_KEY, await pack(encodePlan(plan, tierMax)));
 }
 
 /** Loads a plan from the URL hash, if there is one, and clears the hash. */
 export async function importFromHash(): Promise<Plan | null> {
-  const params = new URLSearchParams(window.location.hash.slice(1));
-  const compact = params.get(HASH_KEY);
-  const legacy = params.get(LEGACY_HASH_KEY);
-  if (!compact && !legacy) return null;
+  const found = takeHash(HASH_KEY, LEGACY_HASH_KEY);
+  if (!found) return null;
   try {
-    return compact ? await decodeCompact(compact) : await decodeLegacy(legacy!);
+    const compact = found[HASH_KEY];
+    return compact ? normalize(decodePlan(await unpack(compact), tierMax)) : normalize(await unpackJson(found[LEGACY_HASH_KEY]!));
   } catch {
     return null;
-  } finally {
-    history.replaceState(null, '', window.location.pathname + window.location.search);
   }
 }
 

@@ -4,12 +4,12 @@ import PlanBar from '../components/PlanBar';
 import RelicPlanner from '../components/RelicPlanner';
 ---
 
-<Base title="Relics" description="Pick one relic per tier, across up to three playthroughs.">
+<Base title="Relics" description="Pick one relic per tier, across up to three runs.">
   <div class="page-intro">
     <h1>Relic path</h1>
-    <p>Pick one relic per tier. Choose again to clear it. Plan a prestige to start another playthrough: relics picked in earlier runs are locked.</p>
+    <p>Pick one relic per tier. Choose again to clear it. Plan a prestige to start another run: relics picked in earlier runs are locked.</p>
   </div>
-  <PlanBar client:only="react" />
+  <PlanBar client:only="react" text="relics" />
   <RelicPlanner client:only="react">
     <p slot="fallback" class="muted">Loading your relic path…</p>
   </RelicPlanner>

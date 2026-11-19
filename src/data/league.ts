@@ -2,10 +2,12 @@
 // Affix and power tables live in ./generated and come from `npm run sync`.
 
 import affixData from './generated/affixes.json';
+import gameAffixData from './generated/game-affixes.json';
 import powerData from './generated/powers.json';
 import type { Affix, Category, Power, Rarity, Slot, Variant } from '../lib/types';
 
-export const affixes = affixData.affixes as Affix[];
+// The wiki's affixes, plus rollable ones the game has that the wiki doesn't list yet.
+export const affixes = [...affixData.affixes, ...gameAffixData.affixes] as Affix[];
 export const powers = powerData.powers as Power[];
 export const syncedAt = affixData.syncedAt;
 
@@ -43,6 +45,22 @@ export const RARITIES: {
   { id: 'legendary', label: 'Legendary', color: '#ff8000', affixes: [5, 6], limits: { offence: 3, defence: 3, utility: 2 } },
 ];
 export const rarityById = new Map(RARITIES.map((r) => [r.id, r]));
+
+// The Encyclopedia shows these slots overriding the rarity's per-category limits at every rarity.
+// The game data doesn't say where that comes from, so they're kept by hand.
+const SLOT_AFFIX_LIMITS: Partial<Record<Slot, Record<Exclude<Category, 'skilling'>, number>>> = {
+  head: { offence: 3, defence: 3, utility: 0 },
+  body: { offence: 3, defence: 3, utility: 0 },
+  legs: { offence: 3, defence: 3, utility: 0 },
+  cape: { offence: 1, defence: 2, utility: 3 },
+  shield: { offence: 2, defence: 3, utility: 2 },
+};
+
+/** How many affixes an item rolls, and the most per category (null where the game sets none). */
+export function affixLimits(rarity: Rarity, slot: Slot) {
+  const r = rarityById.get(rarity)!;
+  return { count: r.affixes, limits: r.limits ? (SLOT_AFFIX_LIMITS[slot] ?? r.limits) : null };
+}
 
 export const VARIANTS: { id: Variant; label: string; multiplier: number; note: string }[] = [
   { id: 'normal', label: 'Normal', multiplier: 1, note: '' },

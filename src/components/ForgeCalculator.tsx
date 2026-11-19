@@ -1,98 +1,44 @@
 import { useState } from 'react';
-import {
-  AWAKENING_COST,
-  IMPROVE_TIER_ILVL,
-  LEGENDARY_TRANSPLANT_MULTIPLIER,
-  OUTFITTER_STEPS,
-  OUTFIT_PIECE_TOKENS,
-  OUTFIT_RESOURCES,
-  outfitPoints,
-  STAMP_EXAMPLE_GEMS,
-  TRANSPLANT_COST,
-} from '../data/league';
+import { IMPROVE_TIER_ILVL, OUTFITTER_STEPS, OUTFIT_PIECE_TOKENS, OUTFIT_RESOURCES, SLOTS, outfitPoints, TRANSPLANT_COST } from '../data/league';
+import { OP_LABEL, costText, gearWork, opCost, pieceLabel, shoppingList, sumCosts, type Cost } from '../lib/forge';
 import { usePlan } from '../lib/plan';
 import { ROMAN } from '../lib/rules';
-import type { ForgeOp } from '../lib/types';
+import type { ForgeOp, Plan, Slot } from '../lib/types';
 import './ForgeCalculator.css';
-
-interface Cost {
-  gems: number;
-  cores: number;
-  embers: number;
-  thread: number;
-  bars: Record<string, number>;
-  estimated: boolean;
-}
-
-const zero = (): Cost => ({ gems: 0, cores: 0, embers: 0, thread: 0, bars: {}, estimated: false });
-
-function opCost(op: ForgeOp): Cost {
-  const c = zero();
-  switch (op.kind) {
-    case 'transplant': {
-      const row = TRANSPLANT_COST[(op.tier ?? 1) - 1];
-      const m = op.ontoLegendary ? LEGENDARY_TRANSPLANT_MULTIPLIER : 1;
-      c.gems = Math.floor(row.gems * m);
-      c.cores = Math.floor(row.cores * m);
-      break;
-    }
-    case 'awaken-legendary':
-    case 'awaken-ancient': {
-      const a = AWAKENING_COST[op.kind === 'awaken-legendary' ? 'legendary' : 'ancient'];
-      c.gems = a.gems;
-      c.cores = a.cores;
-      c.embers = a.embers;
-      break;
-    }
-    case 'stamp':
-      c.gems = STAMP_EXAMPLE_GEMS;
-      c.estimated = true;
-      break;
-    case 'outfit': {
-      const s = OUTFITTER_STEPS.find((x) => x.id === op.step) ?? OUTFITTER_STEPS[0];
-      // The Stitch Keep cost isn't public, so it adds nothing yet.
-      c.gems = s.gems + (op.keep ? (s.keepGems ?? 0) : 0);
-      c.cores = op.keep ? (s.keepCores ?? 0) : 0;
-      c.thread = s.thread;
-      c.bars[s.bars.replace(/^\d+\s+/, '')] = Number(s.bars.match(/^\d+/)?.[0] ?? 0);
-      c.estimated = true;
-      break;
-    }
-  }
-  const n = Math.max(1, op.count);
-  return {
-    gems: c.gems * n,
-    cores: c.cores * n,
-    embers: c.embers * n,
-    thread: c.thread * n,
-    bars: Object.fromEntries(Object.entries(c.bars).map(([k, v]) => [k, v * n])),
-    estimated: c.estimated,
-  };
-}
-
-function sum(costs: Cost[]): Cost {
-  return costs.reduce((acc, c) => {
-    acc.gems += c.gems;
-    acc.cores += c.cores;
-    acc.embers += c.embers;
-    acc.thread += c.thread;
-    for (const [k, v] of Object.entries(c.bars)) acc.bars[k] = (acc.bars[k] ?? 0) + v;
-    acc.estimated ||= c.estimated;
-    return acc;
-  }, zero());
-}
 
 const n = (v: number) => v.toLocaleString('en-US');
 
-const OP_LABEL: Record<ForgeOp['kind'], string> = {
-  transplant: 'Transplant',
-  'awaken-legendary': 'Legendary Awakening',
-  'awaken-ancient': 'Ancient Awakening',
-  stamp: 'Stamp a power',
-  outfit: 'Outfit upgrade',
-};
+function TargetSelect({ plan, op, onChange }: { plan: Plan; op: ForgeOp; onChange: (o: ForgeOp) => void }) {
+  const value = op.loadout && op.slot ? `${op.loadout}|${op.slot}` : '';
+  const known = plan.loadouts.some((l) => l.id === op.loadout && op.slot && l.items[op.slot]);
+  return (
+    <select
+      className="select op__target"
+      aria-label="Gear piece this is for"
+      value={known ? value : ''}
+      onChange={(e) => {
+        const [loadout, slot] = e.target.value.split('|');
+        const { loadout: _l, slot: _s, ...rest } = op;
+        onChange(loadout ? { ...rest, loadout, slot: slot as Slot } : rest);
+      }}
+    >
+      <option value="">Not tied to gear</option>
+      {plan.loadouts
+        .filter((l) => Object.keys(l.items).length)
+        .map((l) => (
+          <optgroup key={l.id} label={l.name.trim() || 'Untitled'}>
+            {SLOTS.filter((s) => l.items[s.id]).map((s) => (
+              <option key={s.id} value={`${l.id}|${s.id}`}>
+                {pieceLabel(s.id, l.items[s.id]!)}
+              </option>
+            ))}
+          </optgroup>
+        ))}
+    </select>
+  );
+}
 
-function OpRow({ op, onChange, onRemove }: { op: ForgeOp; onChange: (o: ForgeOp) => void; onRemove: () => void }) {
+function OpRow({ plan, op, onChange, onRemove }: { plan: Plan; op: ForgeOp; onChange: (o: ForgeOp) => void; onRemove: () => void }) {
   const cost = opCost(op);
   return (
     <li className="op">
@@ -139,6 +85,7 @@ function OpRow({ op, onChange, onRemove }: { op: ForgeOp; onChange: (o: ForgeOp)
             </label>
           </>
         )}
+        <TargetSelect plan={plan} op={op} onChange={onChange} />
         <label className="op__count">
           <span className="muted">×</span>
           <input
@@ -152,16 +99,94 @@ function OpRow({ op, onChange, onRemove }: { op: ForgeOp; onChange: (o: ForgeOp)
         </label>
       </span>
       <span className="op__cost num">
-        {n(cost.gems)} gems
-        {cost.cores > 0 && `, ${n(cost.cores)} cores`}
-        {cost.embers > 0 && `, ${n(cost.embers)} embers`}
-        {cost.thread > 0 && `, ${n(cost.thread)} thread`}
+        {costText({ ...cost, bars: {} })}
         {cost.estimated && <span className="muted"> (estimate)</span>}
       </span>
       <button className="btn btn--quiet" onClick={onRemove} aria-label={`Remove ${OP_LABEL[op.kind]}`}>
         Remove
       </button>
     </li>
+  );
+}
+
+function CostCells({ cost }: { cost: Cost }) {
+  return (
+    <>
+      <td className="num">{n(cost.gems)}</td>
+      <td className="num">{cost.cores ? n(cost.cores) : '–'}</td>
+      <td className="num">{cost.embers ? n(cost.embers) : '–'}</td>
+      <td>{[cost.thread && `${n(cost.thread)} thread`, ...Object.entries(cost.bars).map(([k, v]) => `${n(v)} ${k}`)].filter(Boolean).join(', ') || '–'}</td>
+    </>
+  );
+}
+
+function ShoppingList({ groups }: { groups: ReturnType<typeof shoppingList> }) {
+  return (
+    <section className="shopping">
+      <h2>By loadout</h2>
+      <div className="table-wrap">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>For</th>
+              <th className="num">Gems</th>
+              <th className="num">Cores</th>
+              <th className="num">Embers</th>
+              <th>Materials</th>
+            </tr>
+          </thead>
+          {groups.map((g) => (
+            <tbody key={g.loadout?.id ?? 'untied'}>
+              <tr className="shopping__group">
+                <th scope="rowgroup">{g.loadout ? g.loadout.name.trim() || 'Untitled' : 'Not tied to gear'}</th>
+                <CostCells cost={g.cost} />
+              </tr>
+              {g.loadout &&
+                g.pieces.map((p) => (
+                  <tr key={p.slot}>
+                    <td className="shopping__piece">
+                      {pieceLabel(p.slot!, p.item!)}
+                      <span className="muted"> · {p.ops.map((op) => OP_LABEL[op.kind] + (op.count > 1 ? ` ×${op.count}` : '')).join(', ')}</span>
+                    </td>
+                    <CostCells cost={p.cost} />
+                  </tr>
+                ))}
+            </tbody>
+          ))}
+        </table>
+      </div>
+    </section>
+  );
+}
+
+function GearWorkList({ work, onAdd }: { work: ReturnType<typeof gearWork>; onAdd: (op: Omit<ForgeOp, 'id'>) => void }) {
+  const addable = work.filter((w) => w.op);
+  return (
+    <section className="gear-work">
+      <div className="gear-work__head">
+        <h2>From your gear plan</h2>
+        {addable.length > 1 && (
+          <button className="btn btn--quiet" onClick={() => addable.forEach((w) => onAdd(w.op!))}>
+            Add all {addable.length}
+          </button>
+        )}
+      </div>
+      <p className="muted">Work your planned gear needs that the list above doesn't cover yet.</p>
+      <ul className="gear-work__list">
+        {work.map((w, i) => (
+          <li key={i}>
+            <span>
+              <span className="muted">{w.loadout.name.trim() || 'Untitled'}, {pieceLabel(w.slot, w.item)}.</span> {w.text}
+            </span>
+            {w.op && (
+              <button className="btn btn--quiet" onClick={() => onAdd(w.op!)}>
+                Add
+              </button>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 
@@ -230,7 +255,9 @@ function OutfitPoints() {
 export default function ForgeCalculator() {
   const [plan, setPlan] = usePlan();
   const ops = plan.forge;
-  const total = sum(ops.map(opCost));
+  const total = sumCosts(ops.map(opCost));
+  const groups = shoppingList(plan);
+  const work = gearWork(plan);
 
   const setOps = (fn: (o: ForgeOp[]) => ForgeOp[]) => setPlan((p) => ({ ...p, forge: fn(p.forge) }));
   const add = (kind: ForgeOp['kind']) =>
@@ -244,6 +271,7 @@ export default function ForgeCalculator() {
         ...(kind === 'outfit' ? { step: 'trim' as const, keep: false } : {}),
       },
     ]);
+  const addWork = (op: Omit<ForgeOp, 'id'>) => setOps((o) => [...o, { ...op, id: crypto.randomUUID() }]);
 
   return (
     <div className="forge">
@@ -261,6 +289,7 @@ export default function ForgeCalculator() {
             {ops.map((op) => (
               <OpRow
                 key={op.id}
+                plan={plan}
                 op={op}
                 onChange={(next) => setOps((o) => o.map((x) => (x.id === op.id ? next : x)))}
                 onRemove={() => setOps((o) => o.filter((x) => x.id !== op.id))}
@@ -303,6 +332,9 @@ export default function ForgeCalculator() {
             </p>
           )}
         </div>
+
+        {groups.length > 1 || groups[0]?.loadout ? <ShoppingList groups={groups} /> : null}
+        {work.length > 0 && <GearWorkList work={work} onAdd={addWork} />}
       </section>
 
       <div className="forge__refs">

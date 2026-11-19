@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { emptyPlan, importFromHash, parsePlanFile, shareUrl, usePlan } from '../lib/plan';
+import { DISCORD_LIMIT, planText, type TextScope } from '../lib/plan-text';
 import type { Plan } from '../lib/types';
 import './PlanBar.css';
 
@@ -11,7 +12,16 @@ function hasContent(p: Plan) {
   );
 }
 
-export default function PlanBar() {
+const TEXT_LABEL: Record<TextScope, string> = {
+  relics: "This run's relics",
+  runs: "Every run's relics",
+  loadout: 'Current loadout',
+  forge: 'Forge list',
+  all: 'Whole plan',
+};
+
+/** `text` is the summary this page offers first when copying as text. */
+export default function PlanBar({ text = 'all' }: { text?: TextScope }) {
   const [plan, setPlan] = usePlan();
   const [status, setStatus] = useState('');
   const fileInput = useRef<HTMLInputElement>(null);
@@ -39,14 +49,31 @@ export default function PlanBar() {
     return () => clearTimeout(t);
   }, [status]);
 
-  async function copyLink() {
-    const url = await shareUrl(plan);
+  const menu = useRef<HTMLDetailsElement>(null);
+  useEffect(() => {
+    const close = (e: MouseEvent) => {
+      if (menu.current && !menu.current.contains(e.target as Node)) menu.current.open = false;
+    };
+    document.addEventListener('click', close);
+    return () => document.removeEventListener('click', close);
+  }, []);
+
+  async function copy(value: string, done: string) {
     try {
-      await navigator.clipboard.writeText(url);
-      setStatus('Share link copied');
+      await navigator.clipboard.writeText(value);
+      setStatus(done);
     } catch {
-      window.prompt('Copy this link', url);
+      window.prompt('Copy this', value);
     }
+  }
+
+  const copyLink = async () => copy(await shareUrl(plan), 'Share link copied');
+
+  function copyText(scope: TextScope) {
+    if (menu.current) menu.current.open = false;
+    const value = planText(plan, scope);
+    const n = value.length.toLocaleString('en-US');
+    copy(value, value.length > DISCORD_LIMIT ? `Copied ${n} characters, over Discord's ${DISCORD_LIMIT.toLocaleString('en-US')} limit` : 'Text copied');
   }
 
   function exportFile() {
@@ -90,6 +117,19 @@ export default function PlanBar() {
         <button className="btn" onClick={copyLink}>
           Copy share link
         </button>
+        <details className="plan-bar__menu" ref={menu}>
+          <summary className="btn btn--quiet">Copy as text</summary>
+          <div className="plan-bar__menu-list">
+            {[text, ...(['relics', 'runs', 'loadout', 'forge', 'all'] as TextScope[]).filter((s) => s !== text)]
+              // With one playthrough, every run's relics are the same as this run's.
+              .filter((s) => s !== 'runs' || plan.playthroughs.length > 1)
+              .map((s) => (
+                <button key={s} className="btn btn--quiet" onClick={() => copyText(s)}>
+                  {TEXT_LABEL[s]}
+                </button>
+              ))}
+          </div>
+        </details>
         <button className="btn btn--quiet" onClick={exportFile}>
           Export
         </button>

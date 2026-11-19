@@ -19,6 +19,8 @@ export interface AffixTier {
 
 export interface Affix {
   id: string;
+  /** Not on the wiki yet; read from the game client. */
+  fromGame?: boolean;
   name: string;
   category: Category;
   slots: Slot[];
@@ -61,6 +63,8 @@ export interface PlannedItem {
   twoHanded: boolean;
   affixes: PlannedAffix[];
   powerId: string | null;
+  /** The game item this piece is, which sets the affixes and powers it can roll. */
+  gameId?: number;
 }
 
 export type LoadoutKind = 'combat' | 'skilling';
@@ -75,6 +79,9 @@ export interface ForgeOp {
   step?: 'trim' | 'gild' | 'stitch';
   keep?: boolean;
   count: number;
+  /** The planned gear piece this work is for, if any. */
+  loadout?: string;
+  slot?: Slot;
 }
 
 export interface NamedLoadout {

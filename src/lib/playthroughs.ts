@@ -5,7 +5,8 @@
 import { RELIC_TIERS, RELOADED_TIERS, relicById, tierOfRelic } from '../data/relics';
 import type { Plan, Playthrough } from './types';
 
-export const PLAYTHROUGH_LABEL = ['First playthrough', 'Second playthrough', 'Third playthrough'];
+// The UI calls each playthrough a run.
+export const PLAYTHROUGH_LABEL = ['First run', 'Second run', 'Third run'];
 
 /** Relics picked in earlier playthroughs, with the playthrough that locked each. */
 export function lockedRelics(plan: Plan, run: number): Map<string, number> {

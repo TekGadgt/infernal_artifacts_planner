@@ -12,7 +12,8 @@
     "astro": "astro",
     "sync": "node scripts/sync-wiki.mjs",
     "check": "astro check",
-    "share": "node scripts/share.mjs"
+    "share": "node scripts/share.mjs",
+    "import-game-data": "node scripts/import-game-data.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^7.1.9",

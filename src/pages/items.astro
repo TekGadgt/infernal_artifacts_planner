@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import ItemBrowser from '../components/ItemBrowser';
+import { items } from '../data/game';
+---
+
+<Base title="Items" description="What every gear item can roll: affixes, tiers, Demonic Powers, and roll weights, from the game itself.">
+  <div class="page-intro">
+    <h1>Items</h1>
+    <p>
+      Every one of the {items.length.toLocaleString('en-US')} gear items that can roll affixes, with the affixes and Demonic Powers it
+      can roll and their weights. Read from the game client and the in-game Encyclopedia (<code>::info</code>), not the wiki.
+    </p>
+  </div>
+  <ItemBrowser client:only="react">
+    <p slot="fallback" class="muted">Loading items…</p>
+  </ItemBrowser>
+</Base>

@@ -9,7 +9,8 @@ const relicCount = RELIC_TIERS.flatMap((t) => t.relics).length;
 const planners = [
   { href: '/relics/', title: 'Relic path', body: `Choose a relic for each of the ${RELIC_TIERS.length} tiers, and plan up to two League Prestiges with the relics each one locks.` },
   { href: '/gear/', title: 'Gear planner', body: 'Plan affixes and Demonic Powers slot by slot, with caps checked across your loadout.' },
-  { href: '/forge/', title: 'Forge costs', body: 'Add up the gems, cores, and embers for transplants, awakenings, and outfit upgrades.' },
+  { href: '/forge/', title: 'Forge costs', body: 'Add up the gems, cores, and embers for transplants, awakenings, and outfit upgrades, per loadout and piece.' },
+  { href: '/achievements/', title: 'Achievement route', body: 'Track achievements and plan the order you do them in, with the point each relic tier unlocks. Routes share on their own link.' },
 ];
 const lookups = [
   { href: '/affixes/', title: 'Affixes', body: `${affixes.length} affixes with tiers, item levels, slots, and caps.` },
@@ -21,7 +22,6 @@ const hidden = [
   'Improve costs beyond one example step',
   'The Keep cost for a Stitch at the Outfitter’s Bench, and resources for most outfits',
   'Which achievements complete on their own after a League Prestige',
-  'Whether Reloaded can grant a relic that an earlier prestige locked',
   'Which powers each soul-brand slot accepts, and the stamping rules',
   'How a power’s strength percentage maps to its effect',
 ];

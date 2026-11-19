@@ -142,3 +142,48 @@
     text-align: left;
   }
 }
+
+/* ---------- shopping list ---------- */
+
+.shopping,
+.gear-work {
+  margin-top: 2rem;
+}
+.shopping h2,
+.gear-work h2 {
+  margin-bottom: 0.75rem;
+}
+.shopping__group th,
+.shopping__group td {
+  background: var(--iron-raised);
+  color: var(--ash);
+  font-weight: 700;
+  position: static;
+}
+.shopping__piece {
+  padding-left: 1.5rem !important;
+}
+.gear-work__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.gear-work__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+  font-size: var(--t-sm);
+}
+.gear-work__list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.45rem 0.75rem;
+  border-left: 3px solid var(--brimstone);
+  background: var(--iron);
+  border-radius: var(--radius-sm);
+}

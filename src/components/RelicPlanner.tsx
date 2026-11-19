@@ -1,5 +1,6 @@
 import { MAX_PLAYTHROUGHS, RELIC_TIERS, relicById, type Relic } from '../data/relics';
 import { newPlaythrough, usePlan } from '../lib/plan';
+import { currentPoints, progressFor, setRoute, tierAt, useRoute } from '../lib/route';
 import {
   NON_COMBAT_RELICS,
   PLAYTHROUGH_LABEL,
@@ -13,7 +14,6 @@ import './RelicPlanner.css';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const deepest = RELIC_TIERS.length;
-const RUN_SHORT = ['First', 'Second', 'Third'];
 
 type CardState = 'open' | 'chosen' | 'extra' | 'dimmed' | 'locked' | 'conflict';
 
@@ -25,7 +25,7 @@ function RelicCard({ relic, state, note, onPick }: { relic: Relic; state: CardSt
       role="radio"
       aria-checked={chosen}
       aria-disabled={state === 'locked'}
-      className={`relic relic--${state}${chosen ? ' relic--chosen' : ''}`}
+      className={`relic relic--${state}${chosen && state !== 'chosen' ? ' relic--chosen' : ''}`}
       onClick={state === 'locked' ? undefined : onPick}
     >
       <span className="relic__head">
@@ -66,11 +66,13 @@ function PlaythroughTabs({ plan, setPlan }: { plan: Plan; setPlan: ReturnType<ty
       const playthroughs = p.playthroughs.slice(0, -1);
       return { ...p, playthroughs, activePlaythrough: Math.min(p.activePlaythrough, playthroughs.length - 1) };
     });
+    // The run's achievement progress goes with it, so a new run starts unchecked.
+    setRoute((r) => ({ ...r, progress: r.progress.slice(0, count - 1) }));
   };
 
   return (
     <div className="runs">
-      <div className="runs__tabs" role="tablist" aria-label="Playthroughs">
+      <div className="runs__tabs" role="tablist" aria-label="Runs">
         {plan.playthroughs.map((t, i) => (
           <button
             key={i}
@@ -80,7 +82,7 @@ function PlaythroughTabs({ plan, setPlan }: { plan: Plan; setPlan: ReturnType<ty
             className="runs__tab"
             onClick={() => select(i)}
           >
-            <span className="runs__tab-name">{RUN_SHORT[i]} run</span>
+            <span className="runs__tab-name">{PLAYTHROUGH_LABEL[i]}</span>
             <span className="runs__tab-meta num">
               {Object.keys(t.relics).length} of {RELIC_TIERS.length} relics
               {playthroughIssues(plan, i).length > 0 && <span className="runs__tab-warn"> · check picks</span>}
@@ -96,7 +98,7 @@ function PlaythroughTabs({ plan, setPlan }: { plan: Plan; setPlan: ReturnType<ty
         )}
         {count > 1 && (
           <button type="button" className="btn btn--quiet" onClick={removeLast}>
-            Remove {RUN_SHORT[count - 1].toLowerCase()} run
+            Remove {PLAYTHROUGH_LABEL[count - 1].toLowerCase()}
           </button>
         )}
       </div>
@@ -106,7 +108,6 @@ function PlaythroughTabs({ plan, setPlan }: { plan: Plan; setPlan: ReturnType<ty
 
 function ReloadedPicker({ run, locked, onPick }: { run: Playthrough; locked: Map<string, number>; onPick: (id: string) => void }) {
   const choices = reloadedChoices(run);
-  const pickedLocked = run.reloaded ? locked.has(run.reloaded) : false;
   return (
     <div className="reloaded">
       <p className="reloaded__title">
@@ -129,18 +130,15 @@ function ReloadedPicker({ run, locked, onPick }: { run: Playthrough; locked: Map
           </button>
         ))}
       </div>
-      {pickedLocked && (
-        <p className="muted reloaded__note">
-          An earlier playthrough picked this relic. The wiki doesn't say yet whether Reloaded can grant a relic that a prestige locked.
-        </p>
-      )}
     </div>
   );
 }
 
 export default function RelicPlanner() {
   const [plan, setPlan] = usePlan();
+  const [route] = useRoute();
   const runIndex = plan.activePlaythrough;
+  const runPoints = currentPoints(progressFor(route, runIndex));
   const run = plan.playthroughs[runIndex];
   const locked = lockedRelics(plan, runIndex);
   const issues = playthroughIssues(plan, runIndex);
@@ -171,13 +169,14 @@ export default function RelicPlanner() {
   function cardState(tier: number, r: Relic): { state: CardState; note?: string } {
     const choice = run.relics[tier];
     const lockedIn = locked.get(r.id);
-    if (choice === r.id && lockedIn !== undefined) return { state: 'conflict', note: `Locked: picked in the ${RUN_SHORT[lockedIn].toLowerCase()} run` };
+    if (choice === r.id && lockedIn !== undefined) return { state: 'conflict', note: `Locked: picked in the ${PLAYTHROUGH_LABEL[lockedIn].toLowerCase()}` };
     if (choice === r.id) return { state: 'chosen' };
     if (reloadedOn && run.reloaded === r.id) return { state: 'extra', note: 'Extra relic from Reloaded' };
     const fromMaxed = maxed && !RELIC_TIERS.find((t) => t.tier === tier)?.combat;
     if (lockedIn !== undefined)
-      return { state: 'locked', note: `Picked in the ${RUN_SHORT[lockedIn].toLowerCase()} run${fromMaxed ? ', active from the maxed reward' : ''}` };
-    if (fromMaxed) return { state: 'extra', note: 'Active from the maxed reward' };
+      return { state: 'locked', note: `Picked in the ${PLAYTHROUGH_LABEL[lockedIn].toLowerCase()}${fromMaxed ? ', active from the maxed reward' : ''}` };
+    // The maxed reward turns the relic on, but the tier still needs its own pick, so the card stays pickable.
+    if (fromMaxed) return { state: 'open', note: 'Also active from the maxed reward' };
     return { state: choice ? 'dimmed' : 'open' };
   }
 
@@ -264,6 +263,16 @@ export default function RelicPlanner() {
             </li>
           )}
         </ol>
+
+        <p className="path-summary__notes muted">
+          {runPoints ? (
+            <>
+              <span className="num">{runPoints.toLocaleString('en-US')}</span> League points tracked
+              {tierAt(runPoints).reached ? `, Tier ${tierAt(runPoints).reached} unlocked` : ''}.{' '}
+            </>
+          ) : null}
+          <a href={`${base}/achievements/`}>{runPoints ? 'Achievements' : 'Track achievements'} for this run</a>
+        </p>
 
         {issues.some((i) => i.tier === null) && (
           <ul className="issues">

@@ -15,6 +15,7 @@ const WIKI = 'https://wiki.august.games/index.php';
 const PAGES = {
   affixes: 'Infernal_Artifacts_League/Affixes/Affix_list',
   powers: 'Infernal_Artifacts_League/Demonic_Powers/Power_list',
+  achievements: 'Infernal_Artifacts_League/Achievements',
 };
 
 const SLOTS = ['head', 'cape', 'neck', 'weapon', 'body', 'shield', 'legs', 'hands', 'feet', 'ring'];
@@ -109,7 +110,7 @@ function expand({ headers, rawRows }) {
       }
       const cell = cells[ci++];
       if (!cell) return;
-      const value = clean(cell.content);
+      const value = { ...clean(cell.content), raw: cell.content };
       if (cell.rowspan > 1) pending[col] = { value, remaining: cell.rowspan - 1 };
       out[h] = value;
     });
@@ -245,11 +246,47 @@ function buildPowers(text) {
   });
 }
 
+// ---------- achievements ----------
+
+const ACHIEVEMENT_TIERS = ['Starter', 'Apprentice', 'Adept', 'Expert', 'Master', 'Grandmaster', 'Heroic'];
+
+function buildAchievements(text) {
+  // The list has a League-only tab and an All achievements tab; the last table holds every row.
+  const table = parseTables(sections(text)['achievement list'] ?? '').at(-1);
+  if (!table) throw new Error('No table in the Achievement list section');
+  const seen = new Map();
+  return table.rows.map((r) => {
+    const name = r['Achievement'].text;
+    // A few names repeat, so later copies get a numbered id.
+    const n = (seen.get(name) ?? 0) + 1;
+    seen.set(name, n);
+    const categories = r['Category'].text.split(',').map((s) => s.trim()).filter(Boolean);
+    return {
+      id: n > 1 ? `${slug(name)}-${n}` : slug(name),
+      name,
+      tier: ACHIEVEMENT_TIERS.indexOf(r['Tier'].text),
+      description: r['Description'].text,
+      points: num(r['Points'].text.replace(/,/g, '')) ?? 0,
+      rewards: r['Rewards'].raw
+        .split(/<br\s*\/?>/)
+        .map((s) => clean(s).text)
+        .filter((s) => s && s !== '–'),
+      categories,
+      league: categories.includes('League'),
+    };
+  });
+}
+
 // ---------- main ----------
 
-const [affixText, powerText] = await Promise.all([loadPage('affixes'), loadPage('powers')]);
+const [affixText, powerText, achievementText] = await Promise.all([
+  loadPage('affixes'),
+  loadPage('powers'),
+  loadPage('achievements'),
+]);
 const affixes = buildAffixes(affixText);
 const powers = buildPowers(powerText);
+const achievements = buildAchievements(achievementText);
 
 await mkdir(OUT, { recursive: true });
 // An offline re-parse hasn't fetched anything new, so it keeps the last sync date.
@@ -258,20 +295,23 @@ const stamp = offline
   : new Date().toISOString();
 await writeFile(join(OUT, 'affixes.json'), JSON.stringify({ syncedAt: stamp, affixes }, null, 2) + '\n');
 await writeFile(join(OUT, 'powers.json'), JSON.stringify({ syncedAt: stamp, powers }, null, 2) + '\n');
+await writeFile(join(OUT, 'achievements.json'), JSON.stringify({ syncedAt: stamp, achievements }, null, 2) + '\n');
 
-// Share links refer to affixes, powers, and relics by their position in this
+// Share links refer to affixes, powers, relics, and achievements by their position in this
 // list, so it is append-only: new ids go on the end and nothing is ever
 // removed or reordered, or old links would point at the wrong thing.
 const relicSourceForIds = await readFile(join(ROOT, 'src/data/relics.ts'), 'utf8');
 const idsFile = join(ROOT, 'src/data/share-ids.json');
-const ids = await readFile(idsFile, 'utf8').then(JSON.parse, () => ({ affixes: [], powers: [], relics: [] }));
+const ids = await readFile(idsFile, 'utf8').then(JSON.parse, () => ({}));
 const current = {
   affixes: affixes.map((a) => a.id),
   powers: powers.map((p) => p.id),
   relics: [...relicSourceForIds.matchAll(/^\s+id: '([a-z0-9-]+)'/gm)].map((m) => m[1]),
+  achievements: achievements.map((a) => a.id),
 };
 const added = [];
-for (const key of ['affixes', 'powers', 'relics']) {
+for (const key of ['affixes', 'powers', 'relics', 'achievements']) {
+  ids[key] ??= [];
   for (const id of current[key]) {
     if (!ids[key].includes(id)) {
       ids[key].push(id);
@@ -306,5 +346,8 @@ console.log(
   `affixes: ${affixes.length} (${Object.entries(counts).map(([k, v]) => `${k} ${v.length}`).join(', ')})`,
 );
 console.log(`powers: ${powers.length}`);
+console.log(`achievements: ${achievements.length}, ${achievements.reduce((n, a) => n + a.points, 0).toLocaleString('en-US')} points`);
+const badTier = achievements.filter((a) => a.tier < 0).map((a) => a.name);
+if (badTier.length) console.log(`achievements with an unknown tier: ${badTier.join(', ')}`);
 const unparsed = affixes.flatMap((a) => a.tiers.filter((t) => t.min === null).map((t) => `${a.name} ${t.tier}`));
 if (unparsed.length) console.log(`tiers with no numeric range: ${unparsed.join(', ')}`);

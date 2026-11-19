@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import AchievementPlanner from '../components/AchievementPlanner';
+import { ACHIEVEMENTS_URL, achievements } from '../data/achievements';
+
+const total = achievements.reduce((n, a) => n + a.points, 0).toLocaleString('en-US');
+---
+
+<Base title="Achievements" description="Track League achievements and plan a route through them to each relic tier.">
+  <div class="page-intro">
+    <h1>Achievements</h1>
+    <p>
+      Tick off achievements as you finish them, and build a route in the order you plan to do them, with the point where each relic
+      tier unlocks. {achievements.length} achievements worth {total} points, from the <a href={ACHIEVEMENTS_URL}>wiki list</a>. Routes
+      have their own share link, separate from your plan.
+    </p>
+  </div>
+  <AchievementPlanner client:only="react">
+    <p slot="fallback" class="muted">Loading achievements…</p>
+  </AchievementPlanner>
+</Base>

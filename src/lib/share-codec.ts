@@ -9,7 +9,8 @@ import shareIds from '../data/share-ids.json';
 import type { ForgeOp, LoadoutKind, Plan, PlannedItem, Rarity, Slot, SoulBrandSlot, Style, Variant } from './types';
 
 // Format 1 held one set of relic picks. Format 2 holds every playthrough.
-const FORMAT = 2;
+// Format 3 adds the gear piece each Forge entry is for. Format 4 adds the game item each piece is.
+const FORMAT = 4;
 
 const SLOTS: Slot[] = ['head', 'cape', 'neck', 'weapon', 'body', 'shield', 'legs', 'hands', 'feet', 'ring'];
 const RARITIES: Rarity[] = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
@@ -19,7 +20,7 @@ const KINDS: LoadoutKind[] = ['combat', 'skilling'];
 const BRANDS: SoulBrandSlot[] = ['weapon', 'armour', 'jewellery'];
 const FORGE_KINDS: ForgeOp['kind'][] = ['transplant', 'awaken-legendary', 'awaken-ancient', 'stamp', 'outfit'];
 
-type IdList = 'affixes' | 'powers' | 'relics';
+type IdList = 'affixes' | 'powers' | 'relics' | 'achievements';
 const index = Object.fromEntries(
   (Object.keys(shareIds) as IdList[]).map((k) => [k, new Map(shareIds[k].map((id, i) => [id, i]))]),
 ) as Record<IdList, Map<string, number>>;
@@ -150,6 +151,8 @@ export function encodePlan(plan: Plan, maxValue: (affixId: string, tier: number)
       w.uint(it.ilvl);
       w.ref('powers', it.powerId);
       w.str(it.name);
+      // 0 = not linked to a game item (item ids start at 1).
+      w.uint(it.gameId ?? 0);
       w.uint(it.affixes.length);
       for (const a of it.affixes) {
         w.ref('affixes', a.affixId);
@@ -172,6 +175,10 @@ export function encodePlan(plan: Plan, maxValue: (affixId: string, tier: number)
         (op.step === 'stitch' ? 16 : 0),
     );
     w.uint(op.count);
+    // 0 = not tied to gear, otherwise loadout position + 1, then the slot.
+    const target = plan.loadouts.findIndex((l) => l.id === op.loadout);
+    w.uint(target + 1);
+    if (target >= 0) w.uint(Math.max(0, SLOTS.indexOf(op.slot!)));
   }
   return w.done();
 }
@@ -190,7 +197,7 @@ function readRelics(r: Reader): Record<string, string> {
 export function decodePlan(bytes: Uint8Array, maxValue: (affixId: string, tier: number) => number | null): Plan {
   const r = new Reader(bytes);
   const format = r.uint();
-  if (format !== 1 && format !== FORMAT) throw new Error(`Unsupported share link format ${format}`);
+  if (format < 1 || format > FORMAT) throw new Error(`Unsupported share link format ${format}`);
   const name = r.str();
 
   const playthroughs: Plan['playthroughs'] = [];
@@ -217,6 +224,7 @@ export function decodePlan(bytes: Uint8Array, maxValue: (affixId: string, tier: 
       const ilvl = r.uint();
       const powerId = r.ref('powers');
       const itemName = r.str();
+      const gameId = format >= 4 ? r.uint() : 0;
       const affixes: PlannedItem['affixes'] = [];
       for (let a = r.uint(); a > 0; a--) {
         const affixId = r.ref('affixes') ?? 'unknown';
@@ -233,6 +241,7 @@ export function decodePlan(bytes: Uint8Array, maxValue: (affixId: string, tier: 
         ilvl,
         powerId,
         affixes,
+        ...(gameId ? { gameId } : {}),
       };
     }
     loadouts.push({ id: crypto.randomUUID(), name: lName, kind, items, soulBrands });
@@ -244,6 +253,9 @@ export function decodePlan(bytes: Uint8Array, maxValue: (affixId: string, tier: 
     const tier = r.uint();
     const flags = r.uint();
     const count = r.uint();
+    const target = format >= 3 ? r.uint() : 0;
+    const slot = target ? pick(SLOTS, r.uint(), 'head') : undefined;
+    const loadout = target ? loadouts[target - 1]?.id : undefined;
     forge.push({
       id: crypto.randomUUID(),
       kind,
@@ -252,6 +264,7 @@ export function decodePlan(bytes: Uint8Array, maxValue: (affixId: string, tier: 
       ...(flags & 1 ? { ontoLegendary: true } : {}),
       ...(flags & 2 ? { keep: true } : {}),
       ...(flags & 4 ? { step: flags & 16 ? ('stitch' as const) : flags & 8 ? ('gild' as const) : ('trim' as const) } : {}),
+      ...(loadout ? { loadout, slot } : {}),
     });
   }
 
@@ -264,4 +277,39 @@ export function decodePlan(bytes: Uint8Array, maxValue: (affixId: string, tier: 
     activeLoadout: loadouts[activeIndex]?.id ?? loadouts[0]?.id ?? '',
     forge,
   };
+}
+
+// ---------- achievement route ----------
+
+const ROUTE_FORMAT = 1;
+
+export interface RouteShape {
+  name: string;
+  steps: { id: string; note: string }[];
+}
+
+export function encodeRoute(route: RouteShape): Uint8Array {
+  const w = new Writer();
+  w.uint(ROUTE_FORMAT);
+  w.str(route.name);
+  w.uint(route.steps.length);
+  for (const s of route.steps) {
+    w.ref('achievements', s.id);
+    w.str(s.note);
+  }
+  return w.done();
+}
+
+export function decodeRoute(bytes: Uint8Array): RouteShape {
+  const r = new Reader(bytes);
+  const format = r.uint();
+  if (format !== ROUTE_FORMAT) throw new Error(`Unsupported route link format ${format}`);
+  const name = r.str();
+  const steps: RouteShape['steps'] = [];
+  for (let n = r.uint(); n > 0; n--) {
+    const id = r.ref('achievements');
+    const note = r.str();
+    if (id) steps.push({ id, note });
+  }
+  return { name, steps };
 }

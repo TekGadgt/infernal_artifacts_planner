@@ -379,6 +379,41 @@ textarea {
   white-space: nowrap;
 }
 
+/* playthrough tabs, shared by the relics and achievements pages */
+.runs__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+.runs__tab {
+  display: grid;
+  justify-items: start;
+  padding: 0.45rem 0.9rem 0.5rem;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  text-align: left;
+  color: var(--cinder);
+  cursor: pointer;
+}
+.runs__tab:hover {
+  color: var(--ash);
+}
+.runs__tab[aria-selected='true'] {
+  color: var(--ash);
+  border-bottom-color: var(--molten);
+}
+.runs__tab-name {
+  font-family: var(--font-display);
+  font-size: var(--t-md);
+  line-height: 1.15;
+}
+.runs__tab-meta {
+  font-size: 0.75rem;
+  color: var(--cinder);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

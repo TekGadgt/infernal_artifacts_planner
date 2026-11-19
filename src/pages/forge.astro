@@ -9,7 +9,7 @@ import ForgeCalculator from '../components/ForgeCalculator';
     <h1>Forge costs</h1>
     <p>List the Forge, Codex, and Outfitter's Bench work you plan to do, and see how many gems and cores to save up.</p>
   </div>
-  <PlanBar client:only="react" />
+  <PlanBar client:only="react" text="forge" />
   <ForgeCalculator client:only="react">
     <p slot="fallback" class="muted">Loading the Forge…</p>
   </ForgeCalculator>

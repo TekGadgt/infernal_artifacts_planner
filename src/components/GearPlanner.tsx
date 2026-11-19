@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   RARITIES,
   SLOTS,
@@ -11,6 +11,18 @@ import {
   rarityById,
   variantById,
 } from '../data/league';
+import {
+  gameAffixes,
+  gamePowers,
+  itemById as gameItemById,
+  items as gameItems,
+  nextRarity,
+  powerStrength,
+  powerWeight,
+  type GameItem,
+} from '../data/game';
+import { affixLimits } from '../data/league';
+import { OP_LABEL, costText, opCost, sumCosts } from '../lib/forge';
 import { newLoadout, usePlan } from '../lib/plan';
 import { activeRelics } from '../lib/playthroughs';
 import {
@@ -32,7 +44,7 @@ import {
   tierStatus,
   type Issue,
 } from '../lib/rules';
-import type { Category, Loadout, LoadoutKind, NamedLoadout, Plan, PlannedAffix, PlannedItem, Slot, Style } from '../lib/types';
+import type { Category, ForgeOp, Loadout, LoadoutKind, NamedLoadout, Plan, PlannedAffix, PlannedItem, Slot, Style } from '../lib/types';
 import './GearPlanner.css';
 
 const STYLES: { id: Style; label: string }[] = [
@@ -41,6 +53,8 @@ const STYLES: { id: Style; label: string }[] = [
   { id: 'ranged', label: 'Ranged' },
   { id: 'magic', label: 'Magic' },
 ];
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const CATEGORY_LABEL: Record<Category, string> = {
   offence: 'Offence',
   defence: 'Defence',
@@ -217,25 +231,83 @@ function AffixRow({
 
 // ---------- item editor ----------
 
+function GameFacts({ game }: { game: GameItem }) {
+  const next = nextRarity(game.rarity);
+  const strength = powerStrength(game.ilvl);
+  const baseRarity = rarityById.get(game.rarity)!;
+  return (
+    <p className="editor__game">
+      Item level {game.ilvl}, base <span style={{ color: baseRarity.color }}>{baseRarity.label}</span>
+      {next && game.upgrade > 0 ? ` (${fmt(game.upgrade)}% to become ${next})` : ''}. Powers up to{' '}
+      {strength >= 100 ? 'full strength' : `${fmt(strength)}%`}. Rolls from {game.affixes.length} affixes and {game.powers.length}{' '}
+      powers. <a href={`${base}/items/?item=${game.id}`}>See its roll table</a>
+    </p>
+  );
+}
+
+/** Problems that need the game's item data: affixes and powers outside the item's pool. */
+function gameIssues(item: PlannedItem, game: GameItem | undefined): Issue[] {
+  if (!game) return [];
+  const issues: Issue[] = [];
+  for (const p of item.affixes) {
+    const a = gameAffixes[p.affixId];
+    if (!game.affixes.includes(p.affixId)) issues.push({ level: 'warn', text: `${a?.name ?? p.affixId} doesn't roll on ${game.name}.` });
+  }
+  if (item.powerId && item.rarity === 'legendary' && !game.powers.includes(item.powerId))
+    issues.push({ level: 'warn', text: `${gamePowers[item.powerId]?.name ?? item.powerId} doesn't roll on ${game.name}. You'd need to stamp it.` });
+  return issues;
+}
+
 function ItemEditor({
   slot,
   kind,
   item,
+  forge,
   onChange,
   onRemove,
 }: {
   slot: Slot;
   kind: LoadoutKind;
   item: PlannedItem;
+  forge: ForgeOp[];
   onChange: (fn: (i: PlannedItem) => PlannedItem) => void;
   onRemove: () => void;
 }) {
   const [allPowers, setAllPowers] = useState(false);
+  const [allAffixes, setAllAffixes] = useState(false);
   const rarity = rarityById.get(item.rarity)!;
-  const eligible = affixesFor(slot, kind, ALL_AFFIXES);
-  const issues = itemIssues(slot, item);
+  const game = item.gameId !== undefined ? gameItemById.get(item.gameId) : undefined;
+  const pool = game && !allAffixes ? new Set(game.affixes) : null;
+  const eligible = affixesFor(slot, kind, ALL_AFFIXES).filter((a) => !pool || pool.has(a.id));
+  const issues = [...itemIssues(slot, item), ...gameIssues(item, game)];
   const full = item.affixes.length >= rarity.affixes[1];
   const slotLabel = SLOTS.find((s) => s.id === slot)!.label;
+  const limits = affixLimits(item.rarity, slot).limits;
+  const slotItems = useMemo(() => gameItems.filter((i) => i.slot === slot), [slot]);
+  const affixChance = useMemo(() => {
+    if (!game) return new Map<string, number>();
+    const total = game.affixWeights.reduce((n, w) => n + w, 0);
+    return new Map(game.affixes.map((id, i) => [id, (game.affixWeights[i] / total) * 100]));
+  }, [game]);
+
+  /** Typing a known item's name links the piece to it and fills in what the game knows. */
+  const rename = (name: string) =>
+    onChange((i) => {
+      const matches = slotItems.filter((g) => g.name.toLowerCase() === name.trim().toLowerCase());
+      const match = matches.find((g) => g.ilvl === i.ilvl) ?? matches.at(-1);
+      if (!match) {
+        const { gameId: _, ...rest } = i;
+        return { ...rest, name };
+      }
+      return {
+        ...i,
+        name: match.name,
+        gameId: match.id,
+        ilvl: match.ilvl,
+        twoHanded: match.twoHanded,
+        style: match.styles.length === 1 ? (match.styles[0].toLowerCase() as Style) : 'any',
+      };
+    });
 
   const counts: Partial<Record<Category, number>> = {};
   for (const p of item.affixes) {
@@ -250,7 +322,14 @@ function ItemEditor({
     onChange((i) => ({ ...i, affixes: [...i.affixes, { affixId: id, tier: tier.tier, value: tier.max }] }));
   };
 
-  const powerOptions = allPowers ? ALL_POWERS : powersFor([slot], ALL_POWERS);
+  const powerPool = game ? new Set(game.powers) : null;
+  const powerOptions = allPowers ? ALL_POWERS : powerPool ? ALL_POWERS.filter((p) => powerPool.has(p.id)) : powersFor([slot], ALL_POWERS);
+  const powerChance = useMemo(() => {
+    if (!game) return new Map<string, number>();
+    const ws = game.powers.map((id) => powerWeight(gamePowers[id], game.slot));
+    const total = ws.reduce((n, w) => n + w, 0);
+    return new Map(game.powers.map((id, i) => [id, (ws[i] / total) * 100]));
+  }, [game]);
   const power = item.powerId ? powerById.get(item.powerId) : undefined;
 
   return (
@@ -268,9 +347,15 @@ function ItemEditor({
           <input
             className="input"
             value={item.name}
+            list={`game-items-${slot}`}
             placeholder={slot === 'weapon' ? 'e.g. Abyssal whip' : 'e.g. Infinity top'}
-            onChange={(e) => onChange((i) => ({ ...i, name: e.target.value }))}
+            onChange={(e) => rename(e.target.value)}
           />
+          <datalist id={`game-items-${slot}`}>
+            {slotItems.map((g) => (
+              <option key={g.id} value={g.name} label={`ilvl ${g.ilvl}`} />
+            ))}
+          </datalist>
         </label>
         <label className="field">
           Rarity
@@ -333,15 +418,21 @@ function ItemEditor({
         )}
       </div>
 
+      {game ? (
+        <GameFacts game={game} />
+      ) : (
+        item.name.trim() && <p className="muted editor__game">Not an item the game lists for this slot, so any affix the slot allows is offered.</p>
+      )}
+
       <section className="editor__section">
         <div className="editor__section-head">
           <h3>Affixes</h3>
           <span className="muted num">
             {item.affixes.length} of {rarity.affixes[1]}
           </span>
-          {rarity.limits && kind === 'combat' && (
+          {limits && kind === 'combat' && (
             <span className="editor__limits">
-              {Object.entries(rarity.limits).map(([cat, limit]) => (
+              {Object.entries(limits).map(([cat, limit]) => (
                 <span key={cat} className={`tag tag--${cat}${(counts[cat as Category] ?? 0) > limit ? ' tag--over' : ''}`}>
                   {CATEGORY_LABEL[cat as Category]} {counts[cat as Category] ?? 0}/{limit}
                 </span>
@@ -380,12 +471,19 @@ function ItemEditor({
                     {group.map((a) => (
                       <option key={a.id} value={a.id}>
                         {a.name}: {a.tiers[0].template.replace('{v}', 'X')}
+                        {affixChance.has(a.id) && ` (${fmt(affixChance.get(a.id)!)}% first roll)`}
                       </option>
                     ))}
                   </optgroup>
                 );
               })}
             </select>
+          </label>
+        )}
+        {game && (
+          <label className="editor__check">
+            <input type="checkbox" checked={allAffixes} onChange={(e) => setAllAffixes(e.target.checked)} />
+            Include affixes this item can't roll
           </label>
         )}
       </section>
@@ -409,16 +507,28 @@ function ItemEditor({
                   <option key={p.id} value={p.id}>
                     {p.name}
                     {p.styles.includes('any') ? '' : ` (${p.styles.join(', ')})`}
+                    {powerChance.has(p.id) && `, ${fmt(powerChance.get(p.id)!)}%`}
                   </option>
                 ))}
               </select>
               <label className="editor__check">
                 <input type="checkbox" checked={allPowers} onChange={(e) => setAllPowers(e.target.checked)} />
-                Include powers the wiki lists for other slots
+                {game ? "Include powers this item can't roll" : 'Include powers the wiki lists for other slots'}
               </label>
               {power && <PowerDetail power={power} />}
             </>
           )}
+        </section>
+      )}
+
+      {forge.length > 0 && (
+        <section className="editor__section editor__forge">
+          <h3>Forge work</h3>
+          <p>
+            {forge.map((op) => OP_LABEL[op.kind] + (op.count > 1 ? ` ×${op.count}` : '')).join(', ')}:{' '}
+            <span className="num">{costText(sumCosts(forge.map(opCost)))}</span>.{' '}
+            <a href={`${base}/forge/`}>Edit on Forge costs</a>
+          </p>
         </section>
       )}
 
@@ -558,6 +668,111 @@ function LoadoutSummary({ loadout: named, relics }: { loadout: NamedLoadout; rel
           )}
         </div>
       )}
+    </section>
+  );
+}
+
+// ---------- compare ----------
+
+function LoadoutCompare({ plan, loadout, relics }: { plan: Plan; loadout: NamedLoadout; relics: ReadonlySet<string> }) {
+  const others = plan.loadouts.filter((l) => l.id !== loadout.id);
+  const [otherId, setOtherId] = useState('');
+  const other = others.find((l) => l.id === otherId);
+  if (!others.length) return null;
+
+  const mine = new Map(loadoutTotals(loadout.items, relics).map((t) => [t.affix.id, t]));
+  const theirs = other ? new Map(loadoutTotals(other.items, relics).map((t) => [t.affix.id, t])) : new Map();
+  const order: Category[] = ['offence', 'defence', 'utility', 'skilling'];
+  const rows = [...new Set([...mine.keys(), ...theirs.keys()])]
+    .map((id) => ({ a: mine.get(id), b: theirs.get(id), affix: (mine.get(id) ?? theirs.get(id))!.affix }))
+    .sort((x, y) => order.indexOf(x.affix.category) - order.indexOf(y.affix.category) || x.affix.name.localeCompare(y.affix.name));
+  const powerNames = (l: NamedLoadout) => new Set(l.kind === 'combat' ? activePowers(l).map((p) => p.power.name) : []);
+  const myPowers = powerNames(loadout);
+  const theirPowers = other ? powerNames(other) : new Set<string>();
+
+  const cell = (t: ReturnType<typeof mine.get>) =>
+    !t ? <span className="muted">–</span> : t.total === null ? 'Yes' : `${fmt(t.total)}${t.unit}`;
+  const name = (l: NamedLoadout) => l.name.trim() || 'Untitled';
+
+  return (
+    <section className="compare">
+      <div className="compare__head">
+        <h2>Compare</h2>
+        <label className="field">
+          <span className="visually-hidden">Compare with</span>
+          <select className="select" value={otherId} onChange={(e) => setOtherId(e.target.value)}>
+            <option value="">Compare with another loadout…</option>
+            {others.map((l) => (
+              <option key={l.id} value={l.id}>
+                {name(l)} ({KIND_LABEL[l.kind].toLowerCase()})
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      {other &&
+        (rows.length || myPowers.size || theirPowers.size ? (
+          <>
+            {rows.length > 0 && (
+              <div className="table-wrap">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Affix</th>
+                      <th className="num">{name(loadout)}</th>
+                      <th className="num">{name(other)}</th>
+                      <th className="num">Difference</th>
+                      <th className="num">Cap</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rows.map(({ a, b, affix }) => {
+                      const diff = a?.total != null && b?.total != null ? a.total - b.total : null;
+                      const unit = (a ?? b)!.unit;
+                      return (
+                        <tr key={affix.id}>
+                          <td>
+                            <span className={`cat-dot cat-dot--${affix.category}`} aria-hidden="true" />
+                            {affix.name}
+                          </td>
+                          <td className={`num${a?.over ? ' compare__over' : ''}`}>{cell(a)}</td>
+                          <td className={`num${b?.over ? ' compare__over' : ''}`}>{cell(b)}</td>
+                          <td className={`num ${diff ? (diff > 0 ? 'compare__up' : 'compare__down') : 'muted'}`}>
+                            {diff === null
+                              ? a && !b
+                                ? `only ${name(loadout)}`
+                                : b && !a
+                                  ? `only ${name(other)}`
+                                  : '–'
+                              : diff === 0
+                                ? 'same'
+                                : `${diff > 0 ? '+' : '−'}${fmt(Math.abs(diff))}${unit}`}
+                          </td>
+                          <td className="num muted">{(a ?? b)!.cap.value === null ? 'None' : (a ?? b)!.cap.text}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            {(myPowers.size > 0 || theirPowers.size > 0) && (
+              <div className="compare__powers">
+                {[
+                  { label: name(loadout), only: [...myPowers].filter((p) => !theirPowers.has(p)) },
+                  { label: name(other), only: [...theirPowers].filter((p) => !myPowers.has(p)) },
+                ].map(({ label, only }) => (
+                  <p key={label + only.length}>
+                    <span className="muted">Powers only in {label}:</span> {only.length ? only.join(', ') : 'none'}
+                  </p>
+                ))}
+              </div>
+            )}
+            <p className="muted compare__note">Over-cap totals are marked red. Both columns use this run's relics.</p>
+          </>
+        ) : (
+          <p className="muted">Neither loadout has affixes or powers planned yet.</p>
+        ))}
     </section>
   );
 }
@@ -730,7 +945,14 @@ export default function GearPlanner() {
 
         <div className="gear__editor panel">
           {item ? (
-            <ItemEditor slot={selected} kind={kind} item={item} onChange={updateItem} onRemove={removeItem} />
+            <ItemEditor
+              slot={selected}
+              kind={kind}
+              item={item}
+              forge={plan.forge.filter((op) => op.loadout === active.id && op.slot === selected)}
+              onChange={updateItem}
+              onRemove={removeItem}
+            />
           ) : (
             <div className="editor__empty">
               <h2>{SLOTS.find((s) => s.id === selected)!.label}</h2>
@@ -750,6 +972,7 @@ export default function GearPlanner() {
       </div>
 
       <LoadoutSummary loadout={active} relics={activeRelics(plan)} />
+      <LoadoutCompare key={active.id} plan={plan} loadout={active} relics={activeRelics(plan)} />
     </div>
   );
 }

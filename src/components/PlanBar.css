@@ -36,3 +36,32 @@
   color: var(--brimstone);
   min-height: 1.3em;
 }
+.plan-bar__menu {
+  position: relative;
+}
+.plan-bar__menu summary {
+  list-style: none;
+}
+.plan-bar__menu summary::-webkit-details-marker {
+  display: none;
+}
+.plan-bar__menu summary::after {
+  content: '▾';
+  font-size: 0.8em;
+}
+.plan-bar__menu-list {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  display: grid;
+  min-width: 12rem;
+  padding: 0.3rem;
+  background: var(--soot-deep);
+  border: 1px solid var(--iron-edge);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+.plan-bar__menu-list .btn {
+  justify-content: flex-start;
+}
