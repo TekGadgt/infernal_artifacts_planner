@@ -17,6 +17,9 @@ const nav = [
   { href: `${base}/powers/`, label: 'Demonic Powers' },
 ];
 const path = Astro.url.pathname.replace(/\/?$/, '/');
+// Cloudflare Web Analytics. Only the GitHub Pages build reports, so local and tunnel visits don't count.
+const CF_ANALYTICS_TOKEN = '';
+const analytics = CF_ANALYTICS_TOKEN && process.env.GITHUB_ACTIONS === 'true';
 const synced = new Date(syncedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 ---
 
@@ -29,6 +32,16 @@ const synced = new Date(syncedAt).toLocaleDateString('en-US', { month: 'short', 
     <meta name="theme-color" content="#1c1411" />
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
     <title>{title ? `${title} · Infernal Artifacts Planner` : 'Infernal Artifacts Planner'}</title>
+    {
+      analytics && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token: CF_ANALYTICS_TOKEN })}
+        />
+      )
+    }
   </head>
   <body>
     <header class="site-header">
