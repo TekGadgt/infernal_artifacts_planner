@@ -61,59 +61,86 @@ async function copy(value: string, setStatus: (s: string) => void, done: string)
 // ---------- progress ----------
 
 /** The League points panel's four sources: two from checked achievements, two typed in. */
-function Sources({ progress, setProgress }: { progress: RunProgress; setProgress: SetProgress }) {
+function Sources({
+  progress,
+  setProgress,
+  run,
+  onShow,
+}: {
+  progress: RunProgress;
+  setProgress: SetProgress;
+  run: number;
+  onShow: (source: Achievement['source']) => void;
+}) {
   const points = pointsBySource(progress);
+  const done = new Set(progress.done);
+  const checks = (source: Achievement['source']) => {
+    const list = achievements.filter((a) => a.source === source);
+    return (
+      <button type="button" className="link-btn" onClick={() => onShow(source)} title="Show these in the achievement list">
+        {n(list.filter((a) => done.has(a.id)).length)} of {n(list.length)} checked
+      </button>
+    );
+  };
   const setCount = (key: 'collectionLog' | 'prestiges', max: number) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setProgress((p) => ({ ...p, [key]: Math.min(max, Math.max(0, Math.floor(Number(e.target.value) || 0))) }));
   return (
-    <ul className="sources">
-      {POINT_SOURCES.map((s) => (
-        <li key={s.id} className="sources__row">
-          <span className="sources__label">{s.label}</span>
-          <span className="sources__bar" style={{ '--fill': Math.min(1, points[s.id] / s.max) } as React.CSSProperties}>
-            <span className="num">
-              {n(points[s.id])} / {n(s.max)}
+    <section className="sources panel" aria-label="League points by source">
+      <h2 className="sources__title">Points by source</h2>
+      <p className="muted sources__run">{PLAYTHROUGH_LABEL[run]}</p>
+      <ul className="sources__rows">
+        {POINT_SOURCES.map((s) => (
+          <li key={s.id} className="sources__row">
+            <span className="sources__label">{s.label}</span>
+            <span className="sources__bar" style={{ '--fill': Math.min(1, points[s.id] / s.max) } as React.CSSProperties}>
+              <span className="num">
+                {n(points[s.id])} / {n(s.max)}
+              </span>
             </span>
-          </span>
-          <span className="sources__how">
-            {s.id === 'collectionLog' && (
-              <input
-                className="input num"
-                type="number"
-                min={0}
-                max={s.max}
-                value={progress.collectionLog || ''}
-                placeholder="Points"
-                aria-label="Collection log points"
-                title="Copy the number from the League points panel in game"
-                onChange={setCount('collectionLog', s.max)}
-              />
-            )}
-            {s.id === 'prestiges' && (
-              <input
-                className="input num"
-                type="number"
-                min={0}
-                max={MAX_PRESTIGES}
-                value={progress.prestiges || ''}
-                placeholder="Count"
-                aria-label="Skill prestiges"
-                title={`${PRESTIGE_POINTS} League points per skill prestige`}
-                onChange={setCount('prestiges', MAX_PRESTIGES)}
-              />
-            )}
-            {s.id === 'achievements' && <span className="muted">from checks below</span>}
-            {s.id === 'powers' && <span className="muted">from power-banking checks</span>}
-          </span>
-        </li>
-      ))}
-      {LISTED_POINTS.achievements < POINT_SOURCES.find((s) => s.id === 'achievements')!.max && (
+            <span className="sources__how">
+              {s.id === 'collectionLog' && (
+                <input
+                  className="input num"
+                  type="number"
+                  min={0}
+                  max={s.max}
+                  value={progress.collectionLog || ''}
+                  placeholder="Points"
+                  aria-label="Collection log points"
+                  title="Copy the number from the League points panel in game"
+                  onChange={setCount('collectionLog', s.max)}
+                />
+              )}
+              {s.id === 'prestiges' && (
+                <input
+                  className="input num"
+                  type="number"
+                  min={0}
+                  max={MAX_PRESTIGES}
+                  value={progress.prestiges || ''}
+                  placeholder="Count"
+                  aria-label="Skill prestiges"
+                  title={`${PRESTIGE_POINTS} League points per skill prestige`}
+                  onChange={setCount('prestiges', MAX_PRESTIGES)}
+                />
+              )}
+              {s.id === 'achievements' && checks('achievements')}
+              {s.id === 'powers' && checks('powers')}
+            </span>
+          </li>
+        ))}
+        {LISTED_POINTS.achievements < POINT_SOURCES.find((s) => s.id === 'achievements')!.max && (
+          <li className="sources__note muted">
+            The wiki's achievement list adds up to {n(LISTED_POINTS.achievements)} of the {n(POINT_SOURCES.find((s) => s.id === 'achievements')!.max)}{' '}
+            Achievements points shown in game, so a few achievements aren't listed yet.
+          </li>
+        )}
         <li className="sources__note muted">
-          The wiki's achievement list adds up to {n(LISTED_POINTS.achievements)} of the {n(POINT_SOURCES.find((s) => s.id === 'achievements')!.max)}{' '}
-          Achievements points shown in game, so a few achievements aren't listed yet.
+          Demonic Powers points come from the power-banking achievements (Bank a power, or one at 60%). Check them in the list like any
+          other achievement.
         </li>
-      )}
-    </ul>
+      </ul>
+    </section>
   );
 }
 
@@ -157,8 +184,6 @@ function Progress({
           )}
         </p>
       </div>
-
-      <Sources progress={progress} setProgress={setProgress} />
 
       <ol className="track" aria-label="Relic tiers">
         {RELIC_TIERS.map((t, i) => {
@@ -245,16 +270,19 @@ function AchievementList({
   setRoute,
   progress,
   setProgress,
+  source,
+  setSource,
 }: {
   route: Route;
   setRoute: ReturnType<typeof useRoute>[1];
   progress: RunProgress;
   setProgress: SetProgress;
+  source: string;
+  setSource: (s: string) => void;
 }) {
   const [query, setQuery] = useState('');
   const [tier, setTier] = useState(-1);
   const [category, setCategory] = useState('');
-  const [source, setSource] = useState('');
   const [leagueOnly, setLeagueOnly] = useState(false);
   const [hideDone, setHideDone] = useState(false);
   const [hideRouted, setHideRouted] = useState(false);
@@ -288,7 +316,7 @@ function AchievementList({
   const addShown = () => setRoute((r) => ({ ...r, steps: [...r.steps, ...unrouted.map((a) => ({ id: a.id, note: '' }))] }));
 
   return (
-    <section className="ach-list" aria-label="Achievements">
+    <section className="ach-list" id="achievement-list" aria-label="Achievements">
       <div className="browser__filters">
         <label className="field browser__search">
           Search
@@ -573,6 +601,12 @@ export default function AchievementPlanner() {
   const setProgress: SetProgress = (fn) => setRoute((r) => withProgress(r, runIndex, fn));
   const relicFor = (tier: number) => relicById.get(run?.relics[tier] ?? '')?.name;
 
+  const [source, setSource] = useState('');
+  const showSource = (s: string) => {
+    setSource(s);
+    document.getElementById('achievement-list')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   const isLast = runIndex === plan.playthroughs.length - 1;
   const prestige = () => {
     const next = PLAYTHROUGH_LABEL[runIndex + 1].toLowerCase();
@@ -603,8 +637,18 @@ export default function AchievementPlanner() {
         Relic tiers show your picks for the {PLAYTHROUGH_LABEL[runIndex].toLowerCase()}. <a href={`${base}/relics/`}>Change them on the relics page</a>.
       </p>
       <div className="ach-planner__main">
-        <AchievementList route={route} setRoute={setRoute} progress={progress} setProgress={setProgress} />
-        <RoutePanel route={route} setRoute={setRoute} progress={progress} setProgress={setProgress} relicFor={relicFor} />
+        <AchievementList
+          route={route}
+          setRoute={setRoute}
+          progress={progress}
+          setProgress={setProgress}
+          source={source}
+          setSource={setSource}
+        />
+        <div className="ach-planner__side">
+          <Sources progress={progress} setProgress={setProgress} run={runIndex} onShow={showSource} />
+          <RoutePanel route={route} setRoute={setRoute} progress={progress} setProgress={setProgress} relicFor={relicFor} />
+        </div>
       </div>
     </div>
   );
