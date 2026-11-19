@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react';
+import { itemsWithAffix } from '../data/game';
 import { SLOTS, affixes } from '../data/league';
 import { ROMAN, fmt } from '../lib/rules';
 import type { Affix, Category, Slot } from '../lib/types';
+import ItemRolls from './ItemRolls';
 import './Browser.css';
 
 const CATEGORIES: { id: Category | 'all'; label: string }[] = [
@@ -171,6 +173,7 @@ export default function AffixBrowser() {
                 ))}
               </tbody>
             </table>
+            <ItemRolls rolls={itemsWithAffix(a.id)} slot={slot} chance="First roll" filter={`affix=${a.id}`} />
           </article>
         ))}
         {shown.length === 0 && <p className="muted">No affixes match. Try a shorter search or another slot.</p>}

@@ -104,3 +104,40 @@ export { affixLimits } from './league';
 
 const RARITY_ORDER: Rarity[] = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
 export const nextRarity = (r: Rarity): Rarity | null => RARITY_ORDER[RARITY_ORDER.indexOf(r) + 1] ?? null;
+
+export interface ItemRoll {
+  item: GameItem;
+  weight: number;
+  /** Percent chance this is the item's first affix roll, or its power. */
+  chance: number;
+}
+
+function invert(pools: (item: GameItem) => { id: string; weight: number }[]): Map<string, ItemRoll[]> {
+  const index = new Map<string, ItemRoll[]>();
+  for (const item of items) {
+    const pool = pools(item);
+    const total = pool.reduce((n, r) => n + r.weight, 0);
+    for (const { id, weight } of pool) {
+      const list = index.get(id) ?? [];
+      list.push({ item, weight, chance: total ? (weight / total) * 100 : 0 });
+      index.set(id, list);
+    }
+  }
+  for (const list of index.values()) list.sort((a, b) => b.chance - a.chance || a.item.name.localeCompare(b.item.name));
+  return index;
+}
+
+let affixIndex: Map<string, ItemRoll[]> | undefined;
+let powerIndex: Map<string, ItemRoll[]> | undefined;
+
+/** Items that can roll this affix, best first-roll odds first. */
+export function itemsWithAffix(id: string): ItemRoll[] {
+  affixIndex ??= invert((i) => i.affixes.map((id, n) => ({ id, weight: i.affixWeights[n] })));
+  return affixIndex.get(id) ?? [];
+}
+
+/** Items that can roll this Demonic Power once Legendary, best odds first. */
+export function itemsWithPower(id: string): ItemRoll[] {
+  powerIndex ??= invert((i) => i.powers.map((id) => ({ id, weight: powerWeight(gamePowers[id], i.slot) })));
+  return powerIndex.get(id) ?? [];
+}

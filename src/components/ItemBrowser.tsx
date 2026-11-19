@@ -5,6 +5,8 @@ import {
   gamePowers,
   itemById,
   items,
+  itemsWithAffix,
+  itemsWithPower,
   nextRarity,
   powerStrength,
   powerWeight,
@@ -26,8 +28,28 @@ const CATEGORIES: { id: Category; label: string }[] = [
   { id: 'utility', label: 'Utility' },
   { id: 'skilling', label: 'Skilling' },
 ];
+const AFFIX_GROUPS = CATEGORIES.map((c) => ({
+  ...c,
+  affixes: Object.values(gameAffixes)
+    .filter((a) => a.category === c.id && itemsWithAffix(a.id).length)
+    .sort((a, b) => a.name.localeCompare(b.name)),
+}));
+const ROLLED_POWERS = Object.values(gamePowers)
+  .filter((p) => itemsWithPower(p.id).length)
+  .sort((a, b) => a.name.localeCompare(b.name));
 const slotLabel = (s: Slot) => SLOTS.find((x) => x.id === s)?.label ?? s;
 const pct = (v: number) => `${fmt(v)}%`;
+
+const readParam = (key: string, valid: (v: string) => boolean) => {
+  const v = new URLSearchParams(window.location.search).get(key) ?? '';
+  return valid(v) ? v : '';
+};
+const setParam = (key: string, value: string) => {
+  const url = new URL(window.location.href);
+  if (value) url.searchParams.set(key, value);
+  else url.searchParams.delete(key);
+  history.replaceState(null, '', url);
+};
 
 function readSelected(): number | null {
   const id = Number(new URLSearchParams(window.location.search).get('item'));
@@ -181,21 +203,43 @@ export default function ItemBrowser() {
   const [slot, setSlot] = useState<Slot | ''>('');
   const [style, setStyle] = useState<GameStyle | 'all'>('all');
   const [selected, setSelected] = useState<number | null>(readSelected);
+  const [affix, setAffixState] = useState(() => readParam('affix', (v) => itemsWithAffix(v).length > 0));
+  const [power, setPowerState] = useState(() => readParam('power', (v) => itemsWithPower(v).length > 0));
+  const setAffix = (v: string) => {
+    setAffixState(v);
+    setParam('affix', v);
+  };
+  const setPower = (v: string) => {
+    setPowerState(v);
+    setParam('power', v);
+  };
   const [limit, setLimit] = useState(PAGE);
+
+  // With an affix or power picked, the list is that one's items, best odds first.
+  const odds = useMemo(() => {
+    const affixOdds = affix ? new Map(itemsWithAffix(affix).map((r) => [r.item.id, r.chance])) : null;
+    const powerOdds = power ? new Map(itemsWithPower(power).map((r) => [r.item.id, r.chance])) : null;
+    return { affix: affixOdds, power: powerOdds };
+  }, [affix, power]);
 
   const shown = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return items.filter(
-      (i) => (!slot || i.slot === slot) && (style === 'all' || i.styles.includes(style)) && (!q || i.name.toLowerCase().includes(q)),
+    const list = items.filter(
+      (i) =>
+        (!slot || i.slot === slot) &&
+        (style === 'all' || i.styles.includes(style)) &&
+        (!odds.affix || odds.affix.has(i.id)) &&
+        (!odds.power || odds.power.has(i.id)) &&
+        (!q || i.name.toLowerCase().includes(q)),
     );
-  }, [query, slot, style]);
-  useEffect(() => setLimit(PAGE), [query, slot, style]);
+    const by = odds.affix ?? odds.power;
+    return by ? list.sort((a, b) => by.get(b.id)! - by.get(a.id)!) : list;
+  }, [query, slot, style, odds]);
+  useEffect(() => setLimit(PAGE), [query, slot, style, affix, power]);
 
   const pick = (id: number) => {
     setSelected(id);
-    const url = new URL(window.location.href);
-    url.searchParams.set('item', String(id));
-    history.replaceState(null, '', url);
+    setParam('item', String(id));
   };
   const item = selected !== null ? itemById.get(selected) : undefined;
 
@@ -214,6 +258,32 @@ export default function ItemBrowser() {
               {SLOTS.map((s) => (
                 <option key={s.id} value={s.id}>
                   {s.label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="field">
+            Can roll affix
+            <select className="select" value={affix} onChange={(e) => setAffix(e.target.value)}>
+              <option value="">Any affix</option>
+              {AFFIX_GROUPS.map((g) => (
+                <optgroup key={g.id} label={g.label}>
+                  {g.affixes.map((a) => (
+                    <option key={a.id} value={a.id}>
+                      {a.name}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
+          </label>
+          <label className="field">
+            Can roll power
+            <select className="select" value={power} onChange={(e) => setPower(e.target.value)}>
+              <option value="">Any power</option>
+              {ROLLED_POWERS.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.name}
                 </option>
               ))}
             </select>
@@ -245,6 +315,8 @@ export default function ItemBrowser() {
                 <span className="item-row__name">{i.name}</span>
                 <span className="item-row__meta num">
                   {slotLabel(i.slot)} · ilvl {i.ilvl}
+                  {odds.affix && <span title="First-roll chance of the affix"> · {pct(odds.affix.get(i.id)!)}</span>}
+                  {odds.power && <span title="Chance of the power once Legendary"> · {pct(odds.power.get(i.id)!)}</span>}
                 </span>
               </button>
             </li>

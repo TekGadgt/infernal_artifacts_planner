@@ -155,3 +155,60 @@
   margin-top: 0.2rem;
   color: var(--cinder);
 }
+
+/* ---------- items an affix or power rolls on ---------- */
+
+.item-rolls {
+  margin-top: 0.75rem;
+  font-size: var(--t-sm);
+}
+.item-rolls summary {
+  cursor: pointer;
+  color: var(--brimstone);
+}
+.item-rolls summary:hover {
+  color: var(--ash);
+}
+.item-rolls[open] summary {
+  margin-bottom: 0.4rem;
+}
+.item-rolls a {
+  text-decoration: none;
+}
+.item-rolls a:hover {
+  text-decoration: underline;
+}
+.item-rolls__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin: 0.4rem 0 0;
+}
+.item-rolls a.item-rolls__page {
+  color: var(--brimstone);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.item-rolls__none {
+  margin: 0.75rem 0 0;
+  font-size: var(--t-sm);
+}
+.power-table tr.power-table__items td {
+  border-top: 0;
+  padding-top: 0;
+}
+.power-table__items .item-rolls {
+  margin-top: 0;
+}
+.power-table__items .tier-table {
+  max-width: 40rem;
+}
+.power-table__items .tier-table th {
+  color: var(--cinder);
+  font-family: inherit;
+  font-weight: 500;
+}
+.power-table__items .tier-table td:first-of-type {
+  min-width: 0;
+}
