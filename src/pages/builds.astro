@@ -11,10 +11,11 @@ import {
   POWER_NOTES,
   SKILLING_AFFIXES,
   SKILLING_NOTES,
+  STARTER,
   VERDICT_LABEL,
   buildIssues,
 } from '../data/builds';
-import { itemsWithPower } from '../data/game';
+import { itemById, itemsWithPower } from '../data/game';
 import { affixById, powerById } from '../data/league';
 
 // A build piece that can't exist in game fails the site build.
@@ -22,6 +23,7 @@ const errors = BUILDS.flatMap((b) => buildIssues(b).filter((i) => i.issue.level 
 if (errors.length) throw new Error(`Invalid builds:\n${errors.join('\n')}`);
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const starterItems = [STARTER.helm, STARTER.staff].map((id) => itemById.get(id)!);
 const CATEGORIES = [
   { id: 'offence', label: 'Offence' },
   { id: 'defence', label: 'Defence' },
@@ -56,10 +58,35 @@ const unknowns = [
     <h1>Builds</h1>
     <p>
       Starting points for your gear, checked against what each item can actually roll in game. The league is new, so treat this as a
-      reference, not a solved meta. The magic build was shared by & Enjoyer, who has also shared most of the community’s build notes so far; builds marked “Theory” apply its ideas to other styles and
+      reference, not a solved meta. The Greater Imp starter route and the magic build were shared by & Enjoyer, who has also shared most of the community’s build notes so far; builds marked “Theory” apply its ideas to other styles and
       haven’t been tested. The notes on affixes and powers are ours, worked out from their effects and caps.
     </p>
   </div>
+
+  <section class="builds-section">
+    <h2>Starting out: unlock Greater Imp Ascension</h2>
+    <p class="builds-section__lede builds-starter__why">{STARTER.why}</p>
+    <ol class="builds-starter">
+      {
+        STARTER.steps.map((step) => (
+          <li class="panel builds-card">
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="muted builds-section__foot">
+      {STARTER.notes.join(' ')} Strategy from {STARTER.author}. Items:{' '}
+      {starterItems.map((item, i) => (
+        <>
+          {i > 0 && ', '}
+          <a href={`${base}/items/?item=${item.id}`}>{item.name}</a>
+        </>
+      ))}
+      .
+    </p>
+  </section>
 
   <section class="builds-section">
     <h2>Endgame builds</h2>
@@ -269,6 +296,32 @@ const unknowns = [
   .builds-list li + li,
   .builds-steps li + li {
     margin-top: 0.35rem;
+  }
+  .builds-starter__why {
+    font-size: var(--t-base);
+  }
+  .builds-starter {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 1rem;
+    counter-reset: starter;
+  }
+  .builds-starter + p {
+    margin-top: 1rem;
+  }
+  .builds-starter li {
+    counter-increment: starter;
+  }
+  .builds-starter h3::before {
+    content: counter(starter) '. ';
+    color: var(--molten);
+  }
+  .builds-starter p {
+    margin: 0;
+    font-size: var(--t-sm);
   }
   .builds-steps {
     max-width: var(--measure);

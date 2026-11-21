@@ -480,6 +480,46 @@ export const BUILDS: Build[] = [
   },
 ];
 
+// ---------- starter: Greater Imp Ascension ----------
+//
+// The strategy is & Enjoyer's; the wording and the checks against game data are ours.
+
+export const STARTER = {
+  author: '& Enjoyer',
+  helm: 60619,
+  staff: 60672,
+  why: 'Greater Imp Ascension gives you an imp and makes your imps hit up to 60% harder. It works whatever style you\u2019re using, and you earn XP in that style, so it carries you while you farm toward the gear you actually want. Get it early and keep it.',
+  steps: [
+    {
+      title: 'Get into the Echo Gauntlet',
+      text: 'Greater Imp Ascension only rolls on two items: the Echoing helm and the Echoing crystal staff, both made from Echo Gauntlet rewards. Gauntlet gives you its own gear, so what you bring is your levels, prestiges and three soul-branded powers. It\u2019s hard at low prestiges, but you only need a few completions.',
+    },
+    {
+      title: 'Use the crystal staff inside',
+      text: 'The Gauntlet weapons have fixed rolls. The halberd and bow mostly sustain you (prayer restore and lifesteal), but the staff has Thrall Pact and summon damage, so it\u2019s your main weapon. Magic and Defence levels help most.',
+    },
+    {
+      title: 'Soul-brand three powers',
+      text: 'Jewellery: Imp Familiar, or Guardian if you don\u2019t have it. Armour: Guardian, or Executioner\u2019s Mark with a good roll to finish the boss faster. Weapon: whatever you have, such as Quickened or Edgemaster\u2019s Adrenaline.',
+    },
+    {
+      title: 'Bank the other four helm powers first',
+      text: 'The Echoing helm can only roll five powers: Greater Imp Ascension, Mark of the Predator, Renewal, Slayer\u2019s Mark and Treasure Sense. Left to chance, a Legendary helm rolls Greater Imp Ascension only about 3% of the time. Bank the other four in your Codex first, crafting cheaper helms if you need to.',
+    },
+    {
+      title: 'Craft the helm with a Power Sigil',
+      text: 'A Power Sigil, from a Commission NPC task, makes your next item roll a power you haven\u2019t banked yet. With the other four banked, that can only be Greater Imp Ascension. Extra sigils let you try for a stronger roll before you bank it.',
+    },
+    {
+      title: 'Soul-brand or stamp it',
+      text: 'Bank it, then soul-brand it or stamp it onto an item. Later, an Imp Familiar that rolls two imps and Hordemaster affixes for faster summon attacks make it stronger.',
+    },
+  ],
+  notes: [
+    'The T1 Gauntlet preset has no lifesteal, for the no-healing achievements. Otherwise use the T3 preset.',
+  ],
+};
+
 // ---------- early game ----------
 
 export const EARLY_GAME: { title: string; points: string[] }[] = [
