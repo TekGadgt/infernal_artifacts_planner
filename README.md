@@ -24,6 +24,9 @@ Built with Astro and React islands. Plans save to localStorage and can be shared
 - `src/lib/playthroughs.ts`: League Prestiging rules (locked relics, Reloaded's extra relic, the maxed reward).
 - `src/lib/forge.ts`: Forge costs, the per-loadout shopping list, and Forge work implied by planned gear.
 - `src/data/league.ts`: rarity rules, variants, Forge/Codex/Outfitter costs, and the assumptions listed below.
+- `src/data/builds.ts`: the Builds page: affix and power notes, reference builds, item sources, and where to farm.
+  Hand-maintained. Each build piece names a game item, and the build fails if a piece can't roll its affixes, breaks a
+  slot rule, or has no entry in `ITEM_SOURCES`. Mark advice "community" (from players) or "theory" (worked out here).
 
 ## Game data
 

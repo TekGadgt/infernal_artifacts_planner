@@ -1,0 +1,293 @@
+---
+import Base from '../layouts/Base.astro';
+import BuildGuide from '../components/BuildGuide';
+import '../components/BuildGuide.css';
+import {
+  AFFIX_NOTES,
+  BUILDS,
+  EARLY_GAME,
+  FARM_SOURCES,
+  POWER_GROUPS,
+  POWER_NOTES,
+  SKILLING_AFFIXES,
+  SKILLING_NOTES,
+  VERDICT_LABEL,
+  buildIssues,
+} from '../data/builds';
+import { itemsWithPower } from '../data/game';
+import { affixById, powerById } from '../data/league';
+
+// A build piece that can't exist in game fails the site build.
+const errors = BUILDS.flatMap((b) => buildIssues(b).filter((i) => i.issue.level === 'error').map((i) => `${b.id} ${i.slot}: ${i.issue.text}`));
+if (errors.length) throw new Error(`Invalid builds:\n${errors.join('\n')}`);
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const CATEGORIES = [
+  { id: 'offence', label: 'Offence' },
+  { id: 'defence', label: 'Defence' },
+  { id: 'utility', label: 'Utility' },
+];
+const affixGroups = CATEGORIES.map((c) => ({
+  ...c,
+  notes: AFFIX_NOTES.filter((n) => affixById.get(n.id)!.category === c.id),
+}));
+const powerGroups = POWER_GROUPS.map((g) => ({ label: g, notes: POWER_NOTES.filter((n) => n.group === g) }));
+
+const forgePath = [
+  'Pick the base for its item level. Tier V affixes roll from item level 115, and Improve can reach Tier V from 105. Demonic Powers reach full strength from item level 100.',
+  'Check the slot can hold what you want. Heads, bodies and legs roll no utility affixes, and capes hold one offence affix at most. Each item’s page lists its exact pool.',
+  'Get it to Legendary, for 5–6 affixes and a power slot. Many endgame bases are Legendary already; otherwise Legendary Awakening (Tier 6) upgrades a good Epic.',
+  'Keep your best copy, and move good affixes onto it from spares with Transplant (Tier 3). The spare is destroyed, and the moved affix replaces one you choose. The fee follows the tier you move, so moving a low tier and improving it afterwards costs less to transplant. Moving an affix the item already has adds a second roll of it.',
+  'Improve every affix toward its cap. It never fails, and Tiers IV and V cost Forge Cores.',
+  'Don’t worry about the power it dropped with. Bank the power you want from any Legendary, then Stamp it on. The wiki suggests a stamp uses the strength banked in your Codex. Which powers an item accepts follows the Codex’s own rules, which aren’t published.',
+  'Late game, Ancient Awakening (Tier 7) adds +20%, and Masterwork (Tier 5) raises affix values further. How Masterwork works isn’t known yet.',
+];
+
+const unknowns = [
+  'How Masterwork works, what it costs, and what its ranks and crits do.',
+  'Whether damage bonuses (prayer, prestige, powers) add together or multiply.',
+  'Exactly which items Master’s Mark and Fletcher’s Mark raise, and whether they apply to upgrade recipes.',
+  'Where Blade of the void, Void blades, Blazing bulwark shield, Ascension crossbows, Obligator, Rondache and Zorya’s tome come from on August.',
+];
+---
+
+<Base title="Builds" description="Reference builds for the Infernal Artifacts League: affix and Demonic Power priorities, full endgame loadouts, and where to farm the gear.">
+  <div class="page-intro">
+    <h1>Builds</h1>
+    <p>
+      Starting points for your gear, checked against what each item can actually roll in game. The league is new, so treat this as a
+      reference, not a solved meta. The magic build was shared by & Enjoyer, who has also shared most of the community’s build notes so far; builds marked “Theory” apply its ideas to other styles and
+      haven’t been tested. The notes on affixes and powers are ours, worked out from their effects and caps.
+    </p>
+  </div>
+
+  <section class="builds-section">
+    <h2>Endgame builds</h2>
+    <p class="muted builds-section__lede">
+      Each piece is a real item, and every affix is checked against what that item can roll. Powers that don’t roll on the item are marked
+      as stamps; whether the Codex lets you stamp them there isn’t published yet. Add a build to your gear plan to adjust it, compare it
+      with your own gear, or price the Forge work.
+    </p>
+    <BuildGuide client:only="react">
+      <p slot="fallback" class="muted">Loading builds…</p>
+    </BuildGuide>
+  </section>
+
+  <section class="builds-section">
+    <h2>Before endgame</h2>
+    <div class="builds-columns">
+      {
+        EARLY_GAME.map((g) => (
+          <div class="panel builds-card">
+            <h3>{g.title}</h3>
+            <ul>
+              {g.points.map((p) => (
+                <li>{p}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="builds-section">
+    <h2>Affixes worth chasing</h2>
+    <p class="muted builds-section__lede">
+      Uncapped stats like strength and Guarded are worth a roll anywhere. Capped ones, like Stalwart or Penetrating, stop paying once you
+      reach the cap, so each note says roughly how many top rolls that takes on Ancient gear.
+    </p>
+    {
+      affixGroups.map((g) => (
+        <div class="table-wrap builds-table">
+          <table class="table">
+            <caption>{g.label}</caption>
+            <thead>
+              <tr>
+                <th>Affix</th>
+                <th>Verdict</th>
+                <th>Why</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {g.notes.map((n) => (
+                <tr>
+                  <th scope="row">{affixById.get(n.id)!.name}</th>
+                  <td>
+                    <span class={`tag verdict verdict--${n.verdict}`}>{VERDICT_LABEL[n.verdict]}</span>
+                  </td>
+                  <td>{n.note}</td>
+                  <td class="builds-table__link">
+                    <a href={`${base}/items/?affix=${n.id}`}>Items</a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))
+    }
+  </section>
+
+  <section class="builds-section">
+    <h2>Demonic Powers worth running</h2>
+    {
+      powerGroups.map((g) => (
+        <div class="table-wrap builds-table">
+          <table class="table">
+            <caption>{g.label}</caption>
+            <thead>
+              <tr>
+                <th>Power</th>
+                <th>Verdict</th>
+                <th>Why</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {g.notes.map((n) => (
+                <tr>
+                  <th scope="row">{powerById.get(n.id)!.name}</th>
+                  <td>
+                    <span class={`tag verdict verdict--${n.verdict}`}>{VERDICT_LABEL[n.verdict]}</span>
+                  </td>
+                  <td>{n.note}</td>
+                  <td class="builds-table__link">
+                    {itemsWithPower(n.id).length > 0 ? <a href={`${base}/items/?power=${n.id}`}>Items</a> : <span class="muted">Boss power</span>}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))
+    }
+    <p class="muted builds-section__foot">
+      Boss powers never roll on items. Most come from echo tokens.
+    </p>
+  </section>
+
+  <section class="builds-section">
+    <h2>From drop to finished item</h2>
+    <ol class="builds-steps">
+      {forgePath.map((s) => <li>{s}</li>)}
+    </ol>
+    <p class="muted builds-section__foot">
+      <a href={`${base}/forge/`}>Forge costs</a> adds up the gems and cores for each step.
+    </p>
+  </section>
+
+  <section class="builds-section">
+    <h2>Where to farm</h2>
+    <div class="table-wrap builds-table">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Content</th>
+            <th>Gives</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            FARM_SOURCES.map((s) => (
+              <tr>
+                <th scope="row">{s.source}</th>
+                <td>{s.gives}</td>
+                <td>{s.notes ?? ''}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="builds-section">
+    <h2>Skilling</h2>
+    <ul class="builds-list">
+      {SKILLING_NOTES.map((n) => <li>{n}</li>)}
+    </ul>
+    <div class="table-wrap builds-table">
+      <table class="table">
+        <tbody>
+          {
+            SKILLING_AFFIXES.map((a) => (
+              <tr>
+                <th scope="row">{affixById.get(a.id)!.name}</th>
+                <td>{a.note}</td>
+                <td class="builds-table__link">
+                  <a href={`${base}/items/?affix=${a.id}`}>Items</a>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="builds-section">
+    <h2>Not known yet</h2>
+    <ul class="builds-list">
+      {unknowns.map((u) => <li>{u}</li>)}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .builds-section {
+    margin-top: 2.5rem;
+  }
+  .builds-section:first-of-type {
+    margin-top: 0;
+  }
+  .builds-section__lede,
+  .builds-section__foot {
+    max-width: var(--measure);
+    font-size: var(--t-sm);
+  }
+  .builds-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1rem;
+  }
+  .builds-card {
+    padding: 1rem 1.25rem;
+  }
+  .builds-card h3 {
+    margin: 0 0 0.5rem;
+  }
+  .builds-card ul,
+  .builds-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    max-width: var(--measure);
+  }
+  .builds-card li + li,
+  .builds-list li + li,
+  .builds-steps li + li {
+    margin-top: 0.35rem;
+  }
+  .builds-steps {
+    max-width: var(--measure);
+    padding-left: 1.5rem;
+  }
+  .builds-table {
+    margin-top: 1rem;
+  }
+  .builds-table caption {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    font-weight: 700;
+    color: var(--ash);
+  }
+  .builds-table th[scope='row'] {
+    white-space: nowrap;
+  }
+  .builds-table__link {
+    white-space: nowrap;
+    font-size: var(--t-sm);
+  }
+</style>

@@ -1,0 +1,196 @@
+.builds {
+  display: grid;
+  gap: 1rem;
+}
+.builds > * {
+  min-width: 0;
+}
+.builds__tabs {
+  border-bottom: 1px solid var(--iron-raised);
+}
+.build {
+  padding: 1.25rem;
+}
+.build__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: start;
+  gap: 0.75rem 1.5rem;
+}
+.build__head h3 {
+  margin: 0 0 0.35rem;
+}
+.build__source--community {
+  border-color: var(--brimstone);
+  color: var(--brimstone);
+}
+.build__source--theory {
+  border-color: var(--iron-edge);
+  color: var(--cinder);
+}
+.build__author {
+  font-size: var(--t-sm);
+}
+.build__add {
+  display: grid;
+  justify-items: end;
+  gap: 0.35rem;
+}
+.build__added {
+  font-size: var(--t-sm);
+  color: var(--brimstone);
+}
+.build__summary {
+  max-width: var(--measure);
+  margin: 0.75rem 0 1rem;
+}
+.build-table th[scope='row'] {
+  white-space: nowrap;
+  color: var(--cinder);
+  font-weight: 500;
+}
+.build-table td {
+  vertical-align: top;
+}
+.build-item {
+  font-weight: 600;
+  text-decoration: none;
+}
+.build-item:hover {
+  text-decoration: underline;
+}
+.build-item__meta {
+  font-size: var(--t-sm);
+}
+.build-item__source {
+  display: block;
+  font-size: 0.8125rem;
+  max-width: 22rem;
+}
+.build-affixes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+.build-affix {
+  --cat: var(--iron-edge);
+  padding: 0.1rem 0.45rem;
+  border: 1px solid color-mix(in oklab, var(--cat) 55%, transparent);
+  border-radius: var(--radius-sm);
+  color: var(--cat);
+  font-size: var(--t-sm);
+  white-space: nowrap;
+}
+.build-affix--offence {
+  --cat: #ff8a5c;
+}
+.build-affix--defence {
+  --cat: #8fb4d9;
+}
+.build-affix--utility {
+  --cat: var(--brimstone);
+}
+.build-affix--free {
+  --cat: var(--cinder);
+  border-style: dashed;
+}
+.build-affix__improve {
+  color: var(--ash);
+}
+.build-note {
+  margin: 0.4rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--cinder);
+  max-width: 34rem;
+}
+.build-note--warn {
+  color: var(--molten-hot);
+}
+.build-power {
+  display: block;
+  color: var(--codex-text);
+  font-weight: 600;
+}
+.build-power__how {
+  font-size: 0.8125rem;
+  color: var(--cinder);
+}
+.build-power__how--stamp,
+.build-power__how--boss {
+  color: var(--brimstone);
+}
+.build__legend {
+  font-size: var(--t-sm);
+  margin: 0.75rem 0 0;
+}
+.build__notes {
+  margin: 1rem 0 0;
+  padding-left: 1.25rem;
+  max-width: var(--measure);
+}
+.build__notes li + li {
+  margin-top: 0.35rem;
+}
+
+.build-totals {
+  margin-top: 1.5rem;
+}
+.build-totals h4 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-body);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cinder);
+}
+.build-totals .table-wrap {
+  max-width: 44rem;
+}
+.build-totals__table {
+  font-size: var(--t-sm);
+}
+.build-totals__table th[scope='row'] {
+  white-space: nowrap;
+  font-weight: 500;
+}
+.build-totals__over {
+  color: var(--molten-hot);
+}
+.build-totals__uncapped {
+  margin: 0.75rem 0 0;
+  font-size: var(--t-sm);
+  max-width: var(--measure);
+}
+.build-totals__note {
+  margin: 0.4rem 0 0;
+  font-size: 0.8125rem;
+  max-width: var(--measure);
+}
+
+/* ---------- static sections ---------- */
+
+.verdict {
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+.verdict--core {
+  border-color: var(--molten);
+  color: var(--molten-hot);
+}
+.verdict--good {
+  border-color: var(--brimstone);
+  color: var(--brimstone);
+}
+.verdict--situational {
+  border-color: var(--iron-edge);
+  color: var(--ash);
+}
+.verdict--skip {
+  border-color: var(--iron-edge);
+  color: var(--cinder);
+}

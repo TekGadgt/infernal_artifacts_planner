@@ -165,7 +165,8 @@ const items = [];
 for (const r of ITEM) {
   const id = g(r, '0');
   const def = DEFS[id];
-  const slot = WEAR[def?.slot];
+  // The equip stats' slot wins: Hecate's wisdom is a staff in its stats and on Encyclopedia pages, but a shield in its cache definition.
+  const slot = WEAR[def?.stats?.slot ?? def?.slot];
   if (!def || !slot) continue;
   const name = strip(def.name);
   items.push({

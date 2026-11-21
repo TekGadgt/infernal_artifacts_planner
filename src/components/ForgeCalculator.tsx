@@ -74,7 +74,7 @@ function OpRow({ plan, op, onChange, onRemove }: { plan: Plan; op: ForgeOp; onCh
             >
               {OUTFITTER_STEPS.map((s) => (
                 <option key={s.id} value={s.id}>
-                  {s.label} to {s.grade}
+                  {s.label}: {s.from} to {s.grade}
                 </option>
               ))}
             </select>

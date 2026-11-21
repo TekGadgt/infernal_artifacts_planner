@@ -110,9 +110,9 @@ export const STAMP_EXAMPLE_GEMS = 1100;
 
 // Trim and Gild values are shown for a Smiths tunic. The Stitch Keep cost is not public yet.
 export const OUTFITTER_STEPS = [
-  { id: 'trim', label: 'Trim', grade: 'Trimmed (t)', ilvl: 40, points: 2500, bars: '20 Silver bars', thread: 10, gems: 350, keepGems: 1500, keepCores: 60, quality: 40, levels: [1, 49] },
-  { id: 'gild', label: 'Gild', grade: 'Gilded (g)', ilvl: 70, points: 8000, bars: '20 Gold bars', thread: 25, gems: 1000, keepGems: 4500, keepCores: 120, quality: 60, levels: [40, 79] },
-  { id: 'stitch', label: 'Stitch', grade: 'Demonic stitched (d)', ilvl: 100, points: 20000, bars: '5 Ember silk', thread: 50, gems: 2500, keepGems: null, keepCores: null, quality: 80, levels: [70, Infinity] },
+  { id: 'trim', label: 'Trim', from: 'Normal', grade: 'Trimmed (t)', ilvl: 40, points: 2500, bars: '20 Silver bars', thread: 10, gems: 350, keepGems: 1500, keepCores: 60, quality: 40, levels: [1, 49] },
+  { id: 'gild', label: 'Gild', from: 'Trimmed (t)', grade: 'Gilded (g)', ilvl: 70, points: 8000, bars: '20 Gold bars', thread: 25, gems: 1000, keepGems: 4500, keepCores: 120, quality: 60, levels: [40, 79] },
+  { id: 'stitch', label: 'Stitch', from: 'Gilded (g)', grade: 'Demonic stitched (d)', ilvl: 100, points: 20000, bars: '5 Ember silk', thread: 50, gems: 2500, keepGems: null, keepCores: null, quality: 80, levels: [70, Infinity] },
 ] as const;
 
 /** Each resource adds its level plus 10 points to the outfit progress bar. */
